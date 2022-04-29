@@ -9,7 +9,7 @@ class Tile
 {
 
   std::string texture; //textur in terminalui
-  Character* character = NULL;
+  Character* character = NULL;//glaube nicht richtig, check
   const int row;
   const int column;
 

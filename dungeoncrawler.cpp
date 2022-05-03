@@ -1,5 +1,7 @@
 ﻿#include "dungeoncrawler.h"
 #include "character.h"
+#include "terminalui.h"
+#include "level.h"
 
 DungeonCrawler::DungeonCrawler()
 {

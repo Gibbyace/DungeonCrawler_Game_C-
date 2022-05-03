@@ -6,8 +6,11 @@
 class TerminalUI : public KlassAbstractUI
         //Alle Ausgaben hier
 {
+
 public:
     TerminalUI();
+    void draw(Level*) override;
+
 };
 
 #endif // TERMINALUI_H

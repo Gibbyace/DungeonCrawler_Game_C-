@@ -4,17 +4,21 @@
 #include "tile.h"
 #include <vector>
 
+using namespace std;
 
 class Level
 {
-    std::vector<std::vector<Tile*>>;
-    std::vector<Character*>;
+    vector<vector<Tile*>> tilepointer; //todo Schleife für erstellen von level, dann pushback
+    vector<Character*> characterpointer;
     const int height;
     const int width;
 
 
 public:
     Level(const int height, const int width);
+    Tile *getTile(int row, int col);
+    const Tile *getTile(int row, int col) const;
+    void placeCharacter(Character *c, int row, int col);
 };
 
 #endif // LEVEL_H

@@ -1,6 +1,9 @@
-#include "wall.h"
+﻿#include "wall.h"
+#include "tile.h"
 
-Wall::Wall()
+Wall::Wall(int row, int column,string texture) : Tile(row, column)
 {
+    this->texture=texture;
+
 
 }

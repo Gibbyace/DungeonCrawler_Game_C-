@@ -2,19 +2,30 @@
 #include "character.h"
 #include <string>
 
-Tile::Tile(std::string texture, Character* character, const int row, const int column)
-{
+#include "floor.h"
+#include "wall.h"
+#include "portal.h"
 
+Tile::Tile(const int row, const int column):row(row),column(column)
+{
 
 }
 
 std::string Tile::getTexture(){
-    //Lange if oder switch instruction?
-    //If hasCharacter = true, X?
+    if (this->hasCharacter() == true) {
+        return "X";
+    }
+
+    return texture;
 }
 
 bool Tile::hasCharacter(){
-    //position von character muss gegettet werden
+    if (character == nullptr) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 bool Tile::moveTo(Tile *fromTile, Character *who){

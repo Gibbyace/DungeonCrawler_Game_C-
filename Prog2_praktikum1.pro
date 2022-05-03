@@ -6,6 +6,7 @@ CONFIG -= qt
 SOURCES += \
         character.cpp \
         dungeoncrawler.cpp \
+        floor.cpp \
         klassabstractui.cpp \
         level.cpp \
         main.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 HEADERS += \
    character.h \
    dungeoncrawler.h \
+   floor.h \
    klassabstractui.h \
    level.h \
    portal.h \

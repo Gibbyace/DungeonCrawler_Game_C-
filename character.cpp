@@ -4,6 +4,16 @@
 
 
 
+const std::string &Character::getTexture_of_character() const
+{
+    return texture_of_character;
+}
+
+void Character::setTexture_of_character(const std::string &newTexture_of_character)
+{
+    texture_of_character = newTexture_of_character;
+}
+
 Character::Character()
 {
 

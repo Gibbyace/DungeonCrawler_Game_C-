@@ -10,6 +10,7 @@ public:
     //Alle ausgaben sind hier zu verzeichnen und zu kapseln
     KlassAbstractUI();
     virtual void draw(Level*)=0;
+
 };
 
 #endif // KLASSABSTRACTUI_H

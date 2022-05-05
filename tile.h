@@ -16,7 +16,7 @@ protected:
 
 public:
     Tile(int row, int column);
-    virtual std::string getTexture();//floor "." //if character on tile, dann x
+    virtual std::string getTexture();//floor "." //if character on tile, dann x //auscoden in unteren klassen
     virtual bool hasCharacter(); //is character on tile? return true sonst immer false
     virtual bool moveTo(Tile* fromTile, Character* who); //wird von aktueller tile (this), true if move
     virtual Tile* onEnter(Tile* fromTile, Character* who) = 0;//betreten einer tile (ist this) ist sie nicht beretbar Nullptr

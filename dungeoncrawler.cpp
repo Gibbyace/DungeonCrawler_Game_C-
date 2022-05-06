@@ -30,6 +30,7 @@ void DungeonCrawler::play(){
         if (destinationTile != nullptr) {
             tileWithCharacter->moveTo(destinationTile, character);
         }
+
     }
     while(true);
 }

@@ -1,10 +1,5 @@
 ﻿#include "tile.h"
 #include "character.h"
-#include <string>
-
-#include "floor.h"
-#include "wall.h"
-#include "portal.h"
 
 void Tile::setCharacter(Character *newCharacter)
 {
@@ -26,7 +21,7 @@ Tile::Tile(const int row, const int column):row(row),column(column)
 
 }
 
-std::string Tile::getTexture(){
+string Tile::getTexture(){
     if (this->hasCharacter() == true) {
         return "X";
     }

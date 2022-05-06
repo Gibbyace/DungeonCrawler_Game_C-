@@ -36,7 +36,7 @@ Level::Level(const int height, const int width):height(height),width(width)
     vector<vector<string>> level_as_string =
         {
             {"#", "#", "#", "#", "#", "#"},
-            {"#", ".", ".", "O", ".", "#"},
+            {"#", ".", "#", "O", ".", "#"},
             {"#", "X", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", "#"},
             {"#", ".", "O", ".", ".", "#"},
@@ -46,13 +46,13 @@ Level::Level(const int height, const int width):height(height),width(width)
     for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
             if (level_as_string[row][col] == "#") {
-                tilepointer[row].push_back(new Wall(row, col, "#"));
+                tilepointer[row].push_back(new Wall(row, col));
             }
             else if (level_as_string[row][col] == "O") {
-               tilepointer[row].push_back(new Portal(row, col, "O"));
+               tilepointer[row].push_back(new Portal(row, col));
             }
             else {
-                Floor* new_floor = new Floor(row, col, ".");
+                Floor* new_floor = new Floor(row, col);
                 tilepointer[row].push_back(new_floor);
 
                 if (level_as_string[row][col] == "X") {

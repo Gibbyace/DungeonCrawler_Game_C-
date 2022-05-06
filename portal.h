@@ -8,6 +8,8 @@ class Portal : public Tile
 public:
     Portal(int row, int col, string texture);
     virtual ~Portal() override = default;
+    Tile* onEnter(Tile *fromTile, Character *who) override;
+    Tile* onLeave(Tile* destTile, Character* who) override;
 };
 
 #endif // PORTAL_H

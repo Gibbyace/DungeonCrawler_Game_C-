@@ -9,7 +9,11 @@ DungeonCrawler::DungeonCrawler()
 }
 
 void DungeonCrawler::play(){
-    //Auf jedenfall muss eine loop rein;
+    //Initialisierung
+    Level* level = new Level(6, 6);
+    this->levels.push_back(level);
+
+    //Schleife, die für jeden Spielzug einmal durchläuft;
     do{
 
 

@@ -8,3 +8,6 @@ TerminalUI::TerminalUI()
 
 }
 
+void TerminalUI::draw(Level* level) {
+
+}

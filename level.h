@@ -8,7 +8,7 @@ using namespace std;
 
 class Level
 {
-    vector<vector<Tile*>> tilepointer; //todo Schleife für erstellen von level, dann pushback
+    vector<vector<Tile*>> tilepointer; //TODO: tilepointer als vector von vectoren initialisieren im Konstruktur; Schleife für erstellen von level, dann pushback
     vector<Character*> characterpointer;
     const int height;
     const int width;

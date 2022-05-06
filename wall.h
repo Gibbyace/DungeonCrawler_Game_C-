@@ -10,6 +10,8 @@ class Wall : public Tile
 public:
     Wall(int row, int column,string texture);
     virtual ~Wall() override = default;
+    Tile* onEnter(Tile *fromTile, Character *who) override;
+    Tile* onLeave(Tile* destTile, Character* who) override;
 
 private:
     string texture;

@@ -8,6 +8,11 @@
 
 Level::Level(const int height, const int width):height(height),width(width)
 {
+    for (int i = 0; i < height; i++) {
+        vector<Tile*> row = vector<Tile*>();
+        tilepointer.push_back(row);
+    }
+
     vector<vector<string>> level_as_string =
         {
             {"#", "#", "#", "#", "#", "#"},
@@ -18,27 +23,24 @@ Level::Level(const int height, const int width):height(height),width(width)
             {"#", "#", "#", "#", "#", "#"}
         };
 
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            if (level_as_string[i][j] == "#") {
-
-               Tile* level_as_string[i][j] = new Wall(int row, int column,string texture);
-                tilepointer.push_back()
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            if (level_as_string[row][col] == "#") {
+                tilepointer[row].push_back(new Wall(row, col, "#"));
             }
-            else if (level_as_string[i][j] == "O") {
-               string texture = "O";
-               Tile* new_portal = new Portal(i , j ,texture);
-               tilepointer.push_back(new_portal);
-
+            else if (level_as_string[row][col] == "O") {
+               tilepointer[row].push_back(new Portal(row, col, "O"));
             }
             else {
-                level_as_string[i][j] = new Floor(int row, int column,string texture);
+                Floor* new_floor = new Floor(row, col, ".");
+                tilepointer[row].push_back(new_floor);
 
-                if (level_as_string[i][j] == "X") {
-                    Character* new_character = new Character(); //hier kommt der Floorpointer noch rein
+                if (level_as_string[row][col] == "X") {
+                    Character* new_character = new Character();
+                    new_character->setTile(new_floor);
+                    new_floor->setCharacter(new_character);
 
                     characterpointer.push_back(new_character);
-                    level_as_string[i][j]. //Dem floor wird character zugewisen
                 }
             }
         }

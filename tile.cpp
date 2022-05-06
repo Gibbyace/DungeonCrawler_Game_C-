@@ -6,6 +6,11 @@
 #include "wall.h"
 #include "portal.h"
 
+void Tile::setCharacter(Character *newCharacter)
+{
+    character = newCharacter;
+}
+
 Tile::Tile(const int row, const int column):row(row),column(column)
 {
 

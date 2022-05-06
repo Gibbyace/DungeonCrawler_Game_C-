@@ -14,6 +14,11 @@ void Character::setTexture_of_character(const std::string &newTexture_of_charact
     texture_of_character = newTexture_of_character;
 }
 
+void Character::setTile(Tile *newTile)
+{
+    tile = newTile;
+}
+
 Character::Character()
 {
 

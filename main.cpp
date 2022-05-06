@@ -7,9 +7,4 @@ int main()
 {
     DungeonCrawler Game1;
     Game1.play();
-
-    /*Wall* test = new Wall();
-    string x = test->getTexture();
-
-    cout << x;*/
 }

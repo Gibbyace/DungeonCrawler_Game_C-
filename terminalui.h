@@ -9,7 +9,7 @@ class TerminalUI : public KlassAbstractUI
 
 public:
     TerminalUI();
-    string askUserForDirection();
+    //string askUserForDirection();
     void draw(Level*) override;
 
 };

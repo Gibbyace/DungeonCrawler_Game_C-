@@ -7,4 +7,6 @@ int main()
 {
     DungeonCrawler Game1;
     Game1.play();
+
+    //TODO: Warum werden Walls nicht dargestellt?
 }

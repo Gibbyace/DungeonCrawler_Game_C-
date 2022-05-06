@@ -4,14 +4,9 @@
 
 
 
-const std::string &Character::getTexture_of_character() const
+const string &Character::getTexture() const
 {
-    return texture_of_character;
-}
-
-void Character::setTexture_of_character(const std::string &newTexture_of_character)
-{
-    texture_of_character = newTexture_of_character;
+    return texture;
 }
 
 void Character::setTile(Tile *newTile)
@@ -30,34 +25,27 @@ Character::Character()
 }
 
 int Character::move(){
+    while (true) {
+        int input;
 
-    int input;
+        cout << "Where do you want to go?" << endl;
+        cout << "1: Down-Right" << endl;
+        cout << "2: Down" << endl;
+        cout << "3: Down-Right" << endl;
+        cout << "4: Left" << endl;
+        cout << "5: Stay" << endl;
+        cout << "6: Right" << endl;
+        cout << "7: Left-Up" << endl;
+        cout << "8: Up" << endl;
+        cout << "9: Up-Right" << endl;
+        cout << "0: Close Game" << endl;
 
-    std::cout<<"Where do you want to go?"<<"\n";
-    std::cout<<"1: Down-Right"<<"\n";
-    std::cout<<"2: Down"<<"\n";
-    std::cout<<"3: Down-Right"<<"\n";
-    std::cout<<"4: Left"<<"\n";
-    std::cout<<"5: Stay"<<"\n";
-    std::cout<<"6: Right"<<"\n";
-    std::cout<<"7: Left-Up"<<"\n";
-    std::cout<<"8: Up"<<"\n";
-    std::cout<<"9: Up-Right"<<"\n";
-    std::cout<<"0: Close Game"<<"\n";
+        cin >> input;
 
-    std::cin>>input;
+        if (input >= 0 && input <= 9) {
+            return input;
+        }
 
-    switch(input){
-    case 1: return 1; break;
-    case 2: return 2; break;
-    case 3: return 3; break;
-    case 4: return 4; break;
-    case 5: return 5; break;
-    case 6: return 6; break;
-    case 7: return 7; break;
-    case 8: return 8; break;
-    case 9: return 9; break;
-    case 0: return 0; break;
-    default: return 5;
+        cout << "This is not an option" << endl;
     }
 }

@@ -3,12 +3,13 @@
 #include <string>
 #include <iostream>
 
+using namespace std;
 
 class Tile;
 
 class Character
 {
-    std::string texture_of_character;
+    string texture;
     Tile* tile; //Setter wird gebraucht
 
 
@@ -17,8 +18,7 @@ public:
     Character();
     int move();
 
-    const std::string &getTexture_of_character() const;
-    void setTexture_of_character(const std::string &newTexture_of_character);
+    const string &getTexture() const;
     void setTile(Tile *newTile);
     Tile *getTile() const;
 };

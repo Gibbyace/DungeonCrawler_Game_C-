@@ -8,7 +8,7 @@ TerminalUI::TerminalUI()
 
 }
 
-string TerminalUI::askUserForDirection() {
+/*string TerminalUI::askUserForDirection() {
     string direction = "";
 
     while(true) {
@@ -21,7 +21,7 @@ string TerminalUI::askUserForDirection() {
 
         cout << "Diese Richtung gibt es nicht." << endl;
     }
-}
+}*/
 
 void TerminalUI::draw(Level* level) {
     for (int row = 0; row < level->getHeight(); row++) {

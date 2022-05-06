@@ -5,21 +5,19 @@
 
 DungeonCrawler::DungeonCrawler()
 {
+    this->AbstractUI = new TerminalUI();
+    Level* level = new Level(6, 6);
+    this->levels.push_back(level);
 
 }
 
 void DungeonCrawler::play(){
-    //Initialisierung
-    TerminalUI* terminalUI = new TerminalUI();
-    Level* level = new Level(6, 6);
-    this->levels.push_back(level);
-
-    //Schleife, die für jeden Spielzug einmal durchläuft;
     do{
-        terminalUI->draw(level);
+        Level* currentLevel = levels[0];
+        Character* character = currentLevel->getCharacterpointer()[0];
 
-        Character* character = level->getCharacterpointer()[0];
-        //string direction = terminalUI->askUserForDirection();
+        AbstractUI->draw(currentLevel);
+
         int direction = character->move();
 
         if (direction == 0) {
@@ -27,14 +25,13 @@ void DungeonCrawler::play(){
         }
 
         Tile* tileWithCharacter = character->getTile();
-        Tile* destinationTile = determineDestinationTile(level, tileWithCharacter, direction); //falls es nicht geht, wird destinationTile nullptr
+        Tile* destinationTile = determineDestinationTile(currentLevel, tileWithCharacter, direction);
 
         if (destinationTile != nullptr) {
             tileWithCharacter->moveTo(destinationTile, character);
         }
     }
     while(true);
-
 }
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction) {
@@ -42,6 +39,8 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
     int colWithCharacter = tileWithCharacter->getColumn();
     int rowDestination = rowWithCharacter;
     int colDestination = colWithCharacter;
+
+    //das geht bestimmt noch schöner
 
     //up
     if (direction == 8) {

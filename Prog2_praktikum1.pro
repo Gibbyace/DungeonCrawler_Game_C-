@@ -4,10 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        abstractui.cpp \
         character.cpp \
         dungeoncrawler.cpp \
         floor.cpp \
-        klassabstractui.cpp \
         level.cpp \
         main.cpp \
         portal.cpp \
@@ -16,10 +16,10 @@ SOURCES += \
         wall.cpp
 
 HEADERS += \
+   abstractui.h \
    character.h \
    dungeoncrawler.h \
    floor.h \
-   klassabstractui.h \
    level.h \
    portal.h \
    terminalui.h \

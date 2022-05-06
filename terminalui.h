@@ -1,16 +1,15 @@
 ﻿#ifndef TERMINALUI_H
 #define TERMINALUI_H
 
-#include "klassabstractui.h"
+#include "abstractui.h"
 
-class TerminalUI : public KlassAbstractUI
+class TerminalUI : public AbstractUI
         //Alle Ausgaben hier
 {
 
 public:
     TerminalUI();
-    //string askUserForDirection();
-    void draw(Level*) override;
+    void draw(Level* level) override;
 
 };
 

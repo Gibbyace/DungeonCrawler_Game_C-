@@ -1,12 +1,12 @@
 ﻿#ifndef DUNGEONCRAWLER_H
 #define DUNGEONCRAWLER_H
-#include "klassabstractui.h"
+#include "abstractui.h"
 #include "level.h"
 
 
 class DungeonCrawler
 {
-    KlassAbstractUI* AbstractUI;
+    AbstractUI* AbstractUI;
     vector<Level*> levels;
 
 

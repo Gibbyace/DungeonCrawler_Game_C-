@@ -33,29 +33,30 @@ Level::Level(const int height, const int width):height(height),width(width)
         tilepointer.push_back(row);
     }
 
+    //Wir können hier nicht einfach Portals reinschreiben, weil wir es sonst nicht hinbekommen, das sie aufeinander verweisen
+    //Daher placePortals() benutzen
     vector<vector<string>> level_as_string =
         {
             {"#", "#", "#", "#", "#", "#"},
-            {"#", ".", "#", "O", ".", "#"},
+            {"#", ".", "#", ".", ".", "#"},
             {"#", "X", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", "#"},
-            {"#", ".", "O", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", "#"},
             {"#", "#", "#", "#", "#", "#"}
         };
 
     for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
-            if (level_as_string[row][col] == "#") {
+            string tileAsString = level_as_string[row][col];
+
+            if (tileAsString == "#") {
                 tilepointer[row].push_back(new Wall(row, col));
-            }
-            else if (level_as_string[row][col] == "O") {
-               tilepointer[row].push_back(new Portal(row, col));
             }
             else {
                 Floor* new_floor = new Floor(row, col);
                 tilepointer[row].push_back(new_floor);
 
-                if (level_as_string[row][col] == "X") {
+                if (tileAsString == "X") {
                     Character* new_character = new Character();
                     placeCharacter(new_character, row, col);
 
@@ -64,6 +65,8 @@ Level::Level(const int height, const int width):height(height),width(width)
             }
         }
     }
+
+    placePortals(1, 1, 3, 4);
 }
 
 Level::~Level() {
@@ -85,4 +88,18 @@ Tile* Level::getTile(int row, int col) {
 void Level::placeCharacter(Character *c, int row, int col) {
     tilepointer[row][col]->setCharacter(c);
     c->setTile(tilepointer[row][col]);
+}
+
+void Level::placePortals(int row1, int col1, int row2, int col2) {
+    Tile* newPortal1 = new Portal(row1, col1);
+    Tile* newPortal2 = new Portal(row2, col2);
+
+    dynamic_cast<Portal*>(newPortal1)->setDestination(newPortal2);
+    dynamic_cast<Portal*>(newPortal2)->setDestination(newPortal1);
+
+    delete tilepointer[row1][col1];
+    delete tilepointer[row2][col2];
+
+    tilepointer[row1][col1] = newPortal1;
+    tilepointer[row2][col2] = newPortal2;
 }

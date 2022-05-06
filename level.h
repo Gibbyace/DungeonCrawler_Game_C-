@@ -19,11 +19,14 @@ public:
     ~Level();
     Tile *getTile(int row, int col);
     const Tile *getTile(int row, int col) const;
-    void placeCharacter(Character *c, int row, int col);
     const vector<vector<Tile *> > &getTilepointer() const;
     int getHeight() const;
     int getWidth() const;
     const vector<Character *> &getCharacterpointer() const;
+
+protected:
+    void placeCharacter(Character *c, int row, int col);
+    void placePortals(int row1, int col1, int row2, int col2);
 };
 
 #endif // LEVEL_H

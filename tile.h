@@ -26,6 +26,7 @@ public:
     virtual ~Tile() = default;// Default destructor bitte wie links, weil sonst komische fehler mit compiler
 
 
+
     void setCharacter(Character *newCharacter);
     int getRow() const;
     int getColumn() const;

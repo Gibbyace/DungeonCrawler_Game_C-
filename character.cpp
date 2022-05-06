@@ -19,6 +19,11 @@ void Character::setTile(Tile *newTile)
     tile = newTile;
 }
 
+Tile *Character::getTile() const
+{
+    return tile;
+}
+
 Character::Character()
 {
 

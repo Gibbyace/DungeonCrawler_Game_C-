@@ -6,6 +6,26 @@
 #include "wall.h"
 #include "tile.h"
 
+const vector<vector<Tile *> > &Level::getTilepointer() const
+{
+    return tilepointer;
+}
+
+int Level::getHeight() const
+{
+    return height;
+}
+
+int Level::getWidth() const
+{
+    return width;
+}
+
+const vector<Character *> &Level::getCharacterpointer() const
+{
+    return characterpointer;
+}
+
 Level::Level(const int height, const int width):height(height),width(width)
 {
     for (int i = 0; i < height; i++) {

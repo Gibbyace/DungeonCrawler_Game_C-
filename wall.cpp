@@ -9,9 +9,9 @@ Wall::Wall(int row, int column,string texture) : Tile(row, column)
 }
 
 Tile* Wall::onEnter(Tile *fromTile, Character *who) {
-
+    return nullptr;
 }
 
 Tile* Wall::onLeave(Tile* destTile, Character* who) {
-
+    return this;
 }

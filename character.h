@@ -20,6 +20,7 @@ public:
     const std::string &getTexture_of_character() const;
     void setTexture_of_character(const std::string &newTexture_of_character);
     void setTile(Tile *newTile);
+    Tile *getTile() const;
 };
 
 #endif // CHARACTER_H

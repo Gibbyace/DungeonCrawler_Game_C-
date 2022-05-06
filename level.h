@@ -16,6 +16,7 @@ class Level
 
 public:
     Level(const int height, const int width);
+    ~Level();
     Tile *getTile(int row, int col);
     const Tile *getTile(int row, int col) const;
     void placeCharacter(Character *c, int row, int col);

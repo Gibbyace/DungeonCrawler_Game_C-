@@ -57,12 +57,32 @@ Level::Level(const int height, const int width):height(height),width(width)
 
                 if (level_as_string[row][col] == "X") {
                     Character* new_character = new Character();
-                    new_character->setTile(new_floor);
-                    new_floor->setCharacter(new_character);
+                    placeCharacter(new_character, row, col);
 
                     characterpointer.push_back(new_character);
                 }
             }
         }
     }
+}
+
+Level::~Level() {
+    for (int row = 0; row < this->height; row++) {
+        for (int col = 0; col < this->width; col++) {
+            delete tilepointer[row][col];
+        }
+    }
+
+    for (unsigned i = 0; i < characterpointer.size(); i++) {
+        delete characterpointer[i];
+    }
+}
+
+Tile* Level::getTile(int row, int col) {
+    return tilepointer[row][col];
+}
+
+void Level::placeCharacter(Character *c, int row, int col) {
+    tilepointer[row][col]->setCharacter(c);
+    c->setTile(tilepointer[row][col]);
 }

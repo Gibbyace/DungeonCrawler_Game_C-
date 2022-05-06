@@ -16,7 +16,7 @@ int Tile::getColumn() const
     return column;
 }
 
-Tile::Tile(const int row, const int column):row(row),column(column)
+Tile::Tile(const int row, const int column) : row(row), column(column)
 {
 
 }

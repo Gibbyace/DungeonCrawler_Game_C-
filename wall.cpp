@@ -13,9 +13,3 @@ Tile* Wall::onEnter(Tile *fromTile, Character *who) {
 Tile* Wall::onLeave(Tile* destTile, Character* who) {
     return this;
 }
-
-/*
-string Wall::getTexture() {
-    return this->texture;
-}
-*/

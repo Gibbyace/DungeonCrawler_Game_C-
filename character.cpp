@@ -1,9 +1,6 @@
 ﻿#include "character.h"
 #include <string>
 
-
-
-
 const string &Character::getTexture() const
 {
     return texture;
@@ -39,6 +36,7 @@ int Character::move(){
         cout << "8: Up" << endl;
         cout << "9: Up-Right" << endl;
         cout << "0: Close Game" << endl;
+        cout << endl;
 
         cin >> input;
 

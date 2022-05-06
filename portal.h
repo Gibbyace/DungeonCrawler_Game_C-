@@ -14,7 +14,6 @@ public:
     Tile* onEnter(Tile *fromTile, Character *who) override;
     Tile* onLeave(Tile* destTile, Character* who) override;
 
-    //TODO: Verweis auf das dazugehörige Portal
     Tile *getDestination() const;
     void setDestination(Tile *newDestination);
 };

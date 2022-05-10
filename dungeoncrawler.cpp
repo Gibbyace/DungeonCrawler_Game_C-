@@ -8,10 +8,12 @@ DungeonCrawler::DungeonCrawler()
     this->AbstractUI = new TerminalUI();
     Level* level = new Level(6, 6);
     this->levels.push_back(level);
-
 }
 
-void DungeonCrawler::play(){
+void DungeonCrawler::play()
+{
+    printDirectionOptions();
+
     do{
         Level* currentLevel = levels[0];
         Character* character = currentLevel->getCharacterpointer()[0];
@@ -34,7 +36,8 @@ void DungeonCrawler::play(){
     while(true);
 }
 
-Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction) {
+Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)
+{
     int rowWithCharacter = tileWithCharacter->getRow();
     int colWithCharacter = tileWithCharacter->getColumn();
     int rowDestination = rowWithCharacter;
@@ -79,4 +82,20 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
     Tile* destinationTile = level->getTilepointer()[rowDestination][colDestination];
 
     return destinationTile;
+}
+
+void DungeonCrawler::printDirectionOptions()
+{
+    cout << "Where do you want to go?" << endl;
+    cout << "1: Down-Right" << endl;
+    cout << "2: Down" << endl;
+    cout << "3: Down-Right" << endl;
+    cout << "4: Left" << endl;
+    cout << "5: Stay" << endl;
+    cout << "6: Right" << endl;
+    cout << "7: Left-Up" << endl;
+    cout << "8: Up" << endl;
+    cout << "9: Up-Right" << endl;
+    cout << "0: Close Game" << endl;
+    cout << endl;
 }

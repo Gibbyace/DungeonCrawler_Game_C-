@@ -17,6 +17,7 @@ public:
     //dann wie in 1.4 ablauf
     void play();
     Tile* determineDestinationTile(Level* level, Tile* tileWithCharacter, int direction);
+    void printDirectionOptions();
 };
 
 #endif // DUNGEONCRAWLER_H

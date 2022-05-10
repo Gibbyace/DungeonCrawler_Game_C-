@@ -38,9 +38,9 @@ Level::Level(const int height, const int width):height(height),width(width)
     vector<vector<string>> level_as_string =
         {
             {"#", "#", "#", "#", "#", "#"},
-            {"#", ".", "#", ".", ".", "#"},
-            {"#", "X", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", "#"},
+            {"#", ".", "X", ".", ".", "#"},
             {"#", ".", ".", ".", ".", "#"},
             {"#", "#", "#", "#", "#", "#"}
         };
@@ -66,7 +66,9 @@ Level::Level(const int height, const int width):height(height),width(width)
         }
     }
 
-    placePortals(1, 1, 3, 4);
+    placePortals(1, 1, 4, 1);
+    placePortals(4, 4, 1, 4);
+
 }
 
 Level::~Level() {

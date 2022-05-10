@@ -30,7 +30,6 @@ void DungeonCrawler::play(){
         if (destinationTile != nullptr) {
             tileWithCharacter->moveTo(destinationTile, character);
         }
-
     }
     while(true);
 }
@@ -41,48 +40,16 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
     int rowDestination = rowWithCharacter;
     int colDestination = colWithCharacter;
 
-    //das geht bestimmt noch schöner
+    if (direction == 9 || direction == 7 || direction == 8) {
+        if (rowWithCharacter -1 >= 0) {
+            rowDestination -= 1;
+        }
+        else {
+            return nullptr;
+        }
+    }
 
-    //up
-    if (direction == 8) {
-        if (rowWithCharacter - 1 >= 0) {
-            rowDestination -= 1;
-        }
-        else {
-            return nullptr;
-        }
-    }
-    //up right
-    else if (direction == 9) {
-        if (rowWithCharacter - 1 >= 0 && colWithCharacter + 1 < level->getWidth()) {
-            rowDestination -= 1;
-            colDestination += 1;
-        }
-        else {
-            return nullptr;
-        }
-    }
-    //right
-    else if (direction == 6) {
-        if (colWithCharacter + 1 < level->getWidth()) {
-            colDestination = colWithCharacter + 1;
-        }
-        else {
-            return nullptr;
-        }
-    }
-    //down right
-    else if (direction == 3) {
-        if (colWithCharacter + 1 < level->getWidth() && rowWithCharacter + 1 < level->getHeight()) {
-            rowDestination += 1;
-            colDestination += 1;
-        }
-        else {
-            return nullptr;
-        }
-    }
-    //down
-    else if (direction == 2) {
+    else if (direction == 1 || direction == 2 || direction == 3) {
         if (rowWithCharacter + 1 < level->getHeight()) {
             rowDestination += 1;
         }
@@ -90,18 +57,8 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
             return nullptr;
         }
     }
-    //down left
-    else if (direction == 1) {
-        if (rowWithCharacter + 1 < level->getHeight() && colWithCharacter - 1 >= 0) {
-            rowDestination += 1;
-            colDestination -= 1;
-        }
-        else {
-            return nullptr;
-        }
-    }
-    //left
-    else if (direction == 4) {
+
+    if (direction == 7 || direction == 4 || direction == 1) {
         if (colWithCharacter - 1 >= 0) {
             colDestination -= 1;
         }
@@ -109,11 +66,10 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
             return nullptr;
         }
     }
-    //up left
-    else if (direction == 7) {
-        if (colWithCharacter - 1 >= 0 && rowWithCharacter -1 >= 0) {
-            rowDestination -= 1;
-            colDestination -= 1;
+
+    else if (direction == 9 || direction == 6 || direction == 3) {
+        if (colWithCharacter + 1 < level->getWidth()) {
+            colDestination += 1;
         }
         else {
             return nullptr;

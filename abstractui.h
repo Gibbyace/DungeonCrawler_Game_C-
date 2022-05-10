@@ -10,7 +10,7 @@ public:
     //Alle ausgaben sind hier zu verzeichnen und zu kapseln
     AbstractUI();
     virtual void draw(Level* level) = 0;
-
+    virtual void printDirectionOptions();
 };
 
 #endif // ABSTRACTUI_H

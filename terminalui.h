@@ -10,7 +10,7 @@ class TerminalUI : public AbstractUI
 public:
     TerminalUI();
     void draw(Level* level) override;
-
+    void printDirectionOptions() override;
 };
 
 #endif // TERMINALUI_H

@@ -12,7 +12,7 @@ DungeonCrawler::DungeonCrawler()
 
 void DungeonCrawler::play()
 {
-    printDirectionOptions();
+    AbstractUI->printDirectionOptions();
 
     do{
         Level* currentLevel = levels[0];
@@ -84,18 +84,4 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
     return destinationTile;
 }
 
-void DungeonCrawler::printDirectionOptions()
-{
-    cout << "Where do you want to go?" << endl;
-    cout << "1: Down-Right" << endl;
-    cout << "2: Down" << endl;
-    cout << "3: Down-Right" << endl;
-    cout << "4: Left" << endl;
-    cout << "5: Stay" << endl;
-    cout << "6: Right" << endl;
-    cout << "7: Left-Up" << endl;
-    cout << "8: Up" << endl;
-    cout << "9: Up-Right" << endl;
-    cout << "0: Close Game" << endl;
-    cout << endl;
-}
+

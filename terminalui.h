@@ -2,8 +2,9 @@
 #define TERMINALUI_H
 
 #include "abstractui.h"
+#include "controller.h"
 
-class TerminalUI : public AbstractUI
+class TerminalUI : public AbstractUI, public Controller
         //Alle Ausgaben hier
 {
 

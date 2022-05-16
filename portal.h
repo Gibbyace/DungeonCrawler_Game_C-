@@ -2,6 +2,7 @@
 #define PORTAL_H
 
 #include "tile.h"
+//Ids für portale?
 
 class Portal : public Tile
 {

@@ -6,13 +6,13 @@
 
 class DungeonCrawler
 {
+private:
     AbstractUI* abstractUI;
     vector<Level*> levels;
 
-
-
 public:
     DungeonCrawler();
+    ~DungeonCrawler();
     //Für character move aufrufen
     //dann wie in 1.4 ablauf
     void play();

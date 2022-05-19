@@ -10,6 +10,14 @@ DungeonCrawler::DungeonCrawler()
     this->levels.push_back(level);
 }
 
+DungeonCrawler::~DungeonCrawler() {
+    delete this->abstractUI;
+
+    for (unsigned i = 0; i < levels.size(); i++) {
+        delete levels[i];
+    }
+}
+
 void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();

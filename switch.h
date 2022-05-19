@@ -8,7 +8,10 @@ class Switch : public Active, public Tile
 {
 public:
     Switch(int row, int column);
-    Tile* onEnter(Tile* from, Character* who);
+    virtual Tile* onEnter(Tile* from, Character* who) override;
+    virtual Tile* onLeave(Tile* destTile, Character* who) override;
+
+    virtual ~Switch() override = default;
 
 };
 

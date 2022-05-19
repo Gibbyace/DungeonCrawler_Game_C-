@@ -17,9 +17,9 @@ protected:
 
 public:
     Tile(int row, int column);
-    virtual string getTexture();
-    virtual bool hasCharacter();
-    virtual bool moveTo(Tile* fromTile, Character* who); //wird von aktueller tile (this), true if move
+    string getTexture();
+    bool hasCharacter();
+    bool moveTo(Tile* fromTile, Character* who); //wird von aktueller tile (this), true if move
     virtual Tile* onEnter(Tile* fromTile, Character* who) = 0;//betreten einer tile (ist this) ist sie nicht beretbar Nullptr
     virtual Tile* onLeave(Tile* destTile, Character* who) = 0;//auch this;
     //Gibt this bei floor zurück, gibt nullptr bei Wall zurück, gibt zeiger auf portal bei portal zurück;

@@ -5,6 +5,8 @@
 #include "floor.h"
 #include "wall.h"
 #include "tile.h"
+#include "switch.h"
+#include "door.h"
 
 const vector<vector<Tile *> > &Level::getTilepointer() const
 {
@@ -38,10 +40,10 @@ Level::Level(const int height, const int width):height(height),width(width)
     vector<vector<string>> level_as_string =
         {
             {"#", "#", "#", "#", "#", "#"},
-            {"#", ".", ".", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", "#"},
-            {"#", ".", "X", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", "#", ".", "#"},
+            {"#", ".", ".", "#", ".", "#"},
+            {"#", ".", "X", "#", ".", "#"},
+            {"#", ".", ".", "#", ".", "#"},
             {"#", "#", "#", "#", "#", "#"}
         };
 
@@ -104,4 +106,9 @@ void Level::placePortals(int row1, int col1, int row2, int col2) {
 
     tilepointer[row1][col1] = newPortal1;
     tilepointer[row2][col2] = newPortal2;
+}
+
+void Level::placeSwitch(int row1, int col1, int row2, int col2) {
+    Tile* newSwitch = new Switch(row1, col1);
+    Tile* newDoor = new Door(row2, col2);
 }

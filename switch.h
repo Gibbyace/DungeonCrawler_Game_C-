@@ -10,7 +10,7 @@ public:
     Switch(int row, int column);
     virtual Tile* onEnter(Tile* from, Character* who) override;
     virtual Tile* onLeave(Tile* destTile, Character* who) override;
-
+    //Implementation von notify
     virtual ~Switch() override = default;
 
 };

@@ -4,6 +4,8 @@
 #include "passive.h"
 #include "tile.h"
 
+//TODO: isOpen muss sich irgendwie zur laufzeit ändern;
+
 class Door : public Passive, public Tile
 {
 private:

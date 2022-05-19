@@ -1,6 +1,6 @@
-#include "door.h"
+﻿#include "door.h"
 
-Door::Door()
+Door::Door(int row, int column): Passive(), Tile(row, column)
 {
 
 }

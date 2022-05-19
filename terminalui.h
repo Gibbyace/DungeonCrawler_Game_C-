@@ -12,6 +12,7 @@ public:
     TerminalUI();
     void draw(Level* level) override;
     void printDirectionOptions() override;
+    int move() override;
 };
 
 #endif // TERMINALUI_H

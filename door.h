@@ -7,7 +7,7 @@
 class Door : public Passive, public Tile
 {
 public:
-    Door();
+    Door(int row, int column);
 };
 
 #endif // DOOR_H

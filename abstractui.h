@@ -1,4 +1,4 @@
-#ifndef ABSTRACTUI_H
+﻿#ifndef ABSTRACTUI_H
 #define ABSTRACTUI_H
 #include <level.h>
 

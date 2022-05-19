@@ -1,6 +1,6 @@
-#include "ramp.h"
+﻿#include "ramp.h"
 
-Ramp::Ramp()
+Ramp::Ramp(int row, int column): Tile(row, column)
 {
 
 }

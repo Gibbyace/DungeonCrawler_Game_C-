@@ -34,3 +34,8 @@ void TerminalUI::printDirectionOptions()
     cout << "0: Close Game" << endl;
     cout << endl;
 }
+
+int TerminalUI::move(){
+
+    return 0;
+}

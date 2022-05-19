@@ -7,8 +7,9 @@
 class Switch : public Active, public Tile
 {
 public:
-    Switch();
+    Switch(int row, int column);
     Tile* onEnter(Tile* from, Character* who);
+
 };
 
 #endif // SWITCH_H

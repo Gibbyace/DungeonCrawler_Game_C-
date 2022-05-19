@@ -1,6 +1,6 @@
-#include "pit.h"
+﻿#include "pit.h"
 
-Pit::Pit()
+Pit::Pit(int row, int column): Tile(row, column)
 {
 
 }

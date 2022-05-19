@@ -1,7 +1,9 @@
 ﻿#ifndef ACTIVE_H
 #define ACTIVE_H
 #include <vector>
-#include "passive.h"
+
+
+class Passive;
 
 //Implementation of concept
 //bestitzt pointer auf sich selbst
@@ -11,8 +13,8 @@ class Active
 
 public:
     Active();
-    void attach(Passive*);
-    void detach(Passive*);
+    void attach(Passive*); //method for adding passive objects
+    void detach(Passive*); //gegenteil
     void activate();
 
 };

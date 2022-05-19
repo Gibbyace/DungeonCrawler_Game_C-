@@ -1,6 +1,6 @@
-#include "switch.h"
+﻿#include "switch.h"
 
-Switch::Switch()
+Switch::Switch(int row, int column): Active(), Tile(row, column)
 {
-
+    this->texture = "?";
 }

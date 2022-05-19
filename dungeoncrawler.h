@@ -6,7 +6,7 @@
 
 class DungeonCrawler
 {
-    AbstractUI* AbstractUI;
+    AbstractUI* abstractUI;
     vector<Level*> levels;
 
 

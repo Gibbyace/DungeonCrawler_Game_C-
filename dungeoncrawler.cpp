@@ -5,20 +5,28 @@
 
 DungeonCrawler::DungeonCrawler()
 {
-    this->AbstractUI = new TerminalUI();
-    Level* level = new Level(10, 10);                 //Level größe
+    this->abstractUI = new TerminalUI();
+    Level* level = new Level(10, 10);
     this->levels.push_back(level);
+}
+
+DungeonCrawler::~DungeonCrawler() {
+    delete this->abstractUI;
+
+    for (unsigned i = 0; i < levels.size(); i++) {
+        delete levels[i];
+    }
 }
 
 void DungeonCrawler::play()
 {
-    AbstractUI->printDirectionOptions();
+    abstractUI->printDirectionOptions();
 
     do{
         Level* currentLevel = levels[0];
         Character* character = currentLevel->getCharacterpointer()[0];
 
-        AbstractUI->draw(currentLevel);
+        abstractUI->draw(currentLevel);
 
         int direction = character->move();
 

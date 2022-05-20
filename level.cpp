@@ -7,6 +7,8 @@
 #include "tile.h"
 #include "switch.h"
 #include "door.h"
+#include "pit.h"
+#include "ramp.h"
 
 const vector<vector<Tile *> > &Level::getTilepointer() const
 {
@@ -39,12 +41,16 @@ Level::Level(const int height, const int width):height(height),width(width)
     //Daher placePortals() benutzen
     vector<vector<string>> level_as_string =
         {
-            {"#", "#", "#", "#", "#", "#"},
-            {"#", ".", ".", "#", ".", "#"},
-            {"#", ".", ".", "#", ".", "#"},
-            {"#", ".", "X", "#", ".", "#"},
-            {"#", ".", ".", "#", ".", "#"},
-            {"#", "#", "#", "#", "#", "#"}
+            {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
+            {"#", "_", "_", "<", ".", "X", ".", ".", ".", "#"},
+            {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         };
 
     for (int row = 0; row < height; row++) {
@@ -54,6 +60,14 @@ Level::Level(const int height, const int width):height(height),width(width)
             if (tileAsString == "#") {
                 tilepointer[row].push_back(new Wall(row, col));
             }
+            else if(tileAsString == "_"){
+                tilepointer[row].push_back(new Pit(row, col)); //TODO:potential leak of memory
+            }
+            else if(tileAsString == "<"){
+                tilepointer[row].push_back(new Ramp(row, col));//TODO:potentaial leak of memory
+            }
+
+
             else {
                 Floor* new_floor = new Floor(row, col);
                 tilepointer[row].push_back(new_floor);
@@ -68,8 +82,8 @@ Level::Level(const int height, const int width):height(height),width(width)
         }
     }
 
-    placePortals(1, 1, 4, 1);
-    placePortals(4, 4, 1, 4);
+    placePortals(1, 1, 8, 8);
+    placePortals(1, 8, 8, 1);
 
 }
 
@@ -110,5 +124,5 @@ void Level::placePortals(int row1, int col1, int row2, int col2) {
 
 void Level::placeSwitch(int row1, int col1, int row2, int col2) {
     Tile* newSwitch = new Switch(row1, col1);
-    Tile* newDoor = new Door(row2, col2);
+    Tile* newDoor = new Door(row2, col2);//TODO: potential leak of memory
 }

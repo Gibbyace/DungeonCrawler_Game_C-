@@ -13,6 +13,9 @@ public:
     //Implementation von notify
     virtual ~Switch() override = default;
 
+    //? Do we need this here?
+    Tile *getDestination() const;
+    void setDestination(Tile *newDestination);
 };
 
 #endif // SWITCH_H

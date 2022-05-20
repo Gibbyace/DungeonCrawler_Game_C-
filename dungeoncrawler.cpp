@@ -6,7 +6,7 @@
 DungeonCrawler::DungeonCrawler()
 {
     this->AbstractUI = new TerminalUI();
-    Level* level = new Level(6, 6);
+    Level* level = new Level(10, 10);                 //Level größe
     this->levels.push_back(level);
 }
 

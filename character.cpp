@@ -16,7 +16,16 @@ Tile *Character::getTile() const
     return tile;
 }
 
+void Character::setController(Controller *value)
+{
+    controller = value;
+}
+
 Character::Character()
 {
 
+}
+
+int Character::move() {
+    return controller->move();
 }

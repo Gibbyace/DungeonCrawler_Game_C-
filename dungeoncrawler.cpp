@@ -25,10 +25,11 @@ void DungeonCrawler::play()
     do{
         Level* currentLevel = levels[0];
         Character* character = currentLevel->getCharacterpointer()[0];
+        character->setController(dynamic_cast<Controller*>(abstractUI));
 
         abstractUI->draw(currentLevel);
 
-        int direction = dynamic_cast<TerminalUI*>(abstractUI)->move();
+        int direction = character->move();
 
         if (direction == 0) {
             return;

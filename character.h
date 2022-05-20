@@ -16,7 +16,7 @@ class Character
 
 public:
     Character();
-    int move();
+    //int move();
 
     const string &getTexture() const;
     void setTile(Tile *newTile);

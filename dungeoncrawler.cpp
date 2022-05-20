@@ -28,7 +28,7 @@ void DungeonCrawler::play()
 
         abstractUI->draw(currentLevel);
 
-        int direction = character->move();
+        int direction = dynamic_cast<TerminalUI*>(abstractUI)->move();
 
         if (direction == 0) {
             return;

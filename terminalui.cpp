@@ -36,6 +36,17 @@ void TerminalUI::printDirectionOptions()
 }
 
 int TerminalUI::move(){
+    while (true) {
+        char input;
 
-    return 0;
+        cin >> input;
+
+        if (input >= 48 && input <= 58) {
+            return input - 48;
+        }
+        else {
+            cout << "This is not an option" << endl << endl;
+            return 5;
+        }
+    }
 }

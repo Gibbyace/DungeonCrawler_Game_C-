@@ -27,7 +27,7 @@ public:
 protected:
     void placeCharacter(Character *c, int row, int col);
     void placePortals(int row1, int col1, int row2, int col2);
-    void placeSwitch(int row1, int col1, int row2, int col2);
+    void placeSwitchAndDoor(int row1, int col1, int row2, int col2);
 };
 
 #endif // LEVEL_H

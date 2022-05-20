@@ -61,10 +61,10 @@ Level::Level(const int height, const int width):height(height),width(width)
                 tilepointer[row].push_back(new Wall(row, col));
             }
             else if(tileAsString == "_"){
-                tilepointer[row].push_back(new Pit(row, col)); //TODO:potential leak of memory
+                tilepointer[row].push_back(new Pit(row, col));
             }
             else if(tileAsString == "<"){
-                tilepointer[row].push_back(new Ramp(row, col));//TODO:potentaial leak of memory
+                tilepointer[row].push_back(new Ramp(row, col));
             }
 
 
@@ -84,6 +84,8 @@ Level::Level(const int height, const int width):height(height),width(width)
 
     placePortals(1, 1, 8, 8);
     placePortals(1, 8, 8, 1);
+
+    placeSwitchAndDoor(2, 2, 7, 7);
 
 }
 
@@ -122,7 +124,12 @@ void Level::placePortals(int row1, int col1, int row2, int col2) {
     tilepointer[row2][col2] = newPortal2;
 }
 
-void Level::placeSwitch(int row1, int col1, int row2, int col2) {
+void Level::placeSwitchAndDoor(int row1, int col1, int row2, int col2) { //TODO: Aufteilen, damit mehrere switches, gleiche tür
     Tile* newSwitch = new Switch(row1, col1);
-    Tile* newDoor = new Door(row2, col2);//TODO: potential leak of memory
+    Tile* newDoor = new Door(row2, col2);
+
+    dynamic_cast<Switch*>(newSwitch)->attach(dynamic_cast<Passive*>(newDoor));
+
+    tilepointer[row1][col1] = newSwitch;
+    tilepointer[row2][col2] = newDoor;
 }

@@ -2,17 +2,26 @@
 
 Door::Door(int row, int column): Passive(), Tile(row, column)
 {
-
+    this->texture = "X";
 }
 
 
 
 void Door::notify(Active *source){
-
+    if (this->texture == "X") {
+        this->texture = "/";
+    }
+    else {
+        this->texture = "X";
+    }
 }
 
 Tile* Door::onEnter(Tile *fromTile, Character *who){
-    return this;//TODO: Muss geändert werden, warscheinlich was mit switch und notify
+    if (this->texture == "X") {
+        return nullptr;
+    }
+
+    return this;
 }
 
 Tile* Door::onLeave(Tile *destTile, Character *who){

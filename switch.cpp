@@ -6,8 +6,10 @@ Switch::Switch(int row, int column): Active(), Tile(row, column)
 }
 
 Tile* Switch::onEnter(Tile *fromTile, Character *who){
-    return this; //TODO: Muss geändert werden, sehr warscheinlich
+    this->activate();
+
+    return this;
 }
 Tile* Switch::onLeave(Tile *destTile, Character *who){
-    return this;//TODO: Also this muss geändert werden
+    return this;
 }

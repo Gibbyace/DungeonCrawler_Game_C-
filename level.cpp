@@ -10,6 +10,10 @@
 #include "pit.h"
 #include "ramp.h"
 
+Level::Level(const Level& level) : height(level.height), width(level.width) {
+
+}
+
 const vector<vector<Tile *> > &Level::getTilepointer() const
 {
     return tilepointer;

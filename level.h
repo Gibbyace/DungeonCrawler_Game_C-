@@ -10,12 +10,13 @@ class Level
 {
     vector<vector<Tile*>> tilepointer;
     vector<Character*> characterpointer;
-    const int height;
-    const int width;
+    int height;
+    int width;
 
 
 public:
     Level(const int height, const int width);
+    Level(const Level& level);
     ~Level();
     Tile *getTile(int row, int col);
     const Tile *getTile(int row, int col) const;

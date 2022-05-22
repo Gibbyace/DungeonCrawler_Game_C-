@@ -11,7 +11,88 @@
 #include "ramp.h"
 
 Level::Level(const Level& level) : height(level.height), width(level.width) {
+    int charRow, charCol;
 
+    for (int row = 0; row < height; row++) {
+        vector<Tile*> newRow;
+
+        for (int col = 0; col < width; col++) {
+            newRow.push_back(nullptr);
+        }
+
+        this->tilepointer.push_back(newRow);
+    }
+
+
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            if (this->tilepointer[row][col] != nullptr) {
+                continue;
+            }
+
+            Tile* tile = level.getTilepointer()[row][col];
+
+            if (dynamic_cast<Door*>(tile) != nullptr) {
+                tilepointer[row][col] = new Door(row, col);
+            }
+            else if (dynamic_cast<Floor*>(tile) != nullptr) {
+                tilepointer[row][col] = new Floor(row, col);
+            }
+            else if (dynamic_cast<Pit*>(tile) != nullptr) {
+                tilepointer[row][col] = new Pit(row, col);
+            }
+            else if (dynamic_cast<Portal*>(tile) != nullptr) {
+                Portal* tileAsPortal = dynamic_cast<Portal*>(tile);
+
+                int destRow = tileAsPortal->getDestination()->getRow();
+                int destCol = tileAsPortal->getDestination()->getColumn();
+
+                Portal* newPortal = new Portal(row, col);
+                Tile* destPortal = new Portal(destRow, destCol);
+
+                dynamic_cast<Portal*>(destPortal)->setDestination(newPortal);
+                dynamic_cast<Portal*>(newPortal)->setDestination(destPortal);
+
+                tilepointer[destRow][destCol] = destPortal;
+                tilepointer[row][col] = newPortal;
+            }
+            else if (dynamic_cast<Ramp*>(tile) != nullptr) {
+                tilepointer[row][col] = new Ramp(row, col);
+            }
+            else if (dynamic_cast<Switch*>(tile) != nullptr) {
+                Switch* tileAsSwitch = dynamic_cast<Switch*>(tile);
+                vector<Passive*> observers = tileAsSwitch->getObservers();
+
+                Switch* newSwitch = new Switch(row, col);
+
+                for (unsigned i = 0; i < observers.size(); i++) {
+                    if (dynamic_cast<Door*>(observers[i]) != nullptr) {
+                        int obsRow = dynamic_cast<Tile*>(observers[i])->getRow();
+                        int obsCol = dynamic_cast<Tile*>(observers[i])->getColumn();
+
+                        Door* newDoor = new Door(obsRow, obsCol);
+
+                        tilepointer[obsRow][obsCol] = newDoor;
+                        newSwitch->attach(newDoor);
+                    }
+                }
+
+                tilepointer[row][col] = newSwitch;
+            }
+            else if (dynamic_cast<Wall*>(tile) != nullptr) {
+                tilepointer[row][col] = new Wall(row, col);
+            }
+
+            if (tile->hasCharacter()) {
+                charRow = row;
+                charCol = col;
+            }
+        }
+    }
+
+    Character* new_character = new Character();
+    placeCharacter(new_character, charRow, charCol);
+    characterpointer.push_back(new_character);
 }
 
 const vector<vector<Tile *> > &Level::getTilepointer() const

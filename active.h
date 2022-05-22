@@ -2,6 +2,7 @@
 #define ACTIVE_H
 #include <vector>
 
+using namespace  std;
 
 class Passive;
 
@@ -9,7 +10,8 @@ class Passive;
 //bestitzt pointer auf sich selbst
 class Active
 {
-    std::vector<Passive*> observers;
+protected:
+    vector<Passive*> observers;
 
 public:
     Active();
@@ -17,6 +19,7 @@ public:
     void detach(Passive*); //gegenteil
     void activate();
 
+    vector<Passive *> getObservers() const;
 };
 
 #endif // ACTIVE_H

@@ -13,7 +13,7 @@ public:
     //Implementation von notify
     virtual ~Switch() override = default;
 
-    //? Do we need this here?
+    //Todo: Do we need this here?
     Tile *getDestination() const;
     void setDestination(Tile *newDestination);
 };

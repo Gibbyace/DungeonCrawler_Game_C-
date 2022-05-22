@@ -1,5 +1,11 @@
 ﻿#include "active.h"
 #include "passive.h"
+
+vector<Passive *> Active::getObservers() const
+{
+    return observers;
+}
+
 Active::Active()
 {
 

@@ -6,7 +6,12 @@
 DungeonCrawler::DungeonCrawler()
 {
     this->abstractUI = new TerminalUI();
-    Level* level = new Level(10, 10);
+
+    //Level* level = new Level(10, 10);
+    Level* tmp = new Level(10, 10);
+    Level* level = new Level(*tmp);
+    delete tmp;
+
     this->levels.push_back(level);
 }
 

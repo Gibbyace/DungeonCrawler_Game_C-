@@ -95,6 +95,42 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
     characterpointer.push_back(new_character);
 }
 
+Level& Level::operator=(const Level& rhs) {
+    for (unsigned i = 0; i < characterpointer.size(); i++) {
+        delete characterpointer[i];
+    }
+
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            delete tilepointer[row][col];
+        }
+    }
+
+    tilepointer = {};
+    characterpointer = {};
+
+    for (int row = 0; row < rhs.height; row++) {
+        vector<Tile*> newRow;
+
+        for (int col = 0; col < rhs.width; col++) {
+            newRow.push_back(rhs.tilepointer[row][col]);
+        }
+
+        tilepointer.push_back(newRow);
+    }
+
+    for (unsigned i = 0; i < rhs.characterpointer.size(); i++) {
+        characterpointer.push_back(rhs.characterpointer[i]);
+    }
+
+    //*tilepointer = *(rhs.tilepointer);
+    //characterpointer = (rhs.characterpointer);
+    height = (rhs.height);
+    width = (rhs.width);
+
+    return *this;
+}
+
 const vector<vector<Tile *> > &Level::getTilepointer() const
 {
     return tilepointer;

@@ -17,6 +17,7 @@ class Level
 public:
     Level(const int height, const int width);
     Level(const Level& level);
+    Level& operator=(const Level& rhs);
     ~Level();
     Tile *getTile(int row, int col);
     const Tile *getTile(int row, int col) const;

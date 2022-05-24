@@ -7,9 +7,9 @@ DungeonCrawler::DungeonCrawler()
 {
     this->abstractUI = new TerminalUI();
 
-    Level* level = new Level(10, 10);
+    //Level* level = new Level(10, 10);
 
-    /*
+
     //Kopierkonstruktor testen
     Level* tmp = new Level(10, 10);
     Level* level = new Level(*tmp);
@@ -19,7 +19,7 @@ DungeonCrawler::DungeonCrawler()
     tmp = new Level(10, 10);
     *level = *tmp;
     delete tmp;
-    */
+
 
     this->levels.push_back(level);
 }

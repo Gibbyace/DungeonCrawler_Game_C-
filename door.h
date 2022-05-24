@@ -4,13 +4,9 @@
 #include "passive.h"
 #include "tile.h"
 
-//TODO: isOpen muss sich irgendwie zur laufzeit ändern;
 
 class Door : public Passive, public Tile
 {
-private:
-    bool isOpen = false;
-
 public:
     Door(int row, int column);
     virtual void notify(Active* source) override;

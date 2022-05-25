@@ -10,12 +10,15 @@ class Level
 {
     vector<vector<Tile*>> tilepointer;
     vector<Character*> characterpointer;
-    const int height;
-    const int width;
+    int height;
+    int width;
 
 
 public:
+    friend void swap(Level& lhs, Level& rhs);
     Level(const int height, const int width);
+    Level(const Level& level);
+    Level& operator=(const Level rhs);
     ~Level();
     Tile *getTile(int row, int col);
     const Tile *getTile(int row, int col) const;
@@ -27,6 +30,7 @@ public:
 protected:
     void placeCharacter(Character *c, int row, int col);
     void placePortals(int row1, int col1, int row2, int col2);
+    void placeSwitchAndDoor(int row1, int col1, int row2, int col2);
 };
 
 #endif // LEVEL_H

@@ -6,7 +6,21 @@
 DungeonCrawler::DungeonCrawler()
 {
     this->abstractUI = new TerminalUI();
-    Level* level = new Level(6, 6);
+
+    //Level* level = new Level(10, 10);
+
+
+    //Kopierkonstruktor testen
+    Level* tmp = new Level(10, 10);
+    Level* level = new Level(*tmp);
+    delete tmp;
+
+    //Zuweisungsoperator testen
+    tmp = new Level(10, 10);
+    *level = *tmp;
+    delete tmp;
+
+
     this->levels.push_back(level);
 }
 
@@ -25,6 +39,7 @@ void DungeonCrawler::play()
     do{
         Level* currentLevel = levels[0];
         Character* character = currentLevel->getCharacterpointer()[0];
+        character->setController(dynamic_cast<Controller*>(abstractUI));
 
         abstractUI->draw(currentLevel);
 

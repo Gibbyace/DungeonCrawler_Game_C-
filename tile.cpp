@@ -23,7 +23,7 @@ Tile::Tile(const int row, const int column) : row(row), column(column)
 
 string Tile::getTexture(){
     if (this->hasCharacter() == true) {
-        return "X";
+        return "@";
     }
 
     return texture;

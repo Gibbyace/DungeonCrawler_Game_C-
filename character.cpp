@@ -16,25 +16,16 @@ Tile *Character::getTile() const
     return tile;
 }
 
+void Character::setController(Controller *value)
+{
+    controller = value;
+}
+
 Character::Character()
 {
 
 }
 
-int Character::move(){
-    while (true) {
-        char input;
-
-        cin >> input;
-
-        if (input >= 48 && input <= 58) {
-            return input - 48;
-        }
-        else {
-            cout << "This is not an option" << endl << endl;
-            return 5;
-        }
-
-
-    }
+int Character::move() {
+    return controller->move();
 }

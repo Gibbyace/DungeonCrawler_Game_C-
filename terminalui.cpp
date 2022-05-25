@@ -34,3 +34,19 @@ void TerminalUI::printDirectionOptions()
     cout << "0: Close Game" << endl;
     cout << endl;
 }
+
+int TerminalUI::move(){
+    while (true) {
+        char input;
+
+        cin >> input;
+
+        if (input >= 48 && input <= 58) {
+            return input - 48;
+        }
+        else {
+            cout << "This is not an option" << endl << endl;
+            return 5;
+        }
+    }
+}

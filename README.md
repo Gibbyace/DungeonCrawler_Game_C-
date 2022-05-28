@@ -25,7 +25,7 @@ Gibt auch tausend andere Möglichkeiten, aber so machen wir das
 
 ## Felder
 - . normales Feld
-- # Wand
+- \# Wand
 - O Portal
 - _ Grube
 - < Rampe

@@ -2,12 +2,14 @@
 #define DUNGEONCRAWLER_H
 #include "abstractui.h"
 #include "level.h"
+#include "graphicalui.h"
 
 
 class DungeonCrawler
 {
 private:
     AbstractUI* abstractUI;
+    GraphicalUI* graphicalUI; //NEU
     vector<Level*> levels;
 
 public:
@@ -15,7 +17,7 @@ public:
     ~DungeonCrawler();
     //Für character move aufrufen
     //dann wie in 1.4 ablauf
-    void play();
+    /*void play();*/
     Tile* determineDestinationTile(Level* level, Tile* tileWithCharacter, int direction);
 };
 

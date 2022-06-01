@@ -5,7 +5,7 @@
 
 DungeonCrawler::DungeonCrawler()
 {
-    this->abstractUI = new TerminalUI();
+    this->abstractUI = new TerminalUI(); //Mit Graphical UI wird gibt es speicher probleme
 
     //Level* level = new Level(10, 10);
 
@@ -32,7 +32,7 @@ DungeonCrawler::~DungeonCrawler() {
     }
 }
 
-void DungeonCrawler::play()
+/*void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
@@ -57,7 +57,7 @@ void DungeonCrawler::play()
         }
     }
     while(true);
-}
+}*/ //steht so in der Aufgabe
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)
 {

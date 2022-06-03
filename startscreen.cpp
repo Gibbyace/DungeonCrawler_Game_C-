@@ -9,6 +9,7 @@ StartScreen::StartScreen(QWidget *parent) :
     ui->setupUi(this);
     QWidget::setStyleSheet(("Background-color: black;"));
 
+    //TODO: Laden bitte pers graphical UI umändern
     QPixmap pixmapTarget = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/startscreen.png");
     ui->label->setPixmap(pixmapTarget);
 

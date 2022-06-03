@@ -3,7 +3,7 @@
  <comment/>
  <exportmacro/>
  <class>GraphicalUI</class>
- <widget class="QDialog" name="GraphicalUI">
+ <widget class="QMainWindow" name="GraphicalUI">
   <property name="geometry">
    <rect>
     <x>0</x>

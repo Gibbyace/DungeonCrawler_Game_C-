@@ -1,8 +1,15 @@
 #include "graphicalui.h"
 #include "ui_graphicalui.h"
+#include <startscreen.h>
+
+/*GraphicalUI::GraphicalUI() {
+    cout << "Wie gehts die?";
+    StartScreen w;
+    w.show();
+}*/
 
 GraphicalUI::GraphicalUI(QWidget *parent) :
-    QDialog(parent),
+    QMainWindow(parent),
     ui(new Ui::GraphicalUI)
 {
     ui->setupUi(this);
@@ -11,4 +18,12 @@ GraphicalUI::GraphicalUI(QWidget *parent) :
 GraphicalUI::~GraphicalUI()
 {
     delete ui;
+}
+
+void GraphicalUI::draw(Level *level) {
+
+}
+
+int GraphicalUI::move() {
+    return 5;
 }

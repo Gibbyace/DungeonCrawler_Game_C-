@@ -1,20 +1,27 @@
 ﻿#ifndef GRAPHICALUI_H
 #define GRAPHICALUI_H
 
-#include <QDialog>
+#include <QMainWindow>
+#include <abstractui.h>
+#include <controller.h>
+#include <level.h>
 
 namespace Ui {
 class GraphicalUI;
 }
 
-class GraphicalUI : public QDialog
+class GraphicalUI : public QMainWindow, public AbstractUI, public Controller
 {
     Q_OBJECT
 
 public:
-    explicit GraphicalUI(QWidget *parent = nullptr);
-    //Public slot soll hier rein für button push
+    GraphicalUI(QWidget *parent = nullptr);
     ~GraphicalUI();
+
+    void draw(Level *level) override;
+    int move() override;
+
+    //Public slot soll hier rein für button push
 
 private:
     Ui::GraphicalUI *ui;

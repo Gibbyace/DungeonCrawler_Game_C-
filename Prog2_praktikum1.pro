@@ -48,5 +48,4 @@ HEADERS += \
    wall.h
 
 FORMS += \
-   graphicalui.ui \
    startscreen.ui

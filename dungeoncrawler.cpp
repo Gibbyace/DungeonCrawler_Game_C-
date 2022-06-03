@@ -5,6 +5,7 @@
 
 DungeonCrawler::DungeonCrawler()
 {
+    cout << "Hallo, ich bin der DungeonCrawler";
     this->abstractUI = new GraphicalUI();
 
     //Level* level = new Level(10, 10);

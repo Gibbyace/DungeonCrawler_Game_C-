@@ -44,8 +44,10 @@ HEADERS += \
    startscreen.h \
    switch.h \
    terminalui.h \
+   testestes.h \
    tile.h \
    wall.h
 
 FORMS += \
+   graphicalui.ui \
    startscreen.ui

@@ -5,16 +5,22 @@
 #include <abstractui.h>
 #include <controller.h>
 
+namespace Ui {
+class GraphicalUI;
+}
+
 class GraphicalUI : public QMainWindow, public AbstractUI, public Controller
 {
     Q_OBJECT
+
 public:
     explicit GraphicalUI(QWidget *parent = nullptr);
-    void draw(Level* level) override;
+    ~GraphicalUI();
+    void draw(Level *level) override;
     int move() override;
 
-signals:
-
+private:
+    Ui::GraphicalUI *ui;
 };
 
 #endif // GRAPHICALUI_H

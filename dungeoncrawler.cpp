@@ -5,11 +5,13 @@
 
 DungeonCrawler::DungeonCrawler()
 {
-    cout << "Hallo, ich bin der DungeonCrawler";
+    //GraphicalUI graphicalui;
+    //graphicalui.show();
+
     this->abstractUI = new GraphicalUI();
+    /*GraphicalUI.show();*/
 
     //Level* level = new Level(10, 10);
-
 
     //Kopierkonstruktor testen
     Level* tmp = new Level(10, 10);
@@ -20,7 +22,6 @@ DungeonCrawler::DungeonCrawler()
     tmp = new Level(10, 10);
     *level = *tmp;
     delete tmp;
-
 
     this->levels.push_back(level);
 }

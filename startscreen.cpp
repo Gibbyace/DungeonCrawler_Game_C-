@@ -1,6 +1,6 @@
 ﻿#include "startscreen.h"
 #include "ui_startscreen.h"
-
+//#include <graphicalui.h>
 StartScreen::StartScreen(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::StartScreen)
@@ -32,7 +32,9 @@ StartScreen::~StartScreen()
 
 void StartScreen::on_pushButton_clicked()
 {
-
-    ui->pushButton->hide();
+    //ui->pushButton->hide();
     this->hide();
+
+    /*GraphicalUI graphicalui = GraphicalUI(this->parent());
+    graphicalui.show();*/
 }

@@ -5,11 +5,7 @@
 
 DungeonCrawler::DungeonCrawler()
 {
-    //GraphicalUI graphicalui;
-    //graphicalui.show();
-
     this->abstractUI = new GraphicalUI();
-    /*GraphicalUI.show();*/
 
     //Level* level = new Level(10, 10);
 

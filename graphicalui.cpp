@@ -11,7 +11,7 @@ GraphicalUI::GraphicalUI(QWidget *parent) :
     StartScreen startscreen;
     startscreen.exec();
 
-    this->show();
+    //this->show();
 }
 
 GraphicalUI::~GraphicalUI()
@@ -25,4 +25,8 @@ void GraphicalUI::draw(Level *level) {
 
 int GraphicalUI::move() {
     return 5;
+}
+
+void GraphicalUI::hide_startscreen_and_show_graphicalui() {
+    cout << "Hey, ich wurde aufgerufen!";
 }

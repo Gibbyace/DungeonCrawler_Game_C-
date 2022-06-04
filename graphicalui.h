@@ -19,6 +19,9 @@ public:
     void draw(Level *level) override;
     int move() override;
 
+public slots:
+    void hide_startscreen_and_show_graphicalui();
+
 private:
     Ui::GraphicalUI *ui;
 };

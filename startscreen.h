@@ -7,6 +7,8 @@ namespace Ui {
 class StartScreen;
 }
 
+class GraphicalUI;
+
 class StartScreen : public QDialog
 {
     Q_OBJECT

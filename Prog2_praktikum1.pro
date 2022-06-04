@@ -44,7 +44,6 @@ HEADERS += \
    startscreen.h \
    switch.h \
    terminalui.h \
-   testestes.h \
    tile.h \
    wall.h
 

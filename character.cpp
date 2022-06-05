@@ -21,11 +21,18 @@ void Character::setController(Controller *value)
     controller = value;
 }
 
+int Character::getMoveDirection() const
+{
+    return moveDirection;
+}
+
 Character::Character()
 {
 
 }
 
 int Character::move() {
-    return controller->move();
+    moveDirection = controller->move();
+
+    return moveDirection;
 }

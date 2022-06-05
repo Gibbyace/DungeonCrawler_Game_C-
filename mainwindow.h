@@ -17,9 +17,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(Level* level, GraphicalUI *parent = nullptr);
     ~MainWindow();
+    void draw(Level* level);
 
 public slots:
-    void testslot();
 
 private:
     Ui::MainWindow *ui;

@@ -5,12 +5,14 @@
 #include <abstractui.h>
 #include <controller.h>
 #include <startscreen.h>
+#include <mainwindow.h>
 
 namespace Ui {
 class GraphicalUI;
 }
 
 class StartScreen;
+class MainWindow;
 
 #include <array>
 
@@ -46,6 +48,7 @@ public slots:
 
 private:
     Ui::GraphicalUI *ui;
+    MainWindow* mainwindow;
     int lastInput;
     bool inputProcessed = false;
 };

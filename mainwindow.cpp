@@ -21,6 +21,11 @@ MainWindow::MainWindow(Level* level, GraphicalUI *parent) :
     ui->label->setPixmap(pixmapTarget);
     ui->label->setScaledContents(true);
 
+    ui->characterLabel->setScaledContents(true);
+    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_2.png"));
+    ui->characterLabel->setMinimumSize(30, 30);
+    ui->characterLabel->setMaximumSize(30, 30);
+
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getWidth(); col++) {
             QPixmap floorPixmap;
@@ -61,12 +66,8 @@ MainWindow::MainWindow(Level* level, GraphicalUI *parent) :
             ui->gridLayout->addWidget(newTile, row, col);
 
             if (level->getTilepointer()[row][col]->hasCharacter()) {
-                QLabel* character = new QLabel();
-                character->setScaledContents(true);
-                character->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_2.png"));
-                character->setMinimumSize(30, 30);
-                character->setMaximumSize(30, 30);
-                character->setParent(newTile);
+                //QLabel* character = new QLabel();
+                ui->characterLabel->setParent(newTile);
             }
         }
     }
@@ -92,8 +93,52 @@ MainWindow::MainWindow(Level* level, GraphicalUI *parent) :
     connect(ui->centerbutton, &QPushButton::clicked, [parent](int direction) {parent->setLastInput(5);});
 }
 
-void MainWindow::testslot() {
-    cout << "Warte, das geht?!";
+void MainWindow::draw(Level* level) {
+    for (int row = 0; row < level->getHeight(); row++) {
+        for (int col = 0; col < level->getHeight(); col++) {
+            if (level->getTilepointer()[row][col]->hasCharacter()) {
+                QWidget* parentForCharacter = ui->gridLayout->itemAtPosition(row, col)->widget();
+
+                //delete ui->characterLabel;
+                //ui->characterLabel = new QLabel();
+
+                //ui->characterLabel->setScaledContents(true);
+                //ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_2.png"));
+                //ui->characterLabel->setMinimumSize(30, 30);
+                //ui->characterLabel->setMaximumSize(30, 30);
+
+                //ui->characterLabel->setParent(parentForCharacter);
+                ui->characterLabel->raise();
+
+                int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
+
+                if (characterMoveDirection == 7) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/back/char_back_1.png"));
+                }
+                else if (characterMoveDirection == 8) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/back/char_back_2.png"));
+                }
+                else if (characterMoveDirection == 9) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/back/char_back_3.png"));
+                }
+                else if (characterMoveDirection == 6) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/right/char_right_1.png"));
+                }
+                else if (characterMoveDirection == 3) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_1.png"));
+                }
+                else if (characterMoveDirection == 2) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_2.png"));
+                }
+                else if (characterMoveDirection == 1) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_3.png"));
+                }
+                else if (characterMoveDirection == 4) {
+                    ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/left/char_left_2.png"));
+                }
+            }
+        }
+    }
 }
 
 MainWindow::~MainWindow()

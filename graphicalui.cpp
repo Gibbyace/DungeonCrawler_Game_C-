@@ -12,7 +12,7 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 
     textureloading();
 
-    MainWindow* mainwindow = new MainWindow(level, this);
+    mainwindow = new MainWindow(level, this);
     mainwindow->show();
 
     /*StartScreen startscreen = StartScreen(this, parent);
@@ -24,10 +24,11 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 GraphicalUI::~GraphicalUI()
 {
     delete ui;
+    delete mainwindow;
 }
 
 void GraphicalUI::draw(Level *level) {
-
+    mainwindow->draw(level);
 }
 
 int GraphicalUI::move() {

@@ -19,7 +19,7 @@ class GraphicalUI : public QMainWindow, public AbstractUI, public Controller
     Q_OBJECT
 
 public:
-    explicit GraphicalUI(QWidget *parent = nullptr);
+    explicit GraphicalUI(Level* level, QWidget *parent = nullptr);
     ~GraphicalUI();
     void draw(Level *level) override;
     int move() override;

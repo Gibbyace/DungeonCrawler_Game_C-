@@ -1,12 +1,18 @@
 #include "graphicalui.h"
 #include "ui_graphicalui.h"
 #include <startscreen.h>
+#include <mainwindow.h>
 
-GraphicalUI::GraphicalUI(QWidget *parent) :
+GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GraphicalUI)
 {
     ui->setupUi(this);
+
+    textureloading();
+
+    MainWindow* mainwindow = new MainWindow(level);
+    mainwindow->show();
 
     /*StartScreen startscreen = StartScreen(this, parent);
     startscreen.exec();*/

@@ -17,14 +17,14 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>180</y>
-      <width>221</width>
-      <height>17</height>
+      <x>30</x>
+      <y>150</y>
+      <width>691</width>
+      <height>191</height>
      </rect>
     </property>
     <property name="text">
-     <string>Hier landet später unser Spiel</string>
+     <string>Das ist das Fenster, das vom GraphicalUI erzeugt wird. Ich glaube, das brauchen wir später nicht mehr.</string>
     </property>
    </widget>
   </widget>

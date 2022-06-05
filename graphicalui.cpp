@@ -11,7 +11,7 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 
     textureloading();
 
-    MainWindow* mainwindow = new MainWindow(level);
+    MainWindow* mainwindow = new MainWindow(level, this);
     mainwindow->show();
 
     /*StartScreen startscreen = StartScreen(this, parent);
@@ -35,6 +35,10 @@ int GraphicalUI::move() {
 
 void GraphicalUI::hide_startscreen_and_show_graphicalui() {
     cout << "Hey, ich wurde aufgerufen!";
+}
+
+void GraphicalUI::setLastInput(int direction) {
+    cout << direction;
 }
 
 void GraphicalUI::textureloading() {

@@ -40,7 +40,9 @@ public:
     array <QPixmap, 3> char_right;
 
 public slots:
+    void setLastInput(int direction);
     void hide_startscreen_and_show_graphicalui();
+
 
 private:
     Ui::GraphicalUI *ui;

@@ -1,6 +1,5 @@
 #include "graphicalui.h"
 #include "ui_graphicalui.h"
-#include "startscreen.h"
 
 GraphicalUI::GraphicalUI(QWidget *parent) :
     QMainWindow(parent),
@@ -8,10 +7,10 @@ GraphicalUI::GraphicalUI(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    StartScreen startscreen;
-    startscreen.exec();
+    /*StartScreen startscreen = StartScreen(this, parent);
+    startscreen.exec();*/
 
-    //this->show();
+    this->show();
 }
 
 GraphicalUI::~GraphicalUI()

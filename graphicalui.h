@@ -4,10 +4,13 @@
 #include <QMainWindow>
 #include <abstractui.h>
 #include <controller.h>
+#include <startscreen.h>
 
 namespace Ui {
 class GraphicalUI;
 }
+
+class StartScreen;
 
 class GraphicalUI : public QMainWindow, public AbstractUI, public Controller
 {

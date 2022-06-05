@@ -14,7 +14,7 @@ class StartScreen : public QDialog
     Q_OBJECT
 
 public:
-    explicit StartScreen(QWidget *parent = nullptr);
+    explicit StartScreen(/*GraphicalUI* graphicalui, */QWidget *parent = nullptr);
     ~StartScreen();
 
 private slots:

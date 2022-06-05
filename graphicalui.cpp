@@ -10,15 +10,15 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    textureloading();
+    //textureloading();
+
+    startscreen = new StartScreen(this);
+    startscreen->exec();
 
     mainwindow = new MainWindow(level, this);
     mainwindow->show();
 
-    /*StartScreen startscreen = StartScreen(this, parent);
-    startscreen.exec();*/
-
-    this->show();
+    //this->show();
 }
 
 GraphicalUI::~GraphicalUI()
@@ -43,8 +43,16 @@ int GraphicalUI::move() {
     return 5;
 }
 
-void GraphicalUI::hide_startscreen_and_show_graphicalui() {
-    cout << "Hey, ich wurde aufgerufen!";
+void GraphicalUI::hide_startscreen_and_show_mainwindow() {
+    qDebug("Heyyy, der hide_startscreen_and_show_mainwindow-Slot wurde aufgerufen!");
+    startscreen->hide();
+
+    /*
+     * eigentlich sollte das mainwindow hier aktiviert werden,
+     * dann entsteht aber ein SEGFAULT,
+     * also ist das momentan noch im Konstruktor
+    */
+    //mainwindow->show();
 }
 
 void GraphicalUI::setLastInput(int direction) {
@@ -98,10 +106,10 @@ void GraphicalUI::textureloading() {
     char_right[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/right/char_right_2.png");
     char_right[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/right/char_right_3.png");
 
-    startscreen[0] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/bloody_frame.png");
-    startscreen[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/new_game_button.png");
-    startscreen[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/pit.png");
-    startscreen[3] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/ramp.png");
-    startscreen[4] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/startscreen.png");
-    startscreen[5] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/switch.png");
+    startscreen_img[0] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/bloody_frame.png");
+    startscreen_img[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/new_game_button.png");
+    startscreen_img[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/pit.png");
+    startscreen_img[3] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/ramp.png");
+    startscreen_img[4] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/startscreen.png");
+    startscreen_img[5] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/switch.png");
 }

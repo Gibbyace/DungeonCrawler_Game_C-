@@ -27,7 +27,7 @@ public:
     int move() override;
     void textureloading();
 
-    array <QPixmap, 6> startscreen;
+    array <QPixmap, 6> startscreen_img;
 
     array <QPixmap, 8> arrow;
     array <QPixmap, 2> door;
@@ -43,13 +43,13 @@ public:
 
 public slots:
     void setLastInput(int direction);
-    void hide_startscreen_and_show_graphicalui();
-
+    void hide_startscreen_and_show_mainwindow();
 
 private:
     Ui::GraphicalUI *ui;
     MainWindow* mainwindow;
-    int lastInput;
+    StartScreen* startscreen;
+    int lastInput = 5;
     bool inputProcessed = false;
 };
 

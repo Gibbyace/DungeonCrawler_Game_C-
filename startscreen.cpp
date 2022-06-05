@@ -1,9 +1,8 @@
 ﻿#include "startscreen.h"
 #include "ui_startscreen.h"
-//#include <graphicalui.h>
 #include <dungeoncrawler.h>
 
-StartScreen::StartScreen(/*GraphicalUI* graphicalui, */QWidget *parent) :
+StartScreen::StartScreen(GraphicalUI *parent) :
     QDialog(parent),
     ui(new Ui::StartScreen)
 {
@@ -23,7 +22,8 @@ StartScreen::StartScreen(/*GraphicalUI* graphicalui, */QWidget *parent) :
     ui->pushButton->setIcon(pixmapTarget2);
 
     //wie bekommen wir hier unser GraphicalUI-Objekt rein?
-    //connect(ui->pushButton, &QPushButton::clicked, this, &GraphicalUI::hide_startscreen_and_show_graphicalui);
+    connect(ui->pushButton, &QPushButton::clicked, parent, &GraphicalUI::hide_startscreen_and_show_mainwindow);
+    //connect(ui->pushButton, &QPushButton::clicked, [parent]() {parent->hide_startscreen_and_show_mainwindow();});
 }
 
 StartScreen::~StartScreen()
@@ -32,8 +32,8 @@ StartScreen::~StartScreen()
 
 }
 
-void StartScreen::on_pushButton_clicked()
+/*void StartScreen::on_pushButton_clicked()
 {
     //ui->pushButton->hide();
     this->hide();
-}
+}*/

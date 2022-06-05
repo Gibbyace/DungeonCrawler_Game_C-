@@ -35,7 +35,7 @@ void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
-    do{
+    do {
         Level* currentLevel = levels[0];
         Character* character = currentLevel->getCharacterpointer()[0];
         character->setController(dynamic_cast<Controller*>(abstractUI));
@@ -55,7 +55,7 @@ void DungeonCrawler::play()
             tileWithCharacter->moveTo(destinationTile, character);
         }
     }
-    while(true);
+    while (true);
 }
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)

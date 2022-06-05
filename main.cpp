@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     QApplication application(argc, argv);
 
     DungeonCrawler Game1 = DungeonCrawler();
-    /*Game1.play();*/
+    Game1.play();
 
     return application.exec();
 

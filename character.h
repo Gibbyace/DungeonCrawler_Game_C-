@@ -12,6 +12,7 @@ class Character
 {
 private:
     string texture;
+    int moveDirection = 2;
     Tile* tile;
     Controller* controller;
 

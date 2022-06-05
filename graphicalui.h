@@ -47,6 +47,7 @@ public slots:
 private:
     Ui::GraphicalUI *ui;
     int lastInput;
+    bool inputProcessed = false;
 };
 
 #endif // GRAPHICALUI_H

@@ -59,6 +59,15 @@ MainWindow::MainWindow(Level* level, GraphicalUI *parent) :
             newTile->setMinimumSize(30, 30);
             newTile->setMaximumSize(30, 30);
             ui->gridLayout->addWidget(newTile, row, col);
+
+            if (level->getTilepointer()[row][col]->hasCharacter()) {
+                QLabel* character = new QLabel();
+                character->setScaledContents(true);
+                character->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_2.png"));
+                character->setMinimumSize(30, 30);
+                character->setMaximumSize(30, 30);
+                character->setParent(newTile);
+            }
         }
     }
 

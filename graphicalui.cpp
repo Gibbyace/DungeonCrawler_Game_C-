@@ -38,7 +38,7 @@ void GraphicalUI::hide_startscreen_and_show_graphicalui() {
 }
 
 void GraphicalUI::setLastInput(int direction) {
-    cout << direction;
+    lastInput = direction;
 }
 
 void GraphicalUI::textureloading() {

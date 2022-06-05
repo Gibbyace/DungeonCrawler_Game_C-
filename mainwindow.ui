@@ -44,10 +44,10 @@
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>100</y>
-      <width>254</width>
-      <height>161</height>
+      <x>700</x>
+      <y>20</y>
+      <width>81</width>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -66,63 +66,63 @@
         </size>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="toprightbutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="topbutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="leftbutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="centerbutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QPushButton" name="rightbutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="bottomleftbutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="bottombutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="2" column="2">
       <widget class="QPushButton" name="bottomrightbutton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>

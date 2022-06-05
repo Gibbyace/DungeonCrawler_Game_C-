@@ -62,6 +62,16 @@ MainWindow::MainWindow(Level* level, GraphicalUI *parent) :
         }
     }
 
+    ui->topleftbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_up_left.png"));
+    ui->topbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_up.png"));
+    ui->toprightbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_up_right.png"));
+    ui->rightbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_right.png"));
+    ui->bottomrightbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_down_right.png"));
+    ui->bottombutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_down.png"));
+    ui->bottomleftbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_down_left.png"));
+    ui->leftbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_left.png"));
+    ui->centerbutton->setIcon(QIcon("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_skip.png"));
+
     connect(ui->topleftbutton, &QPushButton::clicked, [parent](int direction) {parent->setLastInput(7);});
     connect(ui->topbutton, &QPushButton::clicked, [parent](int direction) {parent->setLastInput(8);});
     connect(ui->toprightbutton, &QPushButton::clicked, [parent](int direction) {parent->setLastInput(9);});

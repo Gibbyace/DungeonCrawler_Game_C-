@@ -17,7 +17,7 @@ public:
     ~DungeonCrawler();
     //Für character move aufrufen
     //dann wie in 1.4 ablauf
-    /*void play();*/
+    void play();
     Tile* determineDestinationTile(Level* level, Tile* tileWithCharacter, int direction);
 };
 

@@ -9,7 +9,6 @@ DungeonCrawler::DungeonCrawler()
 
     //Level* level = new Level(10, 10);
 
-
     //Kopierkonstruktor testen
     Level* tmp = new Level(10, 10);
     Level* level = new Level(*tmp);
@@ -19,7 +18,6 @@ DungeonCrawler::DungeonCrawler()
     tmp = new Level(10, 10);
     *level = *tmp;
     delete tmp;
-
 
     this->levels.push_back(level);
 }
@@ -32,7 +30,7 @@ DungeonCrawler::~DungeonCrawler() {
     }
 }
 
-/*void DungeonCrawler::play()
+void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
@@ -57,7 +55,7 @@ DungeonCrawler::~DungeonCrawler() {
         }
     }
     while(true);
-}*/ //steht so in der Aufgabe
+}
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)
 {

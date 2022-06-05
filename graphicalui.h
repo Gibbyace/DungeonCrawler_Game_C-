@@ -6,6 +6,7 @@
 #include <controller.h>
 #include <startscreen.h>
 #include <mainwindow.h>
+#include <texturecontainer.h>
 
 namespace Ui {
 class GraphicalUI;
@@ -14,7 +15,7 @@ class GraphicalUI;
 class StartScreen;
 class MainWindow;
 
-#include <array>
+#include <vector>
 
 class GraphicalUI : public QMainWindow, public AbstractUI, public Controller
 {
@@ -25,21 +26,7 @@ public:
     ~GraphicalUI();
     void draw(Level *level) override;
     int move() override;
-    void textureloading();
-
-    array <QPixmap, 6> startscreen_img;
-
-    array <QPixmap, 8> arrow;
-    array <QPixmap, 2> door;
-    array <QPixmap, 5> floor;
-    array <QPixmap, 3> portal;
-    array <QPixmap, 1> wall;
-    array <QPixmap, 2> zombie;
-
-    array <QPixmap, 3> char_front;
-    array <QPixmap, 3> char_back;
-    array <QPixmap, 3> char_left;
-    array <QPixmap, 3> char_right;
+    void loadTextures();
 
 public slots:
     void setLastInput(int direction);
@@ -49,6 +36,7 @@ private:
     Ui::GraphicalUI *ui;
     MainWindow* mainwindow;
     StartScreen* startscreen;
+    TextureContainer* texturecontainer;
     int lastInput = 5;
     bool inputProcessed = false;
 };

@@ -10,7 +10,7 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //textureloading();
+    loadTextures();
 
     startscreen = new StartScreen(this);
     startscreen->exec();
@@ -45,12 +45,14 @@ int GraphicalUI::move() {
 
 void GraphicalUI::hide_startscreen_and_show_mainwindow() {
     qDebug("Heyyy, der hide_startscreen_and_show_mainwindow-Slot wurde aufgerufen!");
+
     startscreen->hide();
 
     /*
      * eigentlich sollte das mainwindow hier aktiviert werden,
      * dann entsteht aber ein SEGFAULT,
      * also ist das momentan noch im Konstruktor
+     * TODO: Dafür sorgen, dass das mainwindow von hier erzeugt wird
     */
     //mainwindow->show();
 }
@@ -60,56 +62,6 @@ void GraphicalUI::setLastInput(int direction) {
     inputProcessed = false;
 }
 
-void GraphicalUI::textureloading() {
-    //von unten im uhrzeigersinn bis zu letzttem element skip
-    arrow[0] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_down.png");
-    arrow[1] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_down_left.png");
-    arrow[2] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_left.png");
-    arrow[3] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_up_left.png");
-    arrow[4] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_up.png");
-    arrow[5] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_up_right");
-    arrow[6] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_right.png");
-    arrow[7] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_down_right");
-    arrow[8] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/arrows/arrow_skip.png");
-
-    door[0] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/doors/door1.png");
-    door[1] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/doors/door2.png");
-
-    floor[0] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/floor/floor1.png");
-    floor[1] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/floor/floor2.png");
-    floor[2] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/floor/floor3.png");
-    floor[3] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/floor/floor4.png");
-    floor[4] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/floor/floor5.png");
-
-    portal[0] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/portal/portal1.png");
-    portal[1] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/portal/portal2.png");
-    portal[2] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/portal/portal3.png");
-
-    wall[0] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/wall/wall1.png");
-
-    zombie[0] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/zombie/zombie_left.png");
-    zombie[0] = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/zombie/zombie_right.png");
-
-    char_back[0] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/back/char_back_1.png");
-    char_back[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/back/char_back_2.png");
-    char_back[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/back/char_back_3.png");
-
-    char_front[0] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_1.png");
-    char_front[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_2.png");
-    char_front[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_3.png");
-
-    char_left[0] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/left/char_left_1.png");
-    char_left[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/left/char_left_2.png");
-    char_left[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/left/char_left_3.png");
-
-    char_right[0] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/right/char_right_1.png");
-    char_right[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/right/char_right_2.png");
-    char_right[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/right/char_right_3.png");
-
-    startscreen_img[0] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/bloody_frame.png");
-    startscreen_img[1] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/new_game_button.png");
-    startscreen_img[2] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/pit.png");
-    startscreen_img[3] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/ramp.png");
-    startscreen_img[4] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/startscreen.png");
-    startscreen_img[5] = QPixmap("..../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/switch.png");
+void GraphicalUI::loadTextures() {
+    texturecontainer = new TextureContainer();
 }

@@ -25,6 +25,7 @@ SOURCES += \
         startscreen.cpp \
         switch.cpp \
         terminalui.cpp \
+        texturecontainer.cpp \
         tile.cpp \
         wall.cpp
 
@@ -46,6 +47,7 @@ HEADERS += \
    startscreen.h \
    switch.h \
    terminalui.h \
+   texturecontainer.h \
    tile.h \
    wall.h
 

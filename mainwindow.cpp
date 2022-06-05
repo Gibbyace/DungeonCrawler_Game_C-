@@ -96,19 +96,26 @@ MainWindow::MainWindow(Level* level, GraphicalUI *parent) :
 void MainWindow::draw(Level* level) {
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getHeight(); col++) {
-            if (level->getTilepointer()[row][col]->hasCharacter()) {
+            Tile* currentTile = level->getTilepointer()[row][col];
+
+            if (dynamic_cast<Door*>(currentTile) != nullptr) {
+                QWidget* doorWidget = ui->gridLayout->itemAtPosition(row, col)->widget();
+
+                if (currentTile->getTexture() == "/") {
+                    dynamic_cast<QLabel*>(doorWidget)->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/doors/door2.png"));
+                }
+                else if (currentTile->getTexture() == "X") {
+                    dynamic_cast<QLabel*>(doorWidget)->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/doors/door1.png"));
+                }
+            }
+
+            if (currentTile->hasCharacter()) {
                 QWidget* parentForCharacter = ui->gridLayout->itemAtPosition(row, col)->widget();
 
-                //delete ui->characterLabel;
-                //ui->characterLabel = new QLabel();
-
-                //ui->characterLabel->setScaledContents(true);
-                //ui->characterLabel->setPixmap(QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/char/front/char_front_2.png"));
-                //ui->characterLabel->setMinimumSize(30, 30);
-                //ui->characterLabel->setMaximumSize(30, 30);
-
-                //ui->characterLabel->setParent(parentForCharacter);
+                //Komisch: Im Debugger erscheint der Character am richtigen Label als child, aber sichtbar ist er trotzdem nicht
+                ui->characterLabel->setParent(parentForCharacter);
                 ui->characterLabel->raise();
+                parentForCharacter->lower();
 
                 int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
 

@@ -12,10 +12,10 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 
     loadTextures();
 
-    startscreen = new StartScreen(this);
+    startscreen = new StartScreen(texturecontainer, this);
     startscreen->exec();
 
-    mainwindow = new MainWindow(level, this);
+    mainwindow = new MainWindow(level, texturecontainer, this);
     mainwindow->show();
 
     //this->show();
@@ -28,7 +28,7 @@ GraphicalUI::~GraphicalUI()
 }
 
 void GraphicalUI::draw(Level *level) {
-    mainwindow->draw(level);
+    mainwindow->draw(level, texturecontainer);
 }
 
 int GraphicalUI::move() {

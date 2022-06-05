@@ -9,13 +9,14 @@ class StartScreen;
 }
 
 class GraphicalUI;
+class TextureContainer;
 
 class StartScreen : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit StartScreen(GraphicalUI *parent = nullptr);
+    explicit StartScreen(TextureContainer* texturecontainer, GraphicalUI *parent = nullptr);
     ~StartScreen();
 
 private slots:

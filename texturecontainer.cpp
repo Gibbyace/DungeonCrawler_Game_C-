@@ -39,23 +39,93 @@ TextureContainer::TextureContainer()
     zombies.push_back(QPixmap(imageDirectory + "/zombie/zombie_left.png"));
     zombies.push_back(QPixmap(imageDirectory + "/zombie/zombie_right.png"));
 
-    char_backs.push_back(QPixmap(imageDirectory + "/char/back/char_back_1.png"));
-    char_backs.push_back(QPixmap(imageDirectory + "/char/back/char_back_2.png"));
-    char_backs.push_back(QPixmap(imageDirectory + "/char/back/char_back_3.png"));
+    charBacks.push_back(QPixmap(imageDirectory + "/char/back/char_back_1.png"));
+    charBacks.push_back(QPixmap(imageDirectory + "/char/back/char_back_2.png"));
+    charBacks.push_back(QPixmap(imageDirectory + "/char/back/char_back_3.png"));
 
-    char_fronts.push_back(QPixmap(imageDirectory + "/char/front/char_front_1.png"));
-    char_fronts.push_back(QPixmap(imageDirectory + "/char/front/char_front_2.png"));
-    char_fronts.push_back(QPixmap(imageDirectory + "/char/front/char_front_3.png"));
+    charFronts.push_back(QPixmap(imageDirectory + "/char/front/char_front_1.png"));
+    charFronts.push_back(QPixmap(imageDirectory + "/char/front/char_front_2.png"));
+    charFronts.push_back(QPixmap(imageDirectory + "/char/front/char_front_3.png"));
 
-    char_lefts.push_back(QPixmap(imageDirectory + "/char/left/char_left_1.png"));
-    char_lefts.push_back(QPixmap(imageDirectory + "/char/left/char_left_2.png"));
-    char_lefts.push_back(QPixmap(imageDirectory + "/char/left/char_left_3.png"));
+    charLefts.push_back(QPixmap(imageDirectory + "/char/left/char_left_1.png"));
+    charLefts.push_back(QPixmap(imageDirectory + "/char/left/char_left_2.png"));
+    charLefts.push_back(QPixmap(imageDirectory + "/char/left/char_left_3.png"));
 
-    char_rights.push_back(QPixmap(imageDirectory + "/char/right/char_right_1.png"));
-    char_rights.push_back(QPixmap(imageDirectory + "/char/right/char_right_2.png"));
-    char_rights.push_back(QPixmap(imageDirectory + "/char/right/char_right_3.png"));
+    charRights.push_back(QPixmap(imageDirectory + "/char/right/char_right_1.png"));
+    charRights.push_back(QPixmap(imageDirectory + "/char/right/char_right_2.png"));
+    charRights.push_back(QPixmap(imageDirectory + "/char/right/char_right_3.png"));
 
     backgrounds.push_back(QPixmap(imageDirectory + "/bloody_frame.png"));
     backgrounds.push_back(QPixmap(imageDirectory + "/new_game_button.png"));
     backgrounds.push_back(QPixmap(imageDirectory + "/startscreen.png"));
+}
+
+vector<QPixmap> TextureContainer::getBackgrounds() const
+{
+    return backgrounds;
+}
+
+vector<QPixmap> TextureContainer::getArrows() const
+{
+    return arrows;
+}
+
+vector<QPixmap> TextureContainer::getDoors() const
+{
+    return doors;
+}
+
+vector<QPixmap> TextureContainer::getFloors() const
+{
+    return floors;
+}
+
+vector<QPixmap> TextureContainer::getPits() const
+{
+    return pits;
+}
+
+vector<QPixmap> TextureContainer::getPortals() const
+{
+    return portals;
+}
+
+vector<QPixmap> TextureContainer::getRamps() const
+{
+    return ramps;
+}
+
+vector<QPixmap> TextureContainer::getSwitches() const
+{
+    return switches;
+}
+
+vector<QPixmap> TextureContainer::getWalls() const
+{
+    return walls;
+}
+
+vector<QPixmap> TextureContainer::getZombies() const
+{
+    return zombies;
+}
+
+vector<QPixmap> TextureContainer::getCharFronts() const
+{
+    return charFronts;
+}
+
+vector<QPixmap> TextureContainer::getCharBacks() const
+{
+    return charBacks;
+}
+
+vector<QPixmap> TextureContainer::getCharLefts() const
+{
+    return charLefts;
+}
+
+vector<QPixmap> TextureContainer::getCharRights() const
+{
+    return charRights;
 }

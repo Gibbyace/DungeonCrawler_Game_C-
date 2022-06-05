@@ -11,6 +11,21 @@ class TextureContainer
 public:
     TextureContainer();
 
+    vector<QPixmap> getBackgrounds() const;
+    vector<QPixmap> getArrows() const;
+    vector<QPixmap> getDoors() const;
+    vector<QPixmap> getFloors() const;
+    vector<QPixmap> getPits() const;
+    vector<QPixmap> getPortals() const;
+    vector<QPixmap> getRamps() const;
+    vector<QPixmap> getSwitches() const;
+    vector<QPixmap> getWalls() const;
+    vector<QPixmap> getZombies() const;
+    vector<QPixmap> getCharFronts() const;
+    vector<QPixmap> getCharBacks() const;
+    vector<QPixmap> getCharLefts() const;
+    vector<QPixmap> getCharRights() const;
+
 private:
     vector<QPixmap> backgrounds;
     vector<QPixmap> arrows;
@@ -24,10 +39,10 @@ private:
     vector<QPixmap> walls;
     vector<QPixmap> zombies;
 
-    vector<QPixmap> char_fronts;
-    vector<QPixmap> char_backs;
-    vector<QPixmap> char_lefts;
-    vector<QPixmap> char_rights;
+    vector<QPixmap> charFronts;
+    vector<QPixmap> charBacks;
+    vector<QPixmap> charLefts;
+    vector<QPixmap> charRights;
 };
 
 #endif // TEXTURES_H

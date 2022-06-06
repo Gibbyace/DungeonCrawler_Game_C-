@@ -97,7 +97,7 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
 }
 
-void MainWindow::draw(Level* level, TextureContainer* texurescontainer) {
+void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getHeight(); col++) {
             Tile* currentTile = level->getTilepointer()[row][col];
@@ -106,20 +106,23 @@ void MainWindow::draw(Level* level, TextureContainer* texurescontainer) {
                 QWidget* doorWidget = ui->gridLayout->itemAtPosition(row, col)->widget();
 
                 if (currentTile->getTexture() == "/") {
-                    dynamic_cast<QLabel*>(doorWidget)->setPixmap(texurescontainer->getDoors()[1]);
+                    dynamic_cast<QLabel*>(doorWidget)->setPixmap(texturecontainer->getDoors()[1]);
                 }
                 else if (currentTile->getTexture() == "X") {
-                    dynamic_cast<QLabel*>(doorWidget)->setPixmap(texurescontainer->getDoors()[0]);
+                    dynamic_cast<QLabel*>(doorWidget)->setPixmap(texturecontainer->getDoors()[0]);
                 }
             }
 
             if (currentTile->hasCharacter()) {
                 QWidget* parentForCharacter = ui->gridLayout->itemAtPosition(row, col)->widget();
+                QLabel* parentAsLabel = dynamic_cast<QLabel*>(parentForCharacter);
 
                 //TODO: Komisch: Im Debugger erscheint der Character am richtigen Label als child, aber sichtbar ist er trotzdem nicht
-                ui->characterLabel->setParent(parentForCharacter);
+                ui->characterLabel->setParent(parentAsLabel);
                 ui->characterLabel->raise();
-                parentForCharacter->lower();
+
+                //Interessanterweise funktioniert folgendes:
+                //parentAsLabel->setPixmap(texturecontainer->getDoors()[0]);
 
                 int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
 
@@ -134,10 +137,6 @@ void MainWindow::draw(Level* level, TextureContainer* texurescontainer) {
                 }
                 else if (characterMoveDirection == 6) {
                     ui->characterLabel->setPixmap(texurescontainer->getCharRights()[0]);
-
-                    //Nope, das lässt den Character auch nicht wieder erscheinen
-                    ui->characterLabel->raise();
-
                 }
                 else if (characterMoveDirection == 3) {
                     ui->characterLabel->setPixmap(texurescontainer->getCharFronts()[0]);

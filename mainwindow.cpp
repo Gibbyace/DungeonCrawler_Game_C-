@@ -148,6 +148,22 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 else if (characterMoveDirection == 4) {
                     ui->characterLabel->setPixmap(texturecontainer->getCharLefts()[0]);
                 }
+
+                if (dynamic_cast<Pit*>(currentTile) != nullptr) {
+                    QWidget* pitWidget = ui->gridLayout->itemAtPosition(row, col)->widget();
+
+                    cout << "Guten Morgen, Gibarel";
+
+                    ui->characterLabel->lower();
+                    ui->characterLabel->show();
+
+                    pitWidget->raise();
+                    pitWidget->raise();
+                    pitWidget->raise();
+                    pitWidget->raise();
+
+                    pitWidget->show();
+                }
             }
         }
     }

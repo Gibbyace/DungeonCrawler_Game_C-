@@ -13,10 +13,10 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
     loadTextures();
 
     startscreen = new StartScreen(texturecontainer, this);
-    startscreen->exec();
 
-    mainwindow = new MainWindow(level, texturecontainer, this);
-    mainwindow->show();
+    mainwindow = new MainWindow(level, texturecontainer, this);    startscreen->exec();
+
+//    mainwindow->show();
 
     //this->show();
 }
@@ -54,7 +54,7 @@ void GraphicalUI::hide_startscreen_and_show_mainwindow() {
      * also ist das momentan noch im Konstruktor
      * TODO: Dafür sorgen, dass das mainwindow von hier erzeugt wird
     */
-    //mainwindow->show();
+    mainwindow->show();
 }
 
 void GraphicalUI::setLastInput(int direction) {

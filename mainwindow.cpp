@@ -8,6 +8,9 @@
 #include <switch.h>
 #include <wall.h>
 #include <graphicalui.h>
+#include <random>
+#include <math.h>
+#include <ctime>
 
 MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, GraphicalUI *parent) :
     QMainWindow(parent),
@@ -31,6 +34,8 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 
     ui->gridLayoutWidget_2->raise();
 
+    srand(time(NULL));
+
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getWidth(); col++) {
             QPixmap tilePixmap;
@@ -39,8 +44,12 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
                 tilePixmap = texturecontainer->getDoors()[0];
             }
             else if (dynamic_cast<Floor*>(level->getTilepointer()[row][col]) != nullptr) {
+
                 //TODO: Zufällige Floor-Textur
-                tilePixmap = texturecontainer->getFloors()[0];
+                int tileTextureCount = texturecontainer->getFloors().size();
+                int randomizer = rand() % tileTextureCount;
+
+                tilePixmap = texturecontainer->getFloors()[randomizer];
             }
             else if (dynamic_cast<Pit*>(level->getTilepointer()[row][col]) != nullptr) {
                 tilePixmap = texturecontainer->getPits()[0];
@@ -65,8 +74,7 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
             QLabel* newTile = new QLabel();
             newTile->setScaledContents(true);
             newTile->setPixmap(tilePixmap);
-            newTile->setMinimumSize(30, 30);
-            newTile->setMaximumSize(30, 30);
+
             ui->gridLayout->addWidget(newTile, row, col);
 
             if (level->getTilepointer()[row][col]->hasCharacter()) {

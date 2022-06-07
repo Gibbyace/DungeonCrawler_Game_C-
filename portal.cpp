@@ -17,6 +17,10 @@ void Portal::setDestination(Tile *newDestination)
 }
 
 Tile* Portal::onEnter(Tile *fromTile, Character *who) {
+    if (fromTile == this) {
+        return this;
+    }
+
     return destination;
 }
 

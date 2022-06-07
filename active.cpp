@@ -12,7 +12,6 @@ Active::Active()
 }
 
 void Active::attach(Passive* passiveTile) {
-    //TODO: prüfen, ob das schief geht
     for (unsigned i = 0; i < observers.size(); i++) {
         if (observers[i] == passiveTile) {
             return;

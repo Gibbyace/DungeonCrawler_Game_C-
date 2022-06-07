@@ -1,9 +1,21 @@
 ﻿#include "portal.h"
 #include "tile.h"
 
+int Portal::getRow() const
+{
+    return row;
+}
+
+int Portal::getCol() const
+{
+    return col;
+}
+
 Portal::Portal(int row, int col) : Tile(row, col)
 {
     this->texture = "O";
+    this->row = row;
+    this->col = col;
 }
 
 Tile *Portal::getDestination() const

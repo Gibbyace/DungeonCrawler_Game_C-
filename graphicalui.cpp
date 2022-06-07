@@ -44,16 +44,7 @@ int GraphicalUI::move() {
 }
 
 void GraphicalUI::hide_startscreen_and_show_mainwindow() {
-    qDebug("Heyyy, der hide_startscreen_and_show_mainwindow-Slot wurde aufgerufen!");
-
     startscreen->hide();
-
-    /*
-     * eigentlich sollte das mainwindow hier aktiviert werden,
-     * dann entsteht aber ein SEGFAULT,
-     * also ist das momentan noch im Konstruktor
-     * TODO: Dafür sorgen, dass das mainwindow von hier erzeugt wird
-    */
     mainwindow->show();
 }
 

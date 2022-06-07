@@ -36,6 +36,8 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 
     srand(time(NULL));
 
+    vector<vector<int>> portalPositions;
+
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getWidth(); col++) {
             QPixmap tilePixmap;
@@ -44,8 +46,6 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
                 tilePixmap = texturecontainer->getDoors()[0];
             }
             else if (dynamic_cast<Floor*>(level->getTilepointer()[row][col]) != nullptr) {
-
-                //TODO: Zufällige Floor-Textur
                 int tileTextureCount = texturecontainer->getFloors().size();
                 int randomizer = rand() % tileTextureCount;
 
@@ -56,7 +56,18 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
             }
             else if (dynamic_cast<Portal*>(level->getTilepointer()[row][col]) != nullptr) {
                 //TODO: Verbundene Portale sollen gleiche Farbe haben
-                tilePixmap = texturecontainer->getPortals()[0];
+
+                Portal* currentPortal = dynamic_cast<Portal*>(level->getTilepointer()[row][col]);
+                Portal* connectedPortal = dynamic_cast<Portal*>(currentPortal->getDestination());
+
+                int connectedPortalRow = connectedPortal->getRow();
+                int connectedPortalCol = connectedPortal->getCol();
+
+                portalPositions.push_back({row, col});
+                portalPositions.push_back({connectedPortalRow, connectedPortalCol});
+
+                /*tilePixmap = texturecontainer->getPortals()[(portalCounter / 2) % 3];
+                portalCounter++;*/
             }
             else if (dynamic_cast<Ramp*>(level->getTilepointer()[row][col]) != nullptr) {
                 tilePixmap = texturecontainer->getRamps()[0];
@@ -71,7 +82,10 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
                 tilePixmap = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/floor/floor1.png");
             }
 
+
+
             QLabel* newTile = new QLabel();
+            newTile->setAttribute(Qt::WA_TranslucentBackground,true);
             newTile->setScaledContents(true);
             newTile->setPixmap(tilePixmap);
 
@@ -82,6 +96,19 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
                 ui->characterLabel->setParent(newTile);
             }
         }
+    }
+
+    int portalCounter = 0;
+
+    for (unsigned i = 0; i < portalPositions.size(); i++) {
+        int portalRow = portalPositions[i][0];
+        int portalCol = portalPositions[i][1];
+
+        QWidget* portalWidget = ui->gridLayout->itemAtPosition(portalRow, portalCol)->widget();
+        QLabel* portalLabel = dynamic_cast<QLabel*>(portalWidget);
+        portalLabel->setPixmap(texturecontainer->getPortals()[portalCounter / 2 % 3]);
+
+        portalCounter++;
     }
 
     ui->topleftbutton->setIcon(     QIcon(texturecontainer->getArrows()[3]));
@@ -125,7 +152,6 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 QWidget* parentForCharacter = ui->gridLayout->itemAtPosition(row, col)->widget();
                 QLabel* parentAsLabel = dynamic_cast<QLabel*>(parentForCharacter);
 
-                //TODO: Komisch: Im Debugger erscheint der Character am richtigen Label als child, aber sichtbar ist er trotzdem nicht
                 ui->characterLabel->setParent(parentAsLabel);
                 ui->characterLabel->raise();
                 ui->characterLabel->show();
@@ -157,21 +183,21 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                     ui->characterLabel->setPixmap(texturecontainer->getCharLefts()[0]);
                 }
 
-                if (dynamic_cast<Pit*>(currentTile) != nullptr) {
+                //TODO: Kein Plan; Hoffen, dass jemand in der Vorlesung fragt
+                /*if (dynamic_cast<Pit*>(currentTile) != nullptr) {
                     QWidget* pitWidget = ui->gridLayout->itemAtPosition(row, col)->widget();
+                    pitWidget->updateGeometry();
+                    QPoint pitPosition = pitWidget->pos();
 
-                    cout << "Guten Morgen, Gibarel";
+                    ui->characterLabel->setParent(ui->centralwidget);
+                    ui->characterLabel->move(pitPosition);
 
                     ui->characterLabel->lower();
+                    ui->gridLayoutWidget->raise();
+                    ui->gridLayoutWidget_2->raise();
+
                     ui->characterLabel->show();
-
-                    pitWidget->raise();
-                    pitWidget->raise();
-                    pitWidget->raise();
-                    pitWidget->raise();
-
-                    pitWidget->show();
-                }
+                }*/
             }
         }
     }

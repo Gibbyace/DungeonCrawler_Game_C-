@@ -8,6 +8,8 @@ class Portal : public Tile
 {
 private:
     Tile* destination;
+    int row;
+    int col;
 
 public:
     Portal(int row, int col);
@@ -17,6 +19,8 @@ public:
 
     Tile* getDestination() const;
     void setDestination(Tile *newDestination);
+    int getRow() const;
+    int getCol() const;
 };
 
 #endif // PORTAL_H

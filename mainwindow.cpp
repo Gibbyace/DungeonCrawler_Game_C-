@@ -36,7 +36,7 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
             QPixmap tilePixmap;
 
             if (dynamic_cast<Door*>(level->getTilepointer()[row][col]) != nullptr) {
-                 tilePixmap = texturecontainer->getDoors()[0];
+                tilePixmap = texturecontainer->getDoors()[0];
             }
             else if (dynamic_cast<Floor*>(level->getTilepointer()[row][col]) != nullptr) {
                 //TODO: Zufällige Floor-Textur
@@ -120,9 +120,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 //TODO: Komisch: Im Debugger erscheint der Character am richtigen Label als child, aber sichtbar ist er trotzdem nicht
                 ui->characterLabel->setParent(parentAsLabel);
                 ui->characterLabel->raise();
-
-                //Interessanterweise funktioniert folgendes:
-                //parentAsLabel->setPixmap(texturecontainer->getCharFronts()[1]);
+                ui->characterLabel->show();
 
                 int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
 

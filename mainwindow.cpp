@@ -122,33 +122,33 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 ui->characterLabel->raise();
 
                 //Interessanterweise funktioniert folgendes:
-                //parentAsLabel->setPixmap(texturecontainer->getDoors()[0]);
+                //parentAsLabel->setPixmap(texturecontainer->getCharFronts()[1]);
 
                 int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
 
                 if (characterMoveDirection == 7) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharBacks()[0]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharBacks()[0]);
                 }
                 else if (characterMoveDirection == 8) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharBacks()[1]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharBacks()[1]);
                 }
                 else if (characterMoveDirection == 9) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharBacks()[2]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharBacks()[2]);
                 }
                 else if (characterMoveDirection == 6) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharRights()[0]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharRights()[0]);
                 }
                 else if (characterMoveDirection == 3) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharFronts()[0]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[0]);
                 }
                 else if (characterMoveDirection == 2) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharFronts()[1]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[1]);
                 }
                 else if (characterMoveDirection == 1) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharFronts()[2]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[2]);
                 }
                 else if (characterMoveDirection == 4) {
-                    ui->characterLabel->setPixmap(texurescontainer->getCharLefts()[0]);
+                    ui->characterLabel->setPixmap(texturecontainer->getCharLefts()[0]);
                 }
             }
         }

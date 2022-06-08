@@ -29,7 +29,6 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->gridLayoutWidget_2->raise();
 
     setupPlayingField(texturecontainer, level);
-
     setupArrowButtons(texturecontainer, parent);
 }
 
@@ -135,7 +134,6 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     connect(ui->bottomleftbutton,   &QPushButton::clicked, [parent]() {parent->setLastInput(1);});
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
-
 
     QObjectList arrow_buttons = ui->gridLayoutWidget_2->children();
 

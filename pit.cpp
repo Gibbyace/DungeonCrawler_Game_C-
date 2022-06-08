@@ -6,17 +6,17 @@ Pit::Pit(int row, int column): Tile(row, column)
     this->texture = "_";
 
 }
+
 Tile *Pit::onEnter(Tile *fromTile, Character *who)
 {
     return this;
 }
 
-Tile *Pit::onLeave(Tile *destTile, Character *who) //Müssen *destile implementieren und dann mit typeid bestimmen
+Tile *Pit::onLeave(Tile *destTile, Character *who)
 {
-    if ((typeid(*destTile) == typeid(Pit)) or (typeid(*destTile) == typeid(Ramp))){
+    if (dynamic_cast<Pit*>(destTile) != nullptr || dynamic_cast<Ramp*>(destTile) != nullptr) {
         return this;
     }
-    else
-        return nullptr;
 
+    return nullptr;
 }

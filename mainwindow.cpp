@@ -18,6 +18,10 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 {
     ui->setupUi(this);
 
+    int gridWidth = ui->gridLayoutWidget->width();
+    int gridHeight = ui->gridLayoutWidget->height();
+    int tileSize = min(gridWidth / level->getWidth(), gridHeight / level->getHeight());
+
     QWidget::setStyleSheet(("Background-color: black;"));
 
     QPixmap bloodyFrame = texturecontainer->getBackgrounds()[0];
@@ -29,8 +33,8 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->characterLabel->setScaledContents(true);
     ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[1]);
     ui->characterLabel->setStyleSheet(("background-color: transparent;"));
-    ui->characterLabel->setMinimumSize(30, 30);
-    ui->characterLabel->setMaximumSize(30, 30);
+    ui->characterLabel->setMinimumSize(tileSize, tileSize);
+    ui->characterLabel->setMaximumSize(tileSize, tileSize);
 
     ui->gridLayoutWidget_2->raise();
 
@@ -55,8 +59,6 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
                 tilePixmap = texturecontainer->getPits()[0];
             }
             else if (dynamic_cast<Portal*>(level->getTilepointer()[row][col]) != nullptr) {
-                //TODO: Verbundene Portale sollen gleiche Farbe haben
-
                 Portal* currentPortal = dynamic_cast<Portal*>(level->getTilepointer()[row][col]);
                 Portal* connectedPortal = dynamic_cast<Portal*>(currentPortal->getDestination());
 
@@ -65,9 +67,6 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 
                 portalPositions.push_back({row, col});
                 portalPositions.push_back({connectedPortalRow, connectedPortalCol});
-
-                /*tilePixmap = texturecontainer->getPortals()[(portalCounter / 2) % 3];
-                portalCounter++;*/
             }
             else if (dynamic_cast<Ramp*>(level->getTilepointer()[row][col]) != nullptr) {
                 tilePixmap = texturecontainer->getRamps()[0];
@@ -82,17 +81,15 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
                 tilePixmap = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/floor/floor1.png");
             }
 
-
-
             QLabel* newTile = new QLabel();
             newTile->setAttribute(Qt::WA_TranslucentBackground,true);
             newTile->setScaledContents(true);
             newTile->setPixmap(tilePixmap);
+            newTile->setFixedSize(tileSize, tileSize);
 
             ui->gridLayout->addWidget(newTile, row, col);
 
             if (level->getTilepointer()[row][col]->hasCharacter()) {
-                //QLabel* character = new QLabel();
                 ui->characterLabel->setParent(newTile);
             }
         }
@@ -130,6 +127,17 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     connect(ui->bottomleftbutton,   &QPushButton::clicked, [parent]() {parent->setLastInput(1);});
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
+
+
+    QObjectList arrow_buttons = ui->gridLayoutWidget_2->children();
+
+    for (int i = 0; i < arrow_buttons.size(); i++) {
+        QPushButton* arrow_button = dynamic_cast<QPushButton*>(arrow_buttons[i]);
+
+        if (arrow_button != nullptr) {
+            arrow_button->setIconSize(QSize(40, 40));
+        }
+    }
 }
 
 void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {

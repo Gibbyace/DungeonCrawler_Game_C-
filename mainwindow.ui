@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>791</width>
-      <height>561</height>
+      <width>800</width>
+      <height>600</height>
      </rect>
     </property>
     <property name="text">
@@ -33,14 +33,14 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>40</x>
+      <y>50</y>
       <width>491</width>
-      <height>551</height>
+      <height>491</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="characterLabel">
        <property name="text">
         <string>Character</string>
@@ -52,15 +52,15 @@
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>220</y>
-      <width>125</width>
-      <height>91</height>
+      <x>610</x>
+      <y>180</y>
+      <width>152</width>
+      <height>152</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
      <property name="spacing">
-      <number>0</number>
+      <number>10</number>
      </property>
      <item row="0" column="0">
       <widget class="QPushButton" name="topleftbutton">
@@ -69,6 +69,12 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
        </property>
        <property name="baseSize">
         <size>
@@ -83,6 +89,12 @@
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="toprightbutton">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -90,6 +102,12 @@
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="topbutton">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -97,6 +115,12 @@
      </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="leftbutton">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -104,6 +128,12 @@
      </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="centerbutton">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -111,6 +141,12 @@
      </item>
      <item row="1" column="2">
       <widget class="QPushButton" name="rightbutton">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -118,6 +154,18 @@
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="bottombutton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -125,6 +173,12 @@
      </item>
      <item row="2" column="2">
       <widget class="QPushButton" name="bottomrightbutton">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -132,6 +186,12 @@
      </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="bottomleftbutton">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>

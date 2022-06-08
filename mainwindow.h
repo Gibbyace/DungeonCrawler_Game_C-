@@ -26,6 +26,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
 };
 
 #endif // MAINWINDOW_H

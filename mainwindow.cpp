@@ -108,6 +108,10 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
         portalCounter++;
     }
 
+    setupArrowButtons(texturecontainer, parent);
+}
+
+void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent) {
     ui->topleftbutton->setIcon(     QIcon(texturecontainer->getArrows()[3]));
     ui->topbutton->setIcon(         QIcon(texturecontainer->getArrows()[4]));
     ui->toprightbutton->setIcon(    QIcon(texturecontainer->getArrows()[5]));

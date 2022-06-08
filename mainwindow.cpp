@@ -18,10 +18,6 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 {
     ui->setupUi(this);
 
-    int gridWidth = ui->gridLayoutWidget->width();
-    int gridHeight = ui->gridLayoutWidget->height();
-    int tileSize = min(gridWidth / level->getWidth(), gridHeight / level->getHeight());
-
     QWidget::setStyleSheet(("Background-color: black;"));
 
     QPixmap bloodyFrame = texturecontainer->getBackgrounds()[0];
@@ -30,13 +26,23 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->raise();
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
+    ui->gridLayoutWidget_2->raise();
+
+    setupPlayingField(texturecontainer, level);
+
+    setupArrowButtons(texturecontainer, parent);
+}
+
+void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* level) {
+    int gridWidth = ui->gridLayoutWidget->width();
+    int gridHeight = ui->gridLayoutWidget->height();
+    int tileSize = min(gridWidth / level->getWidth(), gridHeight / level->getHeight());
+
     ui->characterLabel->setScaledContents(true);
     ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[1]);
     ui->characterLabel->setStyleSheet(("background-color: transparent;"));
     ui->characterLabel->setMinimumSize(tileSize, tileSize);
     ui->characterLabel->setMaximumSize(tileSize, tileSize);
-
-    ui->gridLayoutWidget_2->raise();
 
     srand(time(NULL));
 
@@ -107,8 +113,6 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 
         portalCounter++;
     }
-
-    setupArrowButtons(texturecontainer, parent);
 }
 
 void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent) {

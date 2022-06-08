@@ -27,6 +27,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
+    void setupPlayingField(TextureContainer* texturecontainer, Level* level);
 };
 
 #endif // MAINWINDOW_H

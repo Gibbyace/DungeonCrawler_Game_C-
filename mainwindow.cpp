@@ -197,9 +197,10 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                     ui->characterLabel->setPixmap(texturecontainer->getCharLefts()[0]);
                 }
 
-                //TODO: Kein Plan; Hoffen, dass jemand in der Vorlesung fragt
-                /*if (dynamic_cast<Pit*>(currentTile) != nullptr) {
-                    QWidget* pitWidget = ui->gridLayout->itemAtPosition(row, col)->widget();
+                if (dynamic_cast<Pit*>(currentTile) != nullptr) {
+                    //TODO: Verhalten vom Pit: Kein Plan; Hoffen, dass jemand in der Vorlesung fragt
+
+                    /*QWidget* pitWidget = ui->gridLayout->itemAtPosition(row, col)->widget();
                     pitWidget->updateGeometry();
                     QPoint pitPosition = pitWidget->pos();
 
@@ -210,8 +211,8 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                     ui->gridLayoutWidget->raise();
                     ui->gridLayoutWidget_2->raise();
 
-                    ui->characterLabel->show();
-                }*/
+                    ui->characterLabel->show();*/
+                }
             }
         }
     }

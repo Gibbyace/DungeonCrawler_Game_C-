@@ -52,6 +52,5 @@ HEADERS += \
    wall.h
 
 FORMS += \
-   graphicalui.ui \
    mainwindow.ui \
    startscreen.ui

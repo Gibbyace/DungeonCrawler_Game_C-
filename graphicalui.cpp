@@ -1,15 +1,10 @@
 #include "graphicalui.h"
-#include "ui_graphicalui.h"
 #include <startscreen.h>
 #include <mainwindow.h>
 #include <qtest.h>
 
-GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::GraphicalUI)
+GraphicalUI::GraphicalUI(Level* level, QWidget *parent)
 {
-    ui->setupUi(this);
-
     loadTextures();
 
     startscreen = new StartScreen(texturecontainer, this);
@@ -20,7 +15,6 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 
 GraphicalUI::~GraphicalUI()
 {
-    delete ui;
     delete mainwindow;
     delete startscreen;
     delete texturecontainer;

@@ -1,7 +1,7 @@
 ﻿#ifndef GRAPHICALUI_H
 #define GRAPHICALUI_H
 
-#include <QMainWindow>
+#include <QWidget>
 #include <abstractui.h>
 #include <controller.h>
 #include <startscreen.h>
@@ -15,9 +15,7 @@ class GraphicalUI;
 class StartScreen;
 class MainWindow;
 
-#include <vector>
-
-class GraphicalUI : public QMainWindow, public AbstractUI, public Controller
+class GraphicalUI : public QWidget, public AbstractUI, public Controller
 {
     Q_OBJECT
 
@@ -34,7 +32,6 @@ public slots:
     void hide_startscreen_and_show_mainwindow();
 
 private:
-    Ui::GraphicalUI *ui;
     MainWindow* mainwindow;
     StartScreen* startscreen;
     TextureContainer* texturecontainer;

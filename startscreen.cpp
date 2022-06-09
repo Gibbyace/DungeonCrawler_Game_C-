@@ -6,7 +6,6 @@ StartScreen::StartScreen(TextureContainer* texturecontainer, GraphicalUI *parent
     QDialog(parent),
     ui(new Ui::StartScreen)
 {
-
     ui->setupUi(this);
     QWidget::setStyleSheet(("Background-color: black;"));
 

@@ -19,9 +19,6 @@ public:
     explicit StartScreen(TextureContainer* texturecontainer, GraphicalUI *parent = nullptr);
     ~StartScreen();
 
-private slots:
-    //void on_pushButton_clicked();
-
 private:
     Ui::StartScreen *ui;
 };

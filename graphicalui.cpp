@@ -22,6 +22,8 @@ GraphicalUI::~GraphicalUI()
 {
     delete ui;
     delete mainwindow;
+    delete startscreen;
+    delete texturecontainer;
 }
 
 void GraphicalUI::draw(Level *level) {

@@ -2,7 +2,6 @@
 #define PORTAL_H
 
 #include "tile.h"
-//Ids für portale?
 
 class Portal : public Tile
 {
@@ -13,7 +12,7 @@ private:
 
 public:
     Portal(int row, int col);
-    virtual ~Portal() override = default;
+    virtual ~Portal() override;
     Tile* onEnter(Tile *fromTile, Character *who) override;
     Tile* onLeave(Tile* destTile, Character* who) override;
 

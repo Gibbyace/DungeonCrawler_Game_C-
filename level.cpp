@@ -162,7 +162,6 @@ Level::Level(const int height, const int width):height(height),width(width)
                 tilepointer[row].push_back(new Ramp(row, col));
             }
 
-
             else {
                 Floor* new_floor = new Floor(row, col);
                 tilepointer[row].push_back(new_floor);
@@ -186,13 +185,15 @@ Level::Level(const int height, const int width):height(height),width(width)
 
 Level::~Level() {
     for (int row = 0; row < this->height; row++) {
-        for (int col = 0; col < this->width; col++) {
-            delete tilepointer[row][col];
+        while (!tilepointer[row].empty()) {
+            delete tilepointer[row].back();
+            tilepointer[row].pop_back();
         }
     }
 
-    for (unsigned i = 0; i < characterpointer.size(); i++) {
-        delete characterpointer[i];
+    while (!characterpointer.empty()) {
+        delete characterpointer.back();
+        characterpointer.pop_back();
     }
 }
 

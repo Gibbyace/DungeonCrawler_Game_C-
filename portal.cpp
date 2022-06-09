@@ -18,6 +18,10 @@ Portal::Portal(int row, int col) : Tile(row, col)
     this->col = col;
 }
 
+Portal::~Portal() {
+    delete destination;
+}
+
 Tile *Portal::getDestination() const
 {
     return destination;

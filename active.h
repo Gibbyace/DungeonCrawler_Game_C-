@@ -15,8 +15,8 @@ protected:
 
 public:
     Active();
-    void attach(Passive*); //method for adding passive objects
-    void detach(Passive*); //gegenteil
+    void attach(Passive*);
+    void detach(Passive*);
     void activate();
 
     vector<Passive *> getObservers() const;

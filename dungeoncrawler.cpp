@@ -45,7 +45,7 @@ void DungeonCrawler::play()
         int direction = character->move();
 
         if (direction == 0) {
-            return;
+            abstractUI->setUserWantsToEndThisApp(true);
         }
 
         Tile* tileWithCharacter = character->getTile();
@@ -55,7 +55,7 @@ void DungeonCrawler::play()
             tileWithCharacter->moveTo(destinationTile, character);
         }
     }
-    while (true);
+    while (abstractUI->getUserWantsToEndThisApp() == false);
 }
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)

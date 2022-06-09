@@ -18,6 +18,8 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 {
     ui->setupUi(this);
 
+    connect(this, &QObject::destroyed, [parent]() {parent->windowHasBeenClosed();});
+
     QWidget::setStyleSheet(("Background-color: black;"));
 
     QPixmap bloodyFrame = texturecontainer->getBackgrounds()[0];

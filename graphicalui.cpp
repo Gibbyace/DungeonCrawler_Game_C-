@@ -14,11 +14,9 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
 
     startscreen = new StartScreen(texturecontainer, this);
 
-    mainwindow = new MainWindow(level, texturecontainer, this);    startscreen->exec();
+    mainwindow = new MainWindow(level, texturecontainer, this);
 
-//    mainwindow->show();
-
-    //this->show();
+    startscreen->show();
 }
 
 GraphicalUI::~GraphicalUI()
@@ -51,6 +49,10 @@ void GraphicalUI::hide_startscreen_and_show_mainwindow() {
 void GraphicalUI::setLastInput(int direction) {
     lastInput = direction;
     inputProcessed = false;
+}
+
+void GraphicalUI::windowHasBeenClosed() {
+    this->setUserWantsToEndThisApp(true);
 }
 
 void GraphicalUI::loadTextures() {

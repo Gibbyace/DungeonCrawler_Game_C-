@@ -29,6 +29,7 @@ public:
     void loadTextures();
 
 public slots:
+    void windowHasBeenClosed();
     void setLastInput(int direction);
     void hide_startscreen_and_show_mainwindow();
 

@@ -5,8 +5,6 @@
 
 class Ramp : public Tile
 {
-private:
-    Tile* destination;
 public:
     Ramp(int row, int column);
     virtual ~Ramp() override = default;

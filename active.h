@@ -6,8 +6,6 @@ using namespace  std;
 
 class Passive;
 
-//Implementation of concept
-//bestitzt pointer auf sich selbst
 class Active
 {
 protected:
@@ -15,6 +13,7 @@ protected:
 
 public:
     Active();
+    ~Active();
     void attach(Passive*);
     void detach(Passive*);
     void activate();

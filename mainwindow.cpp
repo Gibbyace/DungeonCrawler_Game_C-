@@ -18,8 +18,6 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 {
     ui->setupUi(this);
 
-    connect(this, &QObject::destroyed, [parent]() {parent->windowHasBeenClosed();});
-
     QWidget::setStyleSheet(("Background-color: black;"));
 
     QPixmap bloodyFrame = texturecontainer->getBackgrounds()[0];
@@ -222,4 +220,12 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    GraphicalUI* parentAsGUI = dynamic_cast<GraphicalUI*>(parent());
+
+    if (parentAsGUI != nullptr) {
+        parentAsGUI->setUserWantsToEndThisApp(true);
+    }
 }

@@ -28,6 +28,8 @@ private:
     Ui::MainWindow *ui;
     void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
     void setupPlayingField(TextureContainer* texturecontainer, Level* level);
+
+    void closeEvent(QCloseEvent* event);
 };
 
 #endif // MAINWINDOW_H

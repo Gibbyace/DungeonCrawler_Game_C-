@@ -4,6 +4,8 @@
 #include "terminalui.h"
 #include "graphicalui.h"
 
+#include "QDebug"
+
 DungeonCrawler::DungeonCrawler()
 {
     Level* level = new Level(10, 10);

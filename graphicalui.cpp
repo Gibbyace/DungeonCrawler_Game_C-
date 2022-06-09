@@ -13,7 +13,6 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent) :
     loadTextures();
 
     startscreen = new StartScreen(texturecontainer, this);
-
     mainwindow = new MainWindow(level, texturecontainer, this);
 
     startscreen->show();
@@ -52,6 +51,7 @@ void GraphicalUI::setLastInput(int direction) {
 }
 
 void GraphicalUI::windowHasBeenClosed() {
+    qDebug("shit, ne warte, das ist gut");
     this->setUserWantsToEndThisApp(true);
 }
 

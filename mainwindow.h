@@ -26,8 +26,12 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    QPixmap characterPixmapCopy;
+
     void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
     void setupPlayingField(TextureContainer* texturecontainer, Level* level);
+
+    void setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
 
     void closeEvent(QCloseEvent* event);
 };

@@ -146,6 +146,35 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     }
 }
 
+void MainWindow::setCharacterPixmapFromDirection(int characterMoveDirection, TextureContainer* texturecontainer) {
+    QPixmap characterPixmap;
+
+    if (characterMoveDirection == 7) {
+        characterPixmapCopy = texturecontainer->getCharBacks()[0];
+    }
+    else if (characterMoveDirection == 8) {
+        characterPixmapCopy = texturecontainer->getCharBacks()[1];
+    }
+    else if (characterMoveDirection == 9) {
+        characterPixmapCopy = texturecontainer->getCharBacks()[2];
+    }
+    else if (characterMoveDirection == 6) {
+        characterPixmapCopy = texturecontainer->getCharRights()[0];
+    }
+    else if (characterMoveDirection == 3) {
+        characterPixmapCopy = texturecontainer->getCharFronts()[0];
+    }
+    else if (characterMoveDirection == 2) {
+        characterPixmapCopy = texturecontainer->getCharFronts()[1];
+    }
+    else if (characterMoveDirection == 1) {
+        characterPixmapCopy = texturecontainer->getCharFronts()[2];
+    }
+    else if (characterMoveDirection == 4) {
+        characterPixmapCopy = texturecontainer->getCharLefts()[0];
+    }
+}
+
 void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getHeight(); col++) {
@@ -172,32 +201,18 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                 int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
 
-                if (characterMoveDirection == 7) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharBacks()[0]);
-                }
-                else if (characterMoveDirection == 8) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharBacks()[1]);
-                }
-                else if (characterMoveDirection == 9) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharBacks()[2]);
-                }
-                else if (characterMoveDirection == 6) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharRights()[0]);
-                }
-                else if (characterMoveDirection == 3) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[0]);
-                }
-                else if (characterMoveDirection == 2) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[1]);
-                }
-                else if (characterMoveDirection == 1) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[2]);
-                }
-                else if (characterMoveDirection == 4) {
-                    ui->characterLabel->setPixmap(texturecontainer->getCharLefts()[0]);
-                }
+                setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
+                //characterPixmapCopy=characterPixmap;
+
+                ui->characterLabel->setPixmap(characterPixmapCopy);
 
                 if (dynamic_cast<Pit*>(currentTile) != nullptr) {
+                    QLabel* pitAsLabel = dynamic_cast<QLabel*>(ui->gridLayout->itemAtPosition(row, col)->widget());
+                    //pitAsLabel->setPixmap(texturecontainer->getCharFronts()[0]);
+                    pitAsLabel->setPixmap(characterPixmapCopy);
+                    ui->characterLabel->setPixmap(texturecontainer->getPits()[0]);
+
+
                     //TODO: Verhalten vom Pit: Kein Plan; Hoffen, dass jemand in der Vorlesung fragt
 
                     /*QWidget* pitWidget = ui->gridLayout->itemAtPosition(row, col)->widget();

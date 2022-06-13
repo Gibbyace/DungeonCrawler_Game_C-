@@ -191,6 +191,11 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 }
             }
 
+            if (dynamic_cast<Pit*>(currentTile) != nullptr) {
+                QLabel* pitAsLabel = dynamic_cast<QLabel*>(ui->gridLayout->itemAtPosition(row, col)->widget());
+                pitAsLabel->setPixmap(texturecontainer->getPits()[0]);
+            }
+
             if (currentTile->hasCharacter()) {
                 QWidget* parentForCharacter = ui->gridLayout->itemAtPosition(row, col)->widget();
                 QLabel* parentAsLabel = dynamic_cast<QLabel*>(parentForCharacter);
@@ -202,31 +207,13 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
 
                 setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
-                //characterPixmapCopy=characterPixmap;
 
                 ui->characterLabel->setPixmap(characterPixmapCopy);
 
                 if (dynamic_cast<Pit*>(currentTile) != nullptr) {
                     QLabel* pitAsLabel = dynamic_cast<QLabel*>(ui->gridLayout->itemAtPosition(row, col)->widget());
-                    //pitAsLabel->setPixmap(texturecontainer->getCharFronts()[0]);
                     pitAsLabel->setPixmap(characterPixmapCopy);
                     ui->characterLabel->setPixmap(texturecontainer->getPits()[0]);
-
-
-                    //TODO: Verhalten vom Pit: Kein Plan; Hoffen, dass jemand in der Vorlesung fragt
-
-                    /*QWidget* pitWidget = ui->gridLayout->itemAtPosition(row, col)->widget();
-                    pitWidget->updateGeometry();
-                    QPoint pitPosition = pitWidget->pos();
-
-                    ui->characterLabel->setParent(ui->centralwidget);
-                    ui->characterLabel->move(pitPosition);
-
-                    ui->characterLabel->lower();
-                    ui->gridLayoutWidget->raise();
-                    ui->gridLayoutWidget_2->raise();
-
-                    ui->characterLabel->show();*/
                 }
             }
         }

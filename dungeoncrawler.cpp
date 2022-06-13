@@ -19,7 +19,6 @@ DungeonCrawler::DungeonCrawler()
     //Zuweisungsoperator testen
     tmp = new Level(10, 10);
     *level = *tmp;
-<<<<<<< HEAD
     delete tmp;
     */
 
@@ -41,7 +40,7 @@ void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
-    do {
+    while (abstractUI->getUserWantsToEndThisApp() == false) {
         Level* currentLevel = levels[0];
         Character* character = currentLevel->getCharacterpointer()[0];
         character->setController(dynamic_cast<Controller*>(abstractUI));
@@ -61,7 +60,6 @@ void DungeonCrawler::play()
             tileWithCharacter->moveTo(destinationTile, character);
         }
     }
-    while (abstractUI->getUserWantsToEndThisApp() == false);
 }
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)

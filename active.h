@@ -6,8 +6,6 @@ using namespace  std;
 
 class Passive;
 
-//Implementation of concept
-//bestitzt pointer auf sich selbst
 class Active
 {
 protected:
@@ -15,8 +13,9 @@ protected:
 
 public:
     Active();
-    void attach(Passive*); //method for adding passive objects
-    void detach(Passive*); //gegenteil
+    ~Active();
+    void attach(Passive*);
+    void detach(Passive*);
     void activate();
 
     vector<Passive *> getObservers() const;

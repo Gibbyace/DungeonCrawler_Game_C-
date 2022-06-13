@@ -1,15 +1,17 @@
 ﻿#include "dungeoncrawler.h"
 #include "character.h"
-#include "terminalui.h"
 #include "level.h"
+#include "terminalui.h"
+#include "graphicalui.h"
+
+#include "QDebug"
 
 DungeonCrawler::DungeonCrawler()
 {
-    this->abstractUI = new TerminalUI(); //Mit Graphical UI wird gibt es speicher probleme
-
-    //Level* level = new Level(10, 10);
+    Level* level = new Level(10, 10);
 
     //Kopierkonstruktor testen
+    /*
     Level* tmp = new Level(10, 10);
     Level* level = new Level(*tmp);
     delete tmp;
@@ -17,16 +19,21 @@ DungeonCrawler::DungeonCrawler()
     //Zuweisungsoperator testen
     tmp = new Level(10, 10);
     *level = *tmp;
+<<<<<<< HEAD
     delete tmp;
+    */
 
     this->levels.push_back(level);
+
+    this->abstractUI = new GraphicalUI(level);
 }
 
 DungeonCrawler::~DungeonCrawler() {
     delete this->abstractUI;
 
-    for (unsigned i = 0; i < levels.size(); i++) {
-        delete levels[i];
+    while (!levels.empty()) {
+        delete levels.back();
+        levels.pop_back();
     }
 }
 
@@ -34,7 +41,7 @@ void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
-    do{
+    do {
         Level* currentLevel = levels[0];
         Character* character = currentLevel->getCharacterpointer()[0];
         character->setController(dynamic_cast<Controller*>(abstractUI));
@@ -44,7 +51,7 @@ void DungeonCrawler::play()
         int direction = character->move();
 
         if (direction == 0) {
-            return;
+            abstractUI->setUserWantsToEndThisApp(true);
         }
 
         Tile* tileWithCharacter = character->getTile();
@@ -54,7 +61,7 @@ void DungeonCrawler::play()
             tileWithCharacter->moveTo(destinationTile, character);
         }
     }
-    while(true);
+    while (abstractUI->getUserWantsToEndThisApp() == false);
 }
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)

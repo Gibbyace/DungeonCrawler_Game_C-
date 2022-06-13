@@ -15,7 +15,7 @@ Tile *Pit::onEnter(Tile *fromTile, Character *who)
 
 Tile *Pit::onLeave(Tile *destTile, Character *who)
 {
-    if ((typeid(*destTile) == typeid(Pit)) or (typeid(*destTile) == typeid(Ramp))){
+    if (dynamic_cast<Pit*>(destTile) != nullptr || dynamic_cast<Ramp*>(destTile) != nullptr) {
         return this;
     }
 

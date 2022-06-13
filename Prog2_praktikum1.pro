@@ -17,6 +17,7 @@ SOURCES += \
         graphicalui.cpp \
         level.cpp \
         main.cpp \
+        mainwindow.cpp \
         passive.cpp \
         pit.cpp \
         portal.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
         startscreen.cpp \
         switch.cpp \
         terminalui.cpp \
+        texturecontainer.cpp \
         tile.cpp \
         wall.cpp
 
@@ -37,6 +39,7 @@ HEADERS += \
    floor.h \
    graphicalui.h \
    level.h \
+   mainwindow.h \
    passive.h \
    pit.h \
    portal.h \
@@ -44,9 +47,10 @@ HEADERS += \
    startscreen.h \
    switch.h \
    terminalui.h \
+   texturecontainer.h \
    tile.h \
    wall.h
 
 FORMS += \
-   graphicalui.ui \
+   mainwindow.ui \
    startscreen.ui

@@ -12,6 +12,7 @@ class Character
 {
 private:
     string texture;
+    int moveDirection = 2;
     Tile* tile;
     Controller* controller;
 
@@ -22,6 +23,7 @@ public:
     void setTile(Tile *newTile);
     Tile *getTile() const;
     void setController(Controller *value);
+    int getMoveDirection() const;
 };
 
 #endif // CHARACTER_H

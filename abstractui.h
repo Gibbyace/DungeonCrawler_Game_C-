@@ -12,6 +12,12 @@ public:
     virtual ~AbstractUI() = default;
     virtual void draw(Level* level) = 0;
     virtual void printDirectionOptions();
+
+    bool getUserWantsToEndThisApp() const;
+    void setUserWantsToEndThisApp(bool value);
+
+private:
+    bool userWantsToEndThisApp = false;
 };
 
 #endif // ABSTRACTUI_H

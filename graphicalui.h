@@ -1,23 +1,42 @@
 ﻿#ifndef GRAPHICALUI_H
 #define GRAPHICALUI_H
 
-#include <QDialog>
+#include <QWidget>
+#include <abstractui.h>
+#include <controller.h>
+#include <startscreen.h>
+#include <mainwindow.h>
+#include <texturecontainer.h>
 
 namespace Ui {
 class GraphicalUI;
 }
 
-class GraphicalUI : public QDialog
+class StartScreen;
+class MainWindow;
+
+class GraphicalUI : public QWidget, public AbstractUI, public Controller
 {
     Q_OBJECT
 
 public:
-    explicit GraphicalUI(QWidget *parent = nullptr);
-    //Public slot soll hier rein für button push
+    explicit GraphicalUI(Level* level, QWidget *parent = nullptr);
     ~GraphicalUI();
+    void draw(Level *level) override;
+    int move() override;
+    void loadTextures();
+
+public slots:
+    void windowHasBeenClosed();
+    void setLastInput(int direction);
+    void hide_startscreen_and_show_mainwindow();
 
 private:
-    Ui::GraphicalUI *ui;
+    MainWindow* mainwindow;
+    StartScreen* startscreen;
+    TextureContainer* texturecontainer;
+    int lastInput = 5;
+    bool inputProcessed = false;
 };
 
 #endif // GRAPHICALUI_H

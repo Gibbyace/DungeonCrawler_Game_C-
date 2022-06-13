@@ -6,7 +6,9 @@ Switch::Switch(int row, int column): Active(), Tile(row, column)
 }
 
 Tile* Switch::onEnter(Tile *fromTile, Character *who){
-    this->activate();
+    if (fromTile != this) {
+        this->activate();
+    }
 
     return this;
 }

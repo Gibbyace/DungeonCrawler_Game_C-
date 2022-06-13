@@ -1,26 +1,24 @@
 ﻿#include "startscreen.h"
 #include "ui_startscreen.h"
+#include <dungeoncrawler.h>
 
-StartScreen::StartScreen(QWidget *parent) :
+StartScreen::StartScreen(TextureContainer* texturecontainer, GraphicalUI *parent) :
     QDialog(parent),
     ui(new Ui::StartScreen)
 {
-
     ui->setupUi(this);
     QWidget::setStyleSheet(("Background-color: black;"));
 
-    QPixmap pixmapTarget = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/startscreen.png");
-    ui->label->setPixmap(pixmapTarget);
+    QPixmap startscreenBackground = texturecontainer->getBackgrounds()[2];
+    ui->label->setPixmap(startscreenBackground);
+    ui->label->setScaledContents(true);
 
-    QPixmap PixmapTarget3 = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/bloody_frame.png");
-    ui->label_2->setPixmap(PixmapTarget3);
+    QIcon newGameBackground = texturecontainer->getBackgrounds()[1];
+    ui->pushButton->setIcon(newGameBackground);
 
-    QIcon pixmapTarget2 = QPixmap("../pg2_Di45y-TeamA-Herrmann_Kotwal/textures/new_game_button.png");
-    ui->pushButton->setIcon(pixmapTarget2);
-
-
-
-
+    //wie bekommen wir hier unser GraphicalUI-Objekt rein?
+    connect(ui->pushButton, &QPushButton::clicked, parent, &GraphicalUI::hide_startscreen_and_show_mainwindow);
+    //connect(ui->pushButton, &QPushButton::clicked, [parent]() {parent->hide_startscreen_and_show_mainwindow();});
 }
 
 StartScreen::~StartScreen()
@@ -29,9 +27,8 @@ StartScreen::~StartScreen()
 
 }
 
-void StartScreen::on_pushButton_clicked()
+/*void StartScreen::on_pushButton_clicked()
 {
-
-    ui->pushButton->hide();
+    //ui->pushButton->hide();
     this->hide();
-}
+}*/

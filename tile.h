@@ -19,11 +19,10 @@ public:
     Tile(int row, int column);
     string getTexture();
     bool hasCharacter();
-    bool moveTo(Tile* fromTile, Character* who); //wird von aktueller tile (this), true if move
-    virtual Tile* onEnter(Tile* fromTile, Character* who) = 0;//betreten einer tile (ist this) ist sie nicht beretbar Nullptr
-    virtual Tile* onLeave(Tile* destTile, Character* who) = 0;//auch this;
-    //Gibt this bei floor zurück, gibt nullptr bei Wall zurück, gibt zeiger auf portal bei portal zurück;
-    virtual ~Tile() = default;// Default destructor bitte wie links, weil sonst komische fehler mit compiler
+    bool moveTo(Tile* fromTile, Character* who);
+    virtual Tile* onEnter(Tile* fromTile, Character* who) = 0;
+    virtual Tile* onLeave(Tile* destTile, Character* who) = 0;
+    virtual ~Tile() = default;
 
 
 

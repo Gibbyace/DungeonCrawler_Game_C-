@@ -25,5 +25,5 @@ Tile* Door::onEnter(Tile *fromTile, Character *who){
 }
 
 Tile* Door::onLeave(Tile *destTile, Character *who){
-    return this;//TODO: Muss man auch ändern
+    return this;
 }

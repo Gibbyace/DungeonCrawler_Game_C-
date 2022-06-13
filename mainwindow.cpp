@@ -18,7 +18,7 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 {
     ui->setupUi(this);
 
-    QWidget::setStyleSheet(("Background-color: black;"));
+    QWidget::setStyleSheet(("Background-color: #030306;"));
 
     QPixmap bloodyFrame = texturecontainer->getBackgrounds()[0];
     ui->label->setPixmap(bloodyFrame);

@@ -15,15 +15,19 @@ private:
     int moveDirection = 2;
     Tile* tile;
     Controller* controller;
+    int strength;
+    int stamina;
+    int hitpoints;
 
 public:
-    Character();
+    Character(int strength, int stamina, int hitpoints);
     int move();
     const string &getTexture() const;
     void setTile(Tile *newTile);
     Tile *getTile() const;
     void setController(Controller *value);
     int getMoveDirection() const;
+    int getMaxHP();
 };
 
 #endif // CHARACTER_H

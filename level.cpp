@@ -90,7 +90,7 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
         }
     }
 
-    Character* new_character = new Character();
+    Character* new_character = new Character(10, 10, 10);
     placeCharacter(new_character, charRow, charCol);
     characterpointer.push_back(new_character);
 }
@@ -167,7 +167,7 @@ Level::Level(const int height, const int width):height(height),width(width)
                 tilepointer[row].push_back(new_floor);
 
                 if (tileAsString == "X") {
-                    Character* new_character = new Character();
+                    Character* new_character = new Character(10, 10, 10);
                     placeCharacter(new_character, row, col);
 
                     characterpointer.push_back(new_character);

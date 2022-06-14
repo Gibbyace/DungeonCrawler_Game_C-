@@ -26,9 +26,15 @@ int Character::getMoveDirection() const
     return moveDirection;
 }
 
-Character::Character()
-{
+int Character::getMaxHP() {
+    return 20 + (stamina + 5);
+}
 
+Character::Character(int strength, int stamina, int hitpoints)
+{
+    this->strength = strength;
+    this->stamina = stamina;
+    this->hitpoints = hitpoints;
 }
 
 int Character::move() {

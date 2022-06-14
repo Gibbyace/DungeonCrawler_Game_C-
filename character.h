@@ -28,6 +28,9 @@ public:
     void setController(Controller *value);
     int getMoveDirection() const;
     int getMaxHP();
+    int getStrength() const;
+    int getStamina() const;
+    int getHitpoints() const;
 };
 
 #endif // CHARACTER_H

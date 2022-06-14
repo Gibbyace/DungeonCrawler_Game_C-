@@ -30,6 +30,21 @@ int Character::getMaxHP() {
     return 20 + (stamina + 5);
 }
 
+int Character::getStrength() const
+{
+    return strength;
+}
+
+int Character::getStamina() const
+{
+    return stamina;
+}
+
+int Character::getHitpoints() const
+{
+    return hitpoints;
+}
+
 Character::Character(int strength, int stamina, int hitpoints)
 {
     this->strength = strength;

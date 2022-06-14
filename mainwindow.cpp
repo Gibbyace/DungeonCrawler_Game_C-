@@ -11,6 +11,7 @@
 #include <random>
 #include <math.h>
 #include <ctime>
+#include <QDebug>
 
 MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, GraphicalUI *parent) :
     QMainWindow(parent),
@@ -27,6 +28,9 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
     ui->gridLayoutWidget_2->raise();
+
+    ui->statusbar->showMessage("Messy message");
+    ui->statusbar->setStyleSheet(("background-color: #F00"));
 
     setupPlayingField(texturecontainer, level);
     setupArrowButtons(texturecontainer, parent);
@@ -175,6 +179,20 @@ void MainWindow::setCharacterPixmapFromDirection(int characterMoveDirection, Tex
     }
 }
 
+void MainWindow::setStatusbarMessage(Level* level) {
+    QString statusbarMessage = "Strength: ";
+
+    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getStrength()));
+    statusbarMessage.append("; Stamina: ");
+    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getStamina()));
+    statusbarMessage.append("; Hitpoints: ");
+    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getHitpoints()));
+    statusbarMessage.append("; MaxHP: ");
+    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getMaxHP()));
+
+    ui->statusbar->showMessage(statusbarMessage);
+}
+
 void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getHeight(); col++) {
@@ -218,6 +236,8 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
             }
         }
     }
+
+    setStatusbarMessage(level);
 }
 
 MainWindow::~MainWindow()
@@ -232,3 +252,4 @@ void MainWindow::closeEvent(QCloseEvent* event) {
         parentAsGUI->setUserWantsToEndThisApp(true);
     }
 }
+

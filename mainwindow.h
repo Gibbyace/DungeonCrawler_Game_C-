@@ -32,6 +32,7 @@ private:
     void setupPlayingField(TextureContainer* texturecontainer, Level* level);
 
     void setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
+    void setStatusbarMessage(Level* level);
 
     void closeEvent(QCloseEvent* event);
 };

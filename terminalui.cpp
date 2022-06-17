@@ -41,6 +41,8 @@ int TerminalUI::move(){
 
         cin >> input;
 
+        inputProcessed = false;
+
         if (input >= 48 && input <= 58) {
             return input - 48;
         }

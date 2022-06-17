@@ -7,6 +7,8 @@ GraphicalUI::GraphicalUI(Level* level, QWidget *parent)
 {
     loadTextures();
 
+    inputProcessed = true;
+
     startscreen = new StartScreen(texturecontainer, this);
     mainwindow = new MainWindow(level, texturecontainer, this);
 
@@ -41,15 +43,15 @@ void GraphicalUI::hide_startscreen_and_show_mainwindow() {
     mainwindow->show();
 }
 
-void GraphicalUI::setInputProcessed(bool value)
+/*void GraphicalUI::setInputProcessed(bool value)
 {
     inputProcessed = value;
-}
+}*/
 
-bool GraphicalUI::getInputProcessed() const
+/*bool GraphicalUI::getInputProcessed() const
 {
     return inputProcessed;
-}
+}*/
 
 void GraphicalUI::setLastInput(int direction) {
     lastInput = direction;

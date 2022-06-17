@@ -18,3 +18,13 @@ void AbstractUI::setUserWantsToEndThisApp(bool value)
 {
     userWantsToEndThisApp = value;
 }
+
+bool AbstractUI::getInputProcessed() const
+{
+    return inputProcessed;
+}
+
+void AbstractUI::setInputProcessed(bool value)
+{
+    inputProcessed = value;
+}

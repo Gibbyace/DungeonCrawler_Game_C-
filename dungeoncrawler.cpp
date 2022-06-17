@@ -25,7 +25,8 @@ DungeonCrawler::DungeonCrawler()
 
     this->levels.push_back(level);
 
-    this->abstractUI = new GraphicalUI(level);
+    this->abstractUI = new GraphicalUI(levels[0]);
+    //this->abstractUI = new TerminalUI();
 }
 
 DungeonCrawler::~DungeonCrawler() {
@@ -48,10 +49,7 @@ void DungeonCrawler::play()
 
 
     while (abstractUI->getUserWantsToEndThisApp() == false) {
-        //TODO: Vorsicht: nicht Kompatibel mit TerminalUI!
-        GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
-
-        if (graphicalUI->getInputProcessed() == true) {
+        if (abstractUI->getInputProcessed() == true) {
             QTest::qWait(50);
             QCoreApplication::processEvents();
             continue;
@@ -75,7 +73,9 @@ void DungeonCrawler::play()
         }
 
         abstractUI->draw(currentLevel);
-        graphicalUI->setInputProcessed(true);
+
+        //Muss für TerminalUI auskommentiert werden
+        abstractUI->setInputProcessed(true);
     }
 }
 

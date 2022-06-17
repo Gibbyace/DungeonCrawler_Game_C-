@@ -42,7 +42,8 @@ void DungeonCrawler::play()
 
     while (abstractUI->getUserWantsToEndThisApp() == false) {
         Level* currentLevel = levels[0];
-        Character* character = currentLevel->getCharacterpointer()[0];
+        //Character* character = currentLevel->getCharacterpointer()[0];
+        Character* character = currentLevel->getPlayerCharacter();
         character->setController(dynamic_cast<Controller*>(abstractUI));
 
         abstractUI->draw(currentLevel);

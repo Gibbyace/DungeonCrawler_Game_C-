@@ -45,11 +45,22 @@ int Character::getHitpoints() const
     return hitpoints;
 }
 
-Character::Character(int strength, int stamina, int hitpoints)
+bool Character::getIsPlayerCharacter() const
+{
+    return isPlayerCharacter;
+}
+
+void Character::setIsPlayerCharacter(bool value)
+{
+    isPlayerCharacter = value;
+}
+
+Character::Character(int strength, int stamina, int hitpoints, bool isPlayerCharacter)
 {
     this->strength = strength;
     this->stamina = stamina;
     this->hitpoints = hitpoints;
+    this->isPlayerCharacter = isPlayerCharacter;
 }
 
 int Character::move() {

@@ -18,9 +18,10 @@ private:
     int strength;
     int stamina;
     int hitpoints;
+    bool isPlayerCharacter;
 
 public:
-    Character(int strength, int stamina, int hitpoints);
+    Character(int strength, int stamina, int hitpoints, bool isPlayerCharacter);
     int move();
     const string &getTexture() const;
     void setTile(Tile *newTile);
@@ -31,6 +32,8 @@ public:
     int getStrength() const;
     int getStamina() const;
     int getHitpoints() const;
+    bool getIsPlayerCharacter() const;
+    void setIsPlayerCharacter(bool value);
 };
 
 #endif // CHARACTER_H

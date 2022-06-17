@@ -26,6 +26,7 @@ public:
     int getHeight() const;
     int getWidth() const;
     const vector<Character *> &getCharacterpointer() const;
+    Character* getPlayerCharacter();
 
 protected:
     void placeCharacter(Character *c, int row, int col);

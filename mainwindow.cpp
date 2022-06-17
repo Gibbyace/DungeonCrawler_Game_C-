@@ -182,13 +182,13 @@ void MainWindow::setCharacterPixmapFromDirection(int characterMoveDirection, Tex
 void MainWindow::setStatusbarMessage(Level* level) {
     QString statusbarMessage = "Strength: ";
 
-    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getStrength()));
+    statusbarMessage.append(QString::number(level->getPlayerCharacter()->getStrength()));
     statusbarMessage.append("; Stamina: ");
-    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getStamina()));
+    statusbarMessage.append(QString::number(level->getPlayerCharacter()->getStamina()));
     statusbarMessage.append("; Hitpoints: ");
-    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getHitpoints()));
+    statusbarMessage.append(QString::number(level->getPlayerCharacter()->getHitpoints()));
     statusbarMessage.append("; MaxHP: ");
-    statusbarMessage.append(QString::number(level->getCharacterpointer()[0]->getMaxHP()));
+    statusbarMessage.append(QString::number(level->getPlayerCharacter()->getMaxHP()));
 
     ui->statusbar->showMessage(statusbarMessage);
 }
@@ -222,7 +222,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 ui->characterLabel->raise();
                 ui->characterLabel->show();
 
-                int characterMoveDirection = level->getCharacterpointer()[0]->getMoveDirection();
+                int characterMoveDirection = level->getPlayerCharacter()->getMoveDirection();
 
                 setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
 

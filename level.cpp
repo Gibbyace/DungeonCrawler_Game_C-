@@ -23,7 +23,6 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
         this->tilepointer.push_back(newRow);
     }
 
-
     for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
             if (this->tilepointer[row][col] != nullptr) {
@@ -90,7 +89,7 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
         }
     }
 
-    Character* new_character = new Character(10, 10, 10);
+    Character* new_character = new Character(10, 10, 10, true);
     placeCharacter(new_character, charRow, charCol);
     characterpointer.push_back(new_character);
 }
@@ -120,6 +119,16 @@ int Level::getWidth() const
     return width;
 }
 
+Character* Level::getPlayerCharacter() {
+    vector<Character*> characters = getCharacterpointer();
+
+    for (unsigned i = 0; i < characters.size(); i++) {
+        if (characters[i]->getIsPlayerCharacter()) {
+            return characters[i];
+        }
+    }
+}
+
 const vector<Character *> &Level::getCharacterpointer() const
 {
     return characterpointer;
@@ -132,14 +141,12 @@ Level::Level(const int height, const int width):height(height),width(width)
         tilepointer.push_back(row);
     }
 
-    //Wir können hier nicht einfach Portals reinschreiben, weil wir es sonst nicht hinbekommen, das sie aufeinander verweisen
-    //Daher placePortals() benutzen
     vector<vector<string>> level_as_string =
         {
             {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
             {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", ".", "N", "#"},
             {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
             {"#", "_", "_", "<", ".", "X", ".", ".", ".", "#"},
             {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
@@ -167,10 +174,13 @@ Level::Level(const int height, const int width):height(height),width(width)
                 tilepointer[row].push_back(new_floor);
 
                 if (tileAsString == "X") {
-                    Character* new_character = new Character(10, 10, 10);
+                    Character* new_character = new Character(10, 10, 10, true);
                     placeCharacter(new_character, row, col);
 
                     characterpointer.push_back(new_character);
+                }
+                else if (tileAsString == "N") {
+                    //Character* new_npc
                 }
             }
         }

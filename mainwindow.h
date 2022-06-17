@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <level.h>
-#include <array>
+#include <vector>
 #include <graphicalui.h>
+#include <QLabel>
 
 namespace Ui {
 class MainWindow;
@@ -28,10 +29,12 @@ private:
     Ui::MainWindow *ui;
     QPixmap characterPixmapCopy;
 
+    std::map<int, QLabel*> characterLabels;
+
     void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
     void setupPlayingField(TextureContainer* texturecontainer, Level* level);
 
-    void setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
+    QPixmap* setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
 
     void closeEvent(QCloseEvent* event);

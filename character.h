@@ -11,6 +11,7 @@ class Tile;
 class Character
 {
 private:
+    int id;
     string texture;
     int moveDirection = 2;
     Tile* tile;
@@ -34,6 +35,9 @@ public:
     int getHitpoints() const;
     bool getIsPlayerCharacter() const;
     void setIsPlayerCharacter(bool value);
+
+    static int idCounter;
+    int getId() const;
 };
 
 #endif // CHARACTER_H

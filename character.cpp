@@ -1,6 +1,8 @@
 ﻿#include "character.h"
 #include <string>
 
+int Character::idCounter = 0;
+
 const string &Character::getTexture() const
 {
     return texture;
@@ -55,8 +57,16 @@ void Character::setIsPlayerCharacter(bool value)
     isPlayerCharacter = value;
 }
 
+int Character::getId() const
+{
+    return id;
+}
+
 Character::Character(int strength, int stamina, int hitpoints, bool isPlayerCharacter)
 {
+    idCounter++;
+
+    this->id = idCounter;
     this->strength = strength;
     this->stamina = stamina;
     this->hitpoints = hitpoints;

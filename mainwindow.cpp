@@ -41,11 +41,11 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
     int gridHeight = ui->gridLayoutWidget->height();
     int tileSize = min(gridWidth / level->getWidth(), gridHeight / level->getHeight());
 
-    ui->characterLabel->setScaledContents(true);
+    /*ui->characterLabel->setScaledContents(true);
     ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[1]);
     ui->characterLabel->setStyleSheet(("background-color: transparent;"));
     ui->characterLabel->setMinimumSize(tileSize, tileSize);
-    ui->characterLabel->setMaximumSize(tileSize, tileSize);
+    ui->characterLabel->setMaximumSize(tileSize, tileSize);*/
 
     srand(time(NULL));
 
@@ -99,7 +99,21 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
             ui->gridLayout->addWidget(newTile, row, col);
 
             if (level->getTilepointer()[row][col]->hasCharacter()) {
-                ui->characterLabel->setParent(newTile);
+                Character* characterOfCurrentTile = level->getTilepointer()[row][col]->getCharacter();
+
+                QLabel* characterLabel;
+
+                characterLabel = new QLabel();
+
+                characterLabel->setScaledContents(true);
+                characterLabel->setPixmap(texturecontainer->getCharFronts()[1]);
+                characterLabel->setStyleSheet(("background-color: transparent;"));
+                characterLabel->setMinimumSize(tileSize, tileSize);
+                characterLabel->setMaximumSize(tileSize, tileSize);
+                characterLabel->setParent(newTile);
+
+                characterLabels[characterOfCurrentTile->getId()] = characterLabel;
+                //ui->characterLabel->setParent(newTile);
             }
         }
     }
@@ -150,33 +164,35 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     }
 }
 
-void MainWindow::setCharacterPixmapFromDirection(int characterMoveDirection, TextureContainer* texturecontainer) {
-    QPixmap characterPixmap;
+QPixmap* MainWindow::setCharacterPixmapFromDirection(int characterMoveDirection, TextureContainer* texturecontainer) {
+    QPixmap* characterPixmap;
 
     if (characterMoveDirection == 7) {
-        characterPixmapCopy = texturecontainer->getCharBacks()[0];
+        characterPixmap = &(texturecontainer->getCharBacks()[0]);
     }
     else if (characterMoveDirection == 8) {
-        characterPixmapCopy = texturecontainer->getCharBacks()[1];
+        characterPixmap = &(texturecontainer->getCharBacks()[1]);
     }
     else if (characterMoveDirection == 9) {
-        characterPixmapCopy = texturecontainer->getCharBacks()[2];
+        characterPixmap = &(texturecontainer->getCharBacks()[2]);
     }
     else if (characterMoveDirection == 6) {
-        characterPixmapCopy = texturecontainer->getCharRights()[0];
+        characterPixmap = &(texturecontainer->getCharRights()[0]);
     }
     else if (characterMoveDirection == 3) {
-        characterPixmapCopy = texturecontainer->getCharFronts()[0];
+        characterPixmap = &(texturecontainer->getCharFronts()[0]);
     }
     else if (characterMoveDirection == 2) {
-        characterPixmapCopy = texturecontainer->getCharFronts()[1];
+        characterPixmap = &(texturecontainer->getCharFronts()[1]);
     }
     else if (characterMoveDirection == 1) {
-        characterPixmapCopy = texturecontainer->getCharFronts()[2];
+        characterPixmap = &(texturecontainer->getCharFronts()[2]);
     }
     else if (characterMoveDirection == 4) {
-        characterPixmapCopy = texturecontainer->getCharLefts()[0];
+        characterPixmap = &(texturecontainer->getCharLefts()[0]);
     }
+
+    return characterPixmap;
 }
 
 void MainWindow::setStatusbarMessage(Level* level) {
@@ -218,20 +234,35 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 QWidget* parentForCharacter = ui->gridLayout->itemAtPosition(row, col)->widget();
                 QLabel* parentAsLabel = dynamic_cast<QLabel*>(parentForCharacter);
 
-                ui->characterLabel->setParent(parentAsLabel);
+                Character* characterOnTile = currentTile->getCharacter();
+                vector<Character*> characters = level->getCharacterpointer();
+
+                //characters[0] == characters[1];
+
+                //auto indexOfCharacterOnTilesInCharacters = find_if(characters.begin(), characters.end(), characterOnTile);
+                //cout << distance(characters.begin(), indexOfCharacterOnTilesInCharacters);
+
+                //characterlabel muiss dynamisch gedingst werden
+                characterLabels[characterOnTile->getId()]->setParent(parentAsLabel);
+                characterLabels[characterOnTile->getId()]->raise();
+                characterLabels[characterOnTile->getId()]->show();
+                /*ui->characterLabel->setParent(parentAsLabel);
                 ui->characterLabel->raise();
-                ui->characterLabel->show();
+                ui->characterLabel->show();*/
 
                 int characterMoveDirection = currentTile->getCharacter()->getMoveDirection();
 
-                setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
+                QPixmap* characterPixmap = setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
 
-                ui->characterLabel->setPixmap(characterPixmapCopy);
+                //ui->characterLabel->setPixmap(characterPixmapCopy);
+                //characterLabels[characterOnTile->getId()]->setPixmap(*characterPixmap);
 
                 if (dynamic_cast<Pit*>(currentTile) != nullptr) {
                     QLabel* pitAsLabel = dynamic_cast<QLabel*>(ui->gridLayout->itemAtPosition(row, col)->widget());
-                    pitAsLabel->setPixmap(characterPixmapCopy);
-                    ui->characterLabel->setPixmap(texturecontainer->getPits()[0]);
+                    pitAsLabel->setPixmap(*characterPixmap);
+                    //ui->characterLabel->setPixmap(texturecontainer->getPits()[0]);
+
+                    characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
             }
         }

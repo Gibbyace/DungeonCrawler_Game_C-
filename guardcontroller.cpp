@@ -8,11 +8,11 @@ GuardController::GuardController(vector<int> pattern)
 }
 
 int GuardController::move() {
+    patternIndex++;
+
     if (patternIndex >= pattern.size()) {
         patternIndex = 0;
     }
-
-    cout << pattern[patternIndex];
 
     return pattern[patternIndex];
 }

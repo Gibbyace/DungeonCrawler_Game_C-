@@ -7,10 +7,6 @@
 #include <ramp.h>
 #include <switch.h>
 #include <wall.h>
-#include <graphicalui.h>
-#include <random>
-#include <math.h>
-#include <ctime>
 #include <QDebug>
 
 MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, GraphicalUI *parent) :
@@ -29,9 +25,8 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->raise();
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
-    ui->gridLayoutWidget_2->raise();
+    ui->buttonGridLayoutWidget->raise();
 
-    ui->statusbar->showMessage("Messy message");
     ui->statusbar->setStyleSheet(("background-color: #F00"));
 
     setupPlayingField(texturecontainer, level);
@@ -43,12 +38,6 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
     int gridHeight = ui->gridLayoutWidget->height();
     int tileSize = min(gridWidth / level->getWidth(), gridHeight / level->getHeight());
 
-    /*ui->characterLabel->setScaledContents(true);
-    ui->characterLabel->setPixmap(texturecontainer->getCharFronts()[1]);
-    ui->characterLabel->setStyleSheet(("background-color: transparent;"));
-    ui->characterLabel->setMinimumSize(tileSize, tileSize);
-    ui->characterLabel->setMaximumSize(tileSize, tileSize);*/
-
     srand(time(NULL));
 
     vector<vector<int>> portalPositions;
@@ -56,21 +45,22 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getWidth(); col++) {
             QPixmap tilePixmap;
+            Tile* currentTile = level->getTilepointer()[row][col];
 
-            if (dynamic_cast<Door*>(level->getTilepointer()[row][col]) != nullptr) {
+            if (dynamic_cast<Door*>(currentTile) != nullptr) {
                 tilePixmap = texturecontainer->getDoors()[0];
             }
-            else if (dynamic_cast<Floor*>(level->getTilepointer()[row][col]) != nullptr) {
+            else if (dynamic_cast<Floor*>(currentTile) != nullptr) {
                 int tileTextureCount = texturecontainer->getFloors().size();
                 int randomizer = rand() % tileTextureCount;
 
                 tilePixmap = texturecontainer->getFloors()[randomizer];
             }
-            else if (dynamic_cast<Pit*>(level->getTilepointer()[row][col]) != nullptr) {
+            else if (dynamic_cast<Pit*>(currentTile) != nullptr) {
                 tilePixmap = texturecontainer->getPits()[0];
             }
-            else if (dynamic_cast<Portal*>(level->getTilepointer()[row][col]) != nullptr) {
-                Portal* currentPortal = dynamic_cast<Portal*>(level->getTilepointer()[row][col]);
+            else if (dynamic_cast<Portal*>(currentTile) != nullptr) {
+                Portal* currentPortal = dynamic_cast<Portal*>(currentTile);
                 Portal* connectedPortal = dynamic_cast<Portal*>(currentPortal->getDestination());
 
                 int connectedPortalRow = connectedPortal->getRow();
@@ -79,13 +69,13 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
                 portalPositions.push_back({row, col});
                 portalPositions.push_back({connectedPortalRow, connectedPortalCol});
             }
-            else if (dynamic_cast<Ramp*>(level->getTilepointer()[row][col]) != nullptr) {
+            else if (dynamic_cast<Ramp*>(currentTile) != nullptr) {
                 tilePixmap = texturecontainer->getRamps()[0];
             }
-            else if (dynamic_cast<Switch*>(level->getTilepointer()[row][col]) != nullptr) {
+            else if (dynamic_cast<Switch*>(currentTile) != nullptr) {
                 tilePixmap = texturecontainer->getSwitches()[0];
             }
-            else if (dynamic_cast<Wall*>(level->getTilepointer()[row][col]) != nullptr) {
+            else if (dynamic_cast<Wall*>(currentTile) != nullptr) {
                 tilePixmap = texturecontainer->getWalls()[0];
             }
             else {
@@ -100,8 +90,8 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
 
             ui->gridLayout->addWidget(newTile, row, col);
 
-            if (level->getTilepointer()[row][col]->hasCharacter()) {
-                Character* characterOfCurrentTile = level->getTilepointer()[row][col]->getCharacter();
+            if (currentTile->hasCharacter()) {
+                Character* characterOfCurrentTile = currentTile->getCharacter();
 
                 QLabel* characterLabel;
 
@@ -115,7 +105,6 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
                 characterLabel->setParent(newTile);
 
                 characterLabels[characterOfCurrentTile->getId()] = characterLabel;
-                //ui->characterLabel->setParent(newTile);
             }
         }
     }
@@ -155,13 +144,13 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
 
-    QObjectList arrow_buttons = ui->gridLayoutWidget_2->children();
+    QObjectList arrowButtons = ui->buttonGridLayoutWidget->children();
 
-    for (int i = 0; i < arrow_buttons.size(); i++) {
-        QPushButton* arrow_button = dynamic_cast<QPushButton*>(arrow_buttons[i]);
+    for (int i = 0; i < arrowButtons.size(); i++) {
+        QPushButton* arrowButton = dynamic_cast<QPushButton*>(arrowButtons[i]);
 
-        if (arrow_button != nullptr) {
-            arrow_button->setIconSize(QSize(40, 40));
+        if (arrowButton != nullptr) {
+            arrowButton->setIconSize(QSize(40, 40));
         }
     }
 }
@@ -246,7 +235,6 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 vector<Character*> characters = level->getCharacterpointer();
 
                 characterLabels[characterOnTile->getId()]->setParent(parentAsLabel);
-                characterLabels[characterOnTile->getId()]->raise();
                 characterLabels[characterOnTile->getId()]->show();
 
                 int characterMoveDirection = currentTile->getCharacter()->getMoveDirection();

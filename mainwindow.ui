@@ -50,7 +50,7 @@
       <height>152</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="buttonGridLayout">
      <property name="spacing">
       <number>10</number>
      </property>

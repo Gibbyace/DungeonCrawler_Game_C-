@@ -4,7 +4,6 @@
 #include "terminalui.h"
 #include "graphicalui.h"
 
-#include <QDebug>
 #include <QTest>
 
 DungeonCrawler::DungeonCrawler()

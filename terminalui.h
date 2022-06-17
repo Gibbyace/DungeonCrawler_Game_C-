@@ -5,7 +5,6 @@
 #include "controller.h"
 
 class TerminalUI : public AbstractUI, public Controller
-        //Alle Ausgaben hier
 {
 
 public:

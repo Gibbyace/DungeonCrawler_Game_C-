@@ -26,9 +26,6 @@ public:
     int move() override;
     void loadTextures();
 
-    //bool getInputProcessed() const;
-    //void setInputProcessed(bool value);
-
 public slots:
     void windowHasBeenClosed();
     void setLastInput(int direction);
@@ -39,7 +36,6 @@ private:
     StartScreen* startscreen;
     TextureContainer* texturecontainer;
     int lastInput = 5;
-    //bool inputProcessed = true;
 };
 
 #endif // GRAPHICALUI_H

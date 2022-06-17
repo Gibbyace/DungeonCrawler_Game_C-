@@ -76,6 +76,6 @@ Character::Character(int strength, int stamina, int hitpoints, bool isPlayerChar
 
 int Character::move() {
     moveDirection = controller->move();
-    qDebug() << "Test: " << moveDirection;
+    qDebug() << "Test: " << this->id << ": " << moveDirection;
     return moveDirection;
 }

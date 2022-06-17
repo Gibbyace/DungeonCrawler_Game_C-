@@ -29,7 +29,7 @@ int GraphicalUI::move() {
     QCoreApplication::processEvents();
 
     if (inputProcessed == false) {
-        inputProcessed = true;
+        //inputProcessed = true;
         return lastInput;
     }
 
@@ -39,6 +39,11 @@ int GraphicalUI::move() {
 void GraphicalUI::hide_startscreen_and_show_mainwindow() {
     startscreen->hide();
     mainwindow->show();
+}
+
+void GraphicalUI::setInputProcessed(bool value)
+{
+    inputProcessed = value;
 }
 
 bool GraphicalUI::getInputProcessed() const

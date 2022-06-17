@@ -4,7 +4,8 @@
 #include "terminalui.h"
 #include "graphicalui.h"
 
-#include "QDebug"
+#include <QDebug>
+#include <QTest>
 
 DungeonCrawler::DungeonCrawler()
 {
@@ -40,13 +41,21 @@ void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
+    Level* currentLevel = levels[0];
+
+    Character* playerCharacter = currentLevel->getPlayerCharacter();
+    playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
+
+
     while (abstractUI->getUserWantsToEndThisApp() == false) {
-        Level* currentLevel = levels[0];
+        //TODO: Vorsicht: nicht Kompatibel mit TerminalUI!
+        GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
 
-        Character* playerCharacter = currentLevel->getPlayerCharacter();
-        playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
-
-        abstractUI->draw(currentLevel);
+        if (graphicalUI->getInputProcessed() == true) {
+            QTest::qWait(50);
+            QCoreApplication::processEvents();
+            continue;
+        }
 
         for (unsigned i = 0; i < currentLevel->getCharacterpointer().size(); i++) {
             Character* character = currentLevel->getCharacterpointer()[i];
@@ -64,6 +73,9 @@ void DungeonCrawler::play()
                 tileWithCharacter->moveTo(destinationTile, character);
             }
         }
+
+        abstractUI->draw(currentLevel);
+        graphicalUI->setInputProcessed(true);
     }
 }
 

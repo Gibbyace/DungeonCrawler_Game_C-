@@ -222,7 +222,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 ui->characterLabel->raise();
                 ui->characterLabel->show();
 
-                int characterMoveDirection = level->getPlayerCharacter()->getMoveDirection();
+                int characterMoveDirection = currentTile->getCharacter()->getMoveDirection();
 
                 setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
 

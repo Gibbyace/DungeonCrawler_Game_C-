@@ -9,6 +9,7 @@
 #include "door.h"
 #include "pit.h"
 #include "ramp.h"
+#include "stationarycontroller.h"
 
 Level::Level(const Level& level) : height(level.height), width(level.width) {
     int charRow, charCol;
@@ -180,7 +181,13 @@ Level::Level(const int height, const int width):height(height),width(width)
                     characterpointer.push_back(new_character);
                 }
                 else if (tileAsString == "N") {
-                    //Character* new_npc
+                    Character* newNpc = new Character(10, 10, 10, false);
+                    Controller* npcController = new StationaryController();
+                    newNpc->setController(npcController);
+
+                    placeCharacter(newNpc, row, col);
+
+                    characterpointer.push_back(newNpc);
                 }
             }
         }

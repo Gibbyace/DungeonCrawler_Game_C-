@@ -29,6 +29,7 @@ public:
     void setCharacter(Character *newCharacter);
     int getRow() const;
     int getColumn() const;
+    Character *getCharacter() const;
 };
 
 #endif // TILE_H

@@ -16,6 +16,11 @@ int Tile::getColumn() const
     return column;
 }
 
+Character *Tile::getCharacter() const
+{
+    return character;
+}
+
 Tile::Tile(const int row, const int column) : row(row), column(column)
 {
 

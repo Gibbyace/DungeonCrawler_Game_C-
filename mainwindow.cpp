@@ -19,6 +19,8 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 {
     ui->setupUi(this);
 
+    changesDrawn = true;
+
     QWidget::setStyleSheet(("Background-color: #030306;"));
 
     QPixmap bloodyFrame = texturecontainer->getBackgrounds()[0];
@@ -164,32 +166,32 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     }
 }
 
-QPixmap* MainWindow::setCharacterPixmapFromDirection(int characterMoveDirection, TextureContainer* texturecontainer) {
-    QPixmap* characterPixmap;
+QPixmap MainWindow::setCharacterPixmapFromDirection(int characterMoveDirection, TextureContainer* texturecontainer) {
+    QPixmap characterPixmap = texturecontainer->getCharBacks()[0];
 
     if (characterMoveDirection == 7) {
-        characterPixmap = &(texturecontainer->getCharBacks()[0]);
+        characterPixmap = QPixmap(texturecontainer->getCharBacks()[0]);
     }
     else if (characterMoveDirection == 8) {
-        characterPixmap = &(texturecontainer->getCharBacks()[1]);
+        characterPixmap = QPixmap(texturecontainer->getCharBacks()[1]);
     }
     else if (characterMoveDirection == 9) {
-        characterPixmap = &(texturecontainer->getCharBacks()[2]);
+        characterPixmap = QPixmap(texturecontainer->getCharBacks()[2]);
     }
     else if (characterMoveDirection == 6) {
-        characterPixmap = &(texturecontainer->getCharRights()[0]);
+        characterPixmap = QPixmap(texturecontainer->getCharRights()[0]);
     }
     else if (characterMoveDirection == 3) {
-        characterPixmap = &(texturecontainer->getCharFronts()[0]);
+        characterPixmap = QPixmap(texturecontainer->getCharFronts()[0]);
     }
-    else if (characterMoveDirection == 2) {
-        characterPixmap = &(texturecontainer->getCharFronts()[1]);
+    else if (characterMoveDirection == 2 || characterMoveDirection == 5) {
+        characterPixmap = QPixmap(texturecontainer->getCharFronts()[1]);
     }
     else if (characterMoveDirection == 1) {
-        characterPixmap = &(texturecontainer->getCharFronts()[2]);
+        characterPixmap = QPixmap(texturecontainer->getCharFronts()[2]);
     }
     else if (characterMoveDirection == 4) {
-        characterPixmap = &(texturecontainer->getCharLefts()[0]);
+        characterPixmap = QPixmap(texturecontainer->getCharLefts()[0]);
     }
 
     return characterPixmap;
@@ -210,6 +212,12 @@ void MainWindow::setStatusbarMessage(Level* level) {
 }
 
 void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
+    if (changesDrawn) {
+        return;
+    }
+
+    changesDrawn = true;
+
     for (int row = 0; row < level->getHeight(); row++) {
         for (int col = 0; col < level->getHeight(); col++) {
             Tile* currentTile = level->getTilepointer()[row][col];
@@ -237,30 +245,19 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 Character* characterOnTile = currentTile->getCharacter();
                 vector<Character*> characters = level->getCharacterpointer();
 
-                //characters[0] == characters[1];
-
-                //auto indexOfCharacterOnTilesInCharacters = find_if(characters.begin(), characters.end(), characterOnTile);
-                //cout << distance(characters.begin(), indexOfCharacterOnTilesInCharacters);
-
-                //characterlabel muiss dynamisch gedingst werden
                 characterLabels[characterOnTile->getId()]->setParent(parentAsLabel);
                 characterLabels[characterOnTile->getId()]->raise();
                 characterLabels[characterOnTile->getId()]->show();
-                /*ui->characterLabel->setParent(parentAsLabel);
-                ui->characterLabel->raise();
-                ui->characterLabel->show();*/
 
                 int characterMoveDirection = currentTile->getCharacter()->getMoveDirection();
 
-                QPixmap* characterPixmap = setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
+                QPixmap characterPixmap = setCharacterPixmapFromDirection(characterMoveDirection, texturecontainer);
 
-                //ui->characterLabel->setPixmap(characterPixmapCopy);
-                //characterLabels[characterOnTile->getId()]->setPixmap(*characterPixmap);
+                characterLabels[characterOnTile->getId()]->setPixmap(QPixmap(characterPixmap));
 
                 if (dynamic_cast<Pit*>(currentTile) != nullptr) {
                     QLabel* pitAsLabel = dynamic_cast<QLabel*>(ui->gridLayout->itemAtPosition(row, col)->widget());
-                    pitAsLabel->setPixmap(*characterPixmap);
-                    //ui->characterLabel->setPixmap(texturecontainer->getPits()[0]);
+                    pitAsLabel->setPixmap(QPixmap(characterPixmap));
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
@@ -269,6 +266,11 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     }
 
     setStatusbarMessage(level);
+}
+
+void MainWindow::setChangesDrawn(bool value)
+{
+    changesDrawn = value;
 }
 
 MainWindow::~MainWindow()

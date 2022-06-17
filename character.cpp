@@ -1,5 +1,6 @@
 ﻿#include "character.h"
 #include <string>
+#include <QDebug>
 
 int Character::idCounter = 0;
 
@@ -75,6 +76,6 @@ Character::Character(int strength, int stamina, int hitpoints, bool isPlayerChar
 
 int Character::move() {
     moveDirection = controller->move();
-
+    qDebug() << "Test: " << moveDirection;
     return moveDirection;
 }

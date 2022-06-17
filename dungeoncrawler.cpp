@@ -42,25 +42,28 @@ void DungeonCrawler::play()
 
     while (abstractUI->getUserWantsToEndThisApp() == false) {
         Level* currentLevel = levels[0];
-        //Character* character = currentLevel->getCharacterpointer()[0];
-        Character* character = currentLevel->getPlayerCharacter();
-        character->setController(dynamic_cast<Controller*>(abstractUI));
+
+        Character* playerCharacter = currentLevel->getPlayerCharacter();
+        playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
 
         abstractUI->draw(currentLevel);
 
-        int direction = character->move();
+        for (unsigned i = 0; i < currentLevel->getCharacterpointer().size(); i++) {
+            Character* character = currentLevel->getCharacterpointer()[i];
 
-        if (direction == 0) {
-            abstractUI->setUserWantsToEndThisApp(true);
+            int direction = character->move();
+
+            if (direction == 0) {
+                abstractUI->setUserWantsToEndThisApp(true);
+            }
+
+            Tile* tileWithCharacter = character->getTile();
+            Tile* destinationTile = determineDestinationTile(currentLevel, tileWithCharacter, direction);
+
+            if (destinationTile != nullptr) {
+                tileWithCharacter->moveTo(destinationTile, character);
+            }
         }
-
-        Tile* tileWithCharacter = character->getTile();
-        Tile* destinationTile = determineDestinationTile(currentLevel, tileWithCharacter, direction);
-
-        if (destinationTile != nullptr) {
-            tileWithCharacter->moveTo(destinationTile, character);
-        }
-
     }
 }
 

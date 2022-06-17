@@ -26,6 +26,8 @@ public:
     int move() override;
     void loadTextures();
 
+    bool getInputProcessed() const;
+
 public slots:
     void windowHasBeenClosed();
     void setLastInput(int direction);

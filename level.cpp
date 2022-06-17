@@ -10,6 +10,7 @@
 #include "pit.h"
 #include "ramp.h"
 #include "stationarycontroller.h"
+#include "guardcontroller.h"
 
 Level::Level(const Level& level) : height(level.height), width(level.width) {
     int charRow, charCol;
@@ -182,7 +183,7 @@ Level::Level(const int height, const int width):height(height),width(width)
                 }
                 else if (tileAsString == "N") {
                     Character* newNpc = new Character(10, 10, 10, false);
-                    Controller* npcController = new StationaryController();
+                    Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
                     newNpc->setController(npcController);
 
                     placeCharacter(newNpc, row, col);

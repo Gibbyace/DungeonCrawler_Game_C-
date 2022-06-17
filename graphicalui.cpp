@@ -41,9 +41,15 @@ void GraphicalUI::hide_startscreen_and_show_mainwindow() {
     mainwindow->show();
 }
 
+bool GraphicalUI::getInputProcessed() const
+{
+    return inputProcessed;
+}
+
 void GraphicalUI::setLastInput(int direction) {
     lastInput = direction;
     inputProcessed = false;
+    mainwindow->setChangesDrawn(false);
 }
 
 void GraphicalUI::windowHasBeenClosed() {

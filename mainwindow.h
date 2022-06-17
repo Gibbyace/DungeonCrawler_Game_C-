@@ -23,18 +23,22 @@ public:
     ~MainWindow();
     void draw(Level* level, TextureContainer* texturecontainer);
 
+    void setChangesDrawn(bool value);
+
 public slots:
 
 private:
     Ui::MainWindow *ui;
     QPixmap characterPixmapCopy;
 
+    bool changesDrawn;
+
     std::map<int, QLabel*> characterLabels;
 
     void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
     void setupPlayingField(TextureContainer* texturecontainer, Level* level);
 
-    QPixmap* setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
+    QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
 
     void closeEvent(QCloseEvent* event);

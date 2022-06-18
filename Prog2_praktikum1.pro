@@ -13,6 +13,7 @@ SOURCES += \
         controller.cpp \
         door.cpp \
         dungeoncrawler.cpp \
+        endscreen.cpp \
         floor.cpp \
         graphicalui.cpp \
         guardcontroller.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
    controller.h \
    door.h \
    dungeoncrawler.h \
+   endscreen.h \
    floor.h \
    graphicalui.h \
    guardcontroller.h \
@@ -56,5 +58,6 @@ HEADERS += \
    wall.h
 
 FORMS += \
+   endscreen.ui \
    mainwindow.ui \
    startscreen.ui

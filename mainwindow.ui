@@ -191,6 +191,19 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="hpStatus">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>70</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>HP</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -198,7 +211,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

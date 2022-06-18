@@ -1,5 +1,6 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "endscreen.h"
 #include <door.h>
 #include <floor.h>
 #include <pit.h>
@@ -8,6 +9,7 @@
 #include <switch.h>
 #include <wall.h>
 #include <QDebug>
+
 
 MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, GraphicalUI *parent) :
     QMainWindow(parent),
@@ -25,7 +27,7 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->raise();
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
-    ui->buttonGridLayoutWidget->raise();
+
 
     ui->statusbar->setStyleSheet(("background-color: #F00"));
 
@@ -144,7 +146,7 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
 
-    QObjectList arrowButtons = ui->buttonGridLayoutWidget->children();
+    QObjectList arrowButtons = ui->buttonGridLayout->children();
 
     for (int i = 0; i < arrowButtons.size(); i++) {
         QPushButton* arrowButton = dynamic_cast<QPushButton*>(arrowButtons[i]);
@@ -271,6 +273,14 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
     if (parentAsGUI != nullptr) {
         parentAsGUI->setUserWantsToEndThisApp(true);
+    }
+}
+void MainWindow::characterIsDead(Level *level){
+
+    if(level->getPlayerCharacter()->getHitpoints()==0)
+    {
+        endscreen endscreen1;
+        endscreen1.show();
     }
 }
 

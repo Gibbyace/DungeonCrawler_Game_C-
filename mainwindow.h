@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -41,6 +41,7 @@ private:
     QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
 
+    void characterIsDead(Level* level);
     void closeEvent(QCloseEvent* event);
 };
 

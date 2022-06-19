@@ -41,7 +41,7 @@ private:
     QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
 
-    void characterIsDead(Level* level);
+    void characterIsDead();
     void closeEvent(QCloseEvent* event);
 };
 

@@ -1,4 +1,4 @@
-#ifndef ENDSCREEN_H
+﻿#ifndef ENDSCREEN_H
 #define ENDSCREEN_H
 
 #include <QDialog>
@@ -14,6 +14,7 @@ class endscreen : public QDialog
 public:
     explicit endscreen(QWidget *parent = nullptr);
     ~endscreen();
+    bool buttonboxpressed();
 
 private:
     Ui::endscreen *ui;

@@ -68,7 +68,7 @@ Character::Character(int strength, int stamina, int hitpoints, bool isPlayerChar
     this->id = idCounter;
     this->strength = strength;
     this->stamina = stamina;
-    this->hitpoints = hitpoints;
+    this->hitpoints = 0;
     this->isPlayerCharacter = isPlayerCharacter;
 }
 

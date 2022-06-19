@@ -6,7 +6,7 @@ endscreen::endscreen(QWidget *parent) :
     ui(new Ui::endscreen)
 {
     ui->setupUi(this);
-    QWidget::setStyleSheet(("Background-color: #030306;"));
+
 }
 
 endscreen::~endscreen()
@@ -14,3 +14,7 @@ endscreen::~endscreen()
     delete ui;
 }
 
+bool endscreen::buttonboxpressed() {
+
+
+}

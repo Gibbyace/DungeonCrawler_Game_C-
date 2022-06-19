@@ -256,6 +256,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     }
 
     setStatusbarMessage(level);
+
     if(level->getPlayerCharacter()->getHitpoints()==0){
         MainWindow::characterIsDead();
     }
@@ -266,6 +267,15 @@ void MainWindow::setChangesDrawn(bool value)
     changesDrawn = value;
 }
 
+void MainWindow::characterIsDead(){
+
+        ui->centralwidget->hide();
+        delete ui;
+
+        endscreen endscreen1;
+        endscreen1.exec();
+
+}
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -278,10 +288,5 @@ void MainWindow::closeEvent(QCloseEvent* event) {
         parentAsGUI->setUserWantsToEndThisApp(true);
     }
 }
-void MainWindow::characterIsDead(){
-        endscreen endscreen1;
-        endscreen1.exec();
 
-
-}
 

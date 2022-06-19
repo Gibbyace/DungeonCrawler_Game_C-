@@ -3,6 +3,7 @@
 #include <string>
 #include "portal.h"
 #include "floor.h"
+#include "lootchest.h"
 #include "wall.h"
 #include "tile.h"
 #include "switch.h"
@@ -38,6 +39,9 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
             }
             else if (dynamic_cast<Floor*>(tile) != nullptr) {
                 tilepointer[row][col] = new Floor(row, col);
+            }
+            else if (dynamic_cast<LootChest*>(tile) != nullptr) {
+                tilepointer[row][col] = new LootChest(row, col);
             }
             else if (dynamic_cast<Pit*>(tile) != nullptr) {
                 tilepointer[row][col] = new Pit(row, col);
@@ -149,7 +153,7 @@ Level::Level(const int height, const int width):height(height),width(width)
             {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", ".", ".", ".", "N", "#"},
-            {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
+            {"#", "_", "_", "_", "e", ".", ".", ".", ".", "#"},
             {"#", "_", "_", "<", ".", "X", ".", ".", ".", "#"},
             {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
@@ -169,6 +173,9 @@ Level::Level(const int height, const int width):height(height),width(width)
             }
             else if(tileAsString == "<"){
                 tilepointer[row].push_back(new Ramp(row, col));
+            }
+            else if(tileAsString == "e"){
+                tilepointer[row].push_back(new LootChest(row, col));
             }
 
             else {
@@ -216,6 +223,10 @@ Level::~Level() {
 }
 
 Tile* Level::getTile(int row, int col) {
+    return tilepointer[row][col];
+}
+
+Tile* Level::getLootChest(int row, int col) {
     return tilepointer[row][col];
 }
 

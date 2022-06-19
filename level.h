@@ -21,12 +21,14 @@ public:
     Level& operator=(const Level rhs);
     ~Level();
     Tile *getTile(int row, int col);
+    Tile *getLootChest(int row, int col);
     const Tile *getTile(int row, int col) const;
     const vector<vector<Tile *> > &getTilepointer() const;
     int getHeight() const;
     int getWidth() const;
     const vector<Character *> &getCharacterpointer() const;
     Character* getPlayerCharacter();
+
 
 protected:
     void placeCharacter(Character *c, int row, int col);

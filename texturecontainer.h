@@ -1,4 +1,4 @@
-#ifndef TEXTURES_H
+﻿#ifndef TEXTURES_H
 #define TEXTURES_H
 
 #include <vector>
@@ -11,10 +11,12 @@ class TextureContainer
 public:
     TextureContainer();
 
+
     vector<QPixmap> getBackgrounds() const;
     vector<QPixmap> getArrows() const;
     vector<QPixmap> getDoors() const;
     vector<QPixmap> getFloors() const;
+    vector<QPixmap> getLootChest() const;
     vector<QPixmap> getPits() const;
     vector<QPixmap> getPortals() const;
     vector<QPixmap> getRamps() const;
@@ -29,9 +31,9 @@ public:
 private:
     vector<QPixmap> backgrounds;
     vector<QPixmap> arrows;
-
     vector<QPixmap> doors;
     vector<QPixmap> floors;
+    vector<QPixmap> lootchest;
     vector<QPixmap> pits;
     vector<QPixmap> portals;
     vector<QPixmap> ramps;

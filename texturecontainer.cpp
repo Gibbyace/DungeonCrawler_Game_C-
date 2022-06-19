@@ -1,4 +1,4 @@
-#include "texturecontainer.h"
+﻿#include "texturecontainer.h"
 
 TextureContainer::TextureContainer()
 {
@@ -23,6 +23,8 @@ TextureContainer::TextureContainer()
     floors.push_back(QPixmap(imageDirectory + "/floor/floor3.png"));
     floors.push_back(QPixmap(imageDirectory + "/floor/floor4.png"));
     floors.push_back(QPixmap(imageDirectory + "/floor/floor5.png"));
+
+    lootchest.push_back(QPixmap(imageDirectory + "/lootchest/lootchest1.png"));
 
     pits.push_back(QPixmap(imageDirectory + "/pit.png"));
 
@@ -78,6 +80,10 @@ vector<QPixmap> TextureContainer::getDoors() const
 vector<QPixmap> TextureContainer::getFloors() const
 {
     return floors;
+}
+vector<QPixmap> TextureContainer::getLootChest() const
+{
+    return lootchest;
 }
 
 vector<QPixmap> TextureContainer::getPits() const

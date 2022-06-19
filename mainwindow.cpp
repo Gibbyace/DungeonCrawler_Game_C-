@@ -255,15 +255,16 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
+                else if (dynamic_cast<LootChest*>(currentTile) != nullptr) {
+                    MainWindow::gameWin();
+                }
             }
         }
     }
 
     setStatusbarMessage(level);
 
-    if(level->getPlayerCharacter()->getHitpoints()==0){
-        MainWindow::characterIsDead();
-    }
+
 }
 
 void MainWindow::setChangesDrawn(bool value)
@@ -271,6 +272,12 @@ void MainWindow::setChangesDrawn(bool value)
     changesDrawn = value;
 }
 
+void MainWindow::checkIfCharacterIsDead(Level* level) {
+
+    if(level->getPlayerCharacter()->getHitpoints()==0){
+        MainWindow::characterIsDead();
+    }
+}
 void MainWindow::characterIsDead(){
 
         ui->centralwidget->hide();
@@ -280,6 +287,16 @@ void MainWindow::characterIsDead(){
         endscreen1.exec();
 
 }
+
+
+
+void MainWindow::gameWin() {
+
+    endscreen endscreen1;
+    endscreen1.exec(); //TODO: bitte einen schönen game win screen machen
+    std::cout<<"YOU WON!";
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;

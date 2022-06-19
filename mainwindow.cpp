@@ -255,7 +255,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
-                else if (dynamic_cast<LootChest*>(currentTile) != nullptr) {
+                else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) {
                     MainWindow::gameWin();
                 }
             }

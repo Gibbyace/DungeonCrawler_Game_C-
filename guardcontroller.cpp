@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "guardcontroller.h"
 
 GuardController::GuardController(vector<int> pattern)
@@ -9,6 +9,7 @@ GuardController::GuardController(vector<int> pattern)
 
 int GuardController::move() {
     patternIndex++;
+
 
     if (patternIndex >= pattern.size()) {
         patternIndex = 0;

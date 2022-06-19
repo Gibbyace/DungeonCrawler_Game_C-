@@ -28,7 +28,7 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
 
-
+    ui->gridLayoutWidget_2->raise();
     ui->statusbar->setStyleSheet(("background-color: #F00"));
 
     setupPlayingField(texturecontainer, level);

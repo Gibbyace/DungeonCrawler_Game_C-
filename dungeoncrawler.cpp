@@ -3,6 +3,7 @@
 #include "level.h"
 #include "terminalui.h"
 #include "graphicalui.h"
+#include "mainwindow.h"
 
 #include <QTest>
 
@@ -66,6 +67,12 @@ void DungeonCrawler::play()
             Tile* tileWithCharacter = character->getTile();
             Tile* destinationTile = determineDestinationTile(currentLevel, tileWithCharacter, direction);
 
+            if (destinationTile != nullptr) {
+                if (!destinationTile->getCharacter()->getIsPlayerCharacter()) {
+
+                }
+
+            }
             if (destinationTile != nullptr) {
                 tileWithCharacter->moveTo(destinationTile, character);
             }

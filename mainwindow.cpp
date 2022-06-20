@@ -130,7 +130,7 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
 }
 
 void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent) {
-    QSize s = QSize(50,50);
+
     ui->topleftbutton->setIcon(     QIcon(texturecontainer->getArrows()[3]));
     ui->topbutton->setIcon(         QIcon(texturecontainer->getArrows()[4]));
     ui->toprightbutton->setIcon(    QIcon(texturecontainer->getArrows()[5]));
@@ -141,15 +141,16 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     ui->leftbutton->setIcon(        QIcon(texturecontainer->getArrows()[2]));
     ui->centerbutton->setIcon(      QIcon(texturecontainer->getArrows()[8]));
 
-    ui->topleftbutton->setIconSize(s);
-    ui->topbutton->setIconSize(s);
-    ui->toprightbutton->setIconSize(s);
-    ui->rightbutton->setIconSize(s);
-    ui->bottomrightbutton->setIconSize(s);
-    ui->bottombutton->setIconSize(s);
-    ui->bottomleftbutton->setIconSize(s);
-    ui->leftbutton->setIconSize(s);
-    ui->centerbutton->setIconSize(s);
+    QSize sizer = QSize(50,50);
+    ui->topleftbutton->setIconSize(sizer);
+    ui->topbutton->setIconSize(sizer);
+    ui->toprightbutton->setIconSize(sizer);
+    ui->rightbutton->setIconSize(sizer);
+    ui->bottomrightbutton->setIconSize(sizer);
+    ui->bottombutton->setIconSize(sizer);
+    ui->bottomleftbutton->setIconSize(sizer);
+    ui->leftbutton->setIconSize(sizer);
+    ui->centerbutton->setIconSize(sizer);
 
 
     connect(ui->topleftbutton,      &QPushButton::clicked, [parent]() {parent->setLastInput(7);});
@@ -239,7 +240,6 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                     dynamic_cast<QLabel*>(doorWidget)->setPixmap(texturecontainer->getDoors()[0]);
                 }
             }
-
             if (dynamic_cast<Pit*>(currentTile) != nullptr) {
                 QLabel* pitAsLabel = dynamic_cast<QLabel*>(ui->gridLayout->itemAtPosition(row, col)->widget());
                 pitAsLabel->setPixmap(texturecontainer->getPits()[0]);
@@ -270,6 +270,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) {
                     MainWindow::gameWin();
                 }
+
             }
         }
     }
@@ -284,12 +285,19 @@ void MainWindow::setChangesDrawn(bool value)
     changesDrawn = value;
 }
 
+
+
+void MainWindow::battle() {
+
+}
+
 void MainWindow::checkIfCharacterIsDead(Level* level) {
 
     if(level->getPlayerCharacter()->getHitpoints()==0){
         MainWindow::characterIsDead();
     }
 }
+
 void MainWindow::characterIsDead(){
 
         ui->centralwidget->hide();
@@ -297,7 +305,6 @@ void MainWindow::characterIsDead(){
 
         endscreen endscreen1;
         endscreen1.exec();
-
 }
 
 
@@ -307,15 +314,12 @@ void MainWindow::gameWin() {
     ui->centralwidget->hide();
     delete ui;
 
-    endscreen endscreen1;
-    endscreen1.exec(); //TODO: bitte einen schönen game win screen machen
     std::cout<<"YOU WON!";
+    endscreen endscreen1;
+    endscreen1.exec(); //TODO: bitte einen schönen game win screen machen und endscreen1 mit etwas anderem ersetzen
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+
 
 void MainWindow::closeEvent(QCloseEvent* event) {
     GraphicalUI* parentAsGUI = dynamic_cast<GraphicalUI*>(parent());
@@ -325,4 +329,8 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     }
 }
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
 

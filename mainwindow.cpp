@@ -292,6 +292,9 @@ void MainWindow::characterIsDead(){
 
 void MainWindow::gameWin() {
 
+    ui->centralwidget->hide();
+    delete ui;
+
     endscreen endscreen1;
     endscreen1.exec(); //TODO: bitte einen schönen game win screen machen
     std::cout<<"YOU WON!";

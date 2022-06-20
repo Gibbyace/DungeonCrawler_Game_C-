@@ -3,12 +3,13 @@
 LevelList::LevelList()
 {
     Element* startElement = new Element();
+    Element* endElement = new Element();
+
     startElement->prev = nullptr;
-    startElement->next = nullptr;
+    startElement->next = endElement;
     startElement->level = nullptr;
 
-    Element* endElement = new Element();
-    endElement->prev = nullptr;
+    endElement->prev = startElement;
     endElement->next = nullptr;
     endElement->level = nullptr;
 
@@ -36,7 +37,7 @@ void LevelList::push_back(Level* level) {
     element->level = level;
 
     if (empty()) {
-        cout << "Liste ist leer";
+        cout << "Liste ist leer" << endl;
         element->prev = start;
         element->next = end;
 
@@ -44,6 +45,7 @@ void LevelList::push_back(Level* level) {
         end->prev = element;
     }
     else {
+        cout << "Liste ist nicht leer" << endl;
         element->prev = end->prev;
         element->next = end;
 
@@ -83,14 +85,14 @@ void LevelList::test() {
 
     Element* current = start;
 
-    cout << current->next->level->getId();
-
     while (current->next != nullptr) {
         cout << "Ein Durchgang ist geschafft " << endl;
 
         if (current->level != nullptr) {
-            cout << "Das LEvel hat ne Id " << endl;
-            cout << current->level->getId() << endl;
+            cout << "Das LEvel hat ne Id " << current->level->getId() << endl;
+        }
+        else {
+            cout << "Aktuelle Element ist Nullpointer" << endl;
         }
 
         current = current->next;

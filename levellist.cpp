@@ -49,7 +49,9 @@ void LevelList::push_back(Level* level) {
         element->prev = end->prev;
         element->next = end;
 
+        end->prev->next = element;
         end->prev = element;
+        //DAS NEXT VON DEM ELEMENT VOR END MUSS GESETZT WERDEN
     }
 
     size++;
@@ -70,7 +72,9 @@ void LevelList::push_front(Level* level) {
         element->next = start->next;
         element->prev = start;
 
+        start->next->prev = element;
         start->next = element;
+        //MUSS DAS PREV VON DEM ELEMENT NACH START GESETZT WERDEN? JA ODER?
     }
 
     size++;
@@ -79,9 +83,11 @@ void LevelList::push_front(Level* level) {
 void LevelList::test() {
     Level* level1 = new Level(10, 10);
     Level* level2 = new Level(10, 10);
+    Level* level3 = new Level(10, 10);
 
     push_back(level1);
     push_back(level2);
+    push_back(level3);
 
     Element* current = start;
 
@@ -89,12 +95,16 @@ void LevelList::test() {
         cout << "Ein Durchgang ist geschafft " << endl;
 
         if (current->level != nullptr) {
-            cout << "Das LEvel hat ne Id " << current->level->getId() << endl;
+            cout << "Das Level hat ne Id " << current->level->getId() << endl;
         }
         else {
             cout << "Aktuelle Element ist Nullpointer" << endl;
         }
 
         current = current->next;
+
+        if (current == nullptr) {
+            cout << "Das nächste Element ist Nullpointer" << endl;
+        }
     }
 }

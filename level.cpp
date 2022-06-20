@@ -13,6 +13,8 @@
 #include "stationarycontroller.h"
 #include "guardcontroller.h"
 
+int Level::idCounter = 0;
+
 Level::Level(const Level& level) : height(level.height), width(level.width) {
     int charRow, charCol;
 
@@ -135,6 +137,11 @@ Character* Level::getPlayerCharacter() {
     }
 }
 
+int Level::getId() const
+{
+    return id;
+}// TODO: falls nicht gefunden, return nullptr;
+
 const vector<Character *> &Level::getCharacterpointer() const
 {
     return characterpointer;
@@ -142,6 +149,9 @@ const vector<Character *> &Level::getCharacterpointer() const
 
 Level::Level(const int height, const int width):height(height),width(width)
 {
+    idCounter++;
+    id = idCounter;
+
     for (int i = 0; i < height; i++) {
         vector<Tile*> row = vector<Tile*>();
         tilepointer.push_back(row);

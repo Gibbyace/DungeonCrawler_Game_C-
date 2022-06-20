@@ -15,6 +15,7 @@ class Level
 
 
 public:
+    static int idCounter;
     friend void swap(Level& lhs, Level& rhs);
     Level(const int height, const int width);
     Level(const Level& level);
@@ -30,7 +31,10 @@ public:
     Character* getPlayerCharacter();
 
 
+    int getId() const;
+
 protected:
+    int id;
     void placeCharacter(Character *c, int row, int col);
     void placePortals(int row1, int col1, int row2, int col2);
     void placeSwitchAndDoor(int row1, int col1, int row2, int col2);

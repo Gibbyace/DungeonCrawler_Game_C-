@@ -130,6 +130,7 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
 }
 
 void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent) {
+    QSize s = QSize(50,50);
     ui->topleftbutton->setIcon(     QIcon(texturecontainer->getArrows()[3]));
     ui->topbutton->setIcon(         QIcon(texturecontainer->getArrows()[4]));
     ui->toprightbutton->setIcon(    QIcon(texturecontainer->getArrows()[5]));
@@ -139,6 +140,17 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     ui->bottomleftbutton->setIcon(  QIcon(texturecontainer->getArrows()[1]));
     ui->leftbutton->setIcon(        QIcon(texturecontainer->getArrows()[2]));
     ui->centerbutton->setIcon(      QIcon(texturecontainer->getArrows()[8]));
+
+    ui->topleftbutton->setIconSize(s);
+    ui->topbutton->setIconSize(s);
+    ui->toprightbutton->setIconSize(s);
+    ui->rightbutton->setIconSize(s);
+    ui->bottomrightbutton->setIconSize(s);
+    ui->bottombutton->setIconSize(s);
+    ui->bottomleftbutton->setIconSize(s);
+    ui->leftbutton->setIconSize(s);
+    ui->centerbutton->setIconSize(s);
+
 
     connect(ui->topleftbutton,      &QPushButton::clicked, [parent]() {parent->setLastInput(7);});
     connect(ui->topbutton,          &QPushButton::clicked, [parent]() {parent->setLastInput(8);});

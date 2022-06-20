@@ -71,21 +71,33 @@ void LevelList::push_front(Level* level) {
 }
 
 void LevelList::pop_back() {
+    if (empty()) {
+        throw std::runtime_error("Versuch, Element aus leerer Liste zu entfernen");
+    }
+
     Element* elementToDelete = end->prev;
 
     end->prev->prev->next = end;
     end->prev = end->prev->prev;
 
     delete elementToDelete;
+
+    size--;
 }
 
 void LevelList::pop_front() {
+    if (empty()) {
+        throw std::runtime_error("Versuch, Element aus leerer Liste zu entfernen");
+    }
+
     Element* elementToDelete = start->next;
 
     start->next->next->prev = start;
     start->next = start->next->next;
 
     delete elementToDelete;
+
+    size--;
 }
 
 void LevelList::remove(Level* level) {
@@ -97,6 +109,8 @@ void LevelList::remove(Level* level) {
             current->next->prev = current->prev;
 
             delete current;
+
+            size--;
         }
 
         current = current->next;

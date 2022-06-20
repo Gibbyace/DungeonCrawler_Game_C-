@@ -18,6 +18,7 @@ public:
     //iterator begin();
     //iterator end();
     void test();
+    void print();
 
 private:
     struct Element {

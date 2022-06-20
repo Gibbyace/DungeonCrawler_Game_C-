@@ -26,18 +26,11 @@ bool LevelList::empty() {
     return size == 0;
 }
 
-//wie teste ich diesen Stuss?
-//ich könnte den Levels eine eindeutige ID mit nem static idCounter geben
-//und dann mit einer LevelList::print Methode die IDs der Levels in der Liste ausgeben lassen
-
 void LevelList::push_back(Level* level) {
-    cout << "wir wollen das Level mit der id" << level->getId() << "pushen" << endl;
-
     Element* element = new Element();
     element->level = level;
 
     if (empty()) {
-        cout << "Liste ist leer" << endl;
         element->prev = start;
         element->next = end;
 
@@ -45,13 +38,11 @@ void LevelList::push_back(Level* level) {
         end->prev = element;
     }
     else {
-        cout << "Liste ist nicht leer" << endl;
         element->prev = end->prev;
         element->next = end;
 
         end->prev->next = element;
         end->prev = element;
-        //DAS NEXT VON DEM ELEMENT VOR END MUSS GESETZT WERDEN
     }
 
     size++;
@@ -74,22 +65,34 @@ void LevelList::push_front(Level* level) {
 
         start->next->prev = element;
         start->next = element;
-        //MUSS DAS PREV VON DEM ELEMENT NACH START GESETZT WERDEN? JA ODER?
     }
 
     size++;
 }
 
-void LevelList::test() {
-    Level* level1 = new Level(10, 10);
-    Level* level2 = new Level(10, 10);
-    Level* level3 = new Level(10, 10);
+void LevelList::pop_back() {
+    Element* elementToDelete = end->prev;
 
-    push_back(level1);
-    push_back(level2);
-    push_back(level3);
+    end->prev->prev->next = end;
+    end->prev = end->prev->prev;
 
+    delete elementToDelete;
+}
+
+void LevelList::pop_front() {
+    Element* elementToDelete = start->next;
+
+    start->next->next->prev = start;
+    start->next = start->next->next;
+
+    delete elementToDelete;
+}
+
+
+void LevelList::print() {
     Element* current = start;
+
+    cout << endl;
 
     while (current->next != nullptr) {
         cout << "Ein Durchgang ist geschafft " << endl;
@@ -107,4 +110,25 @@ void LevelList::test() {
             cout << "Das nächste Element ist Nullpointer" << endl;
         }
     }
+}
+
+void LevelList::test() {
+    Level* level1 = new Level(10, 10);
+    Level* level2 = new Level(10, 10);
+    Level* level3 = new Level(10, 10);
+
+    push_back(level1);
+    push_back(level2);
+    push_back(level3);
+
+    print();
+
+    pop_back();
+
+    print();
+    push_back(level3);
+    print();
+
+    pop_front();
+    print();
 }

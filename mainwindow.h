@@ -41,11 +41,14 @@ private:
     QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
 
+    void battle();
+
     void checkIfCharacterIsDead(Level* level);
     void characterIsDead();
 
     void checkIfGameWin(Level* level);
     void gameWin();
+
     void closeEvent(QCloseEvent* event);
 };
 

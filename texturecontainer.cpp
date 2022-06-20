@@ -60,6 +60,9 @@ TextureContainer::TextureContainer()
     backgrounds.push_back(QPixmap(imageDirectory + "/bloody_frame.png"));
     backgrounds.push_back(QPixmap(imageDirectory + "/new_game_button.png"));
     backgrounds.push_back(QPixmap(imageDirectory + "/startscreen.png"));
+    backgrounds.push_back(QPixmap(imageDirectory + "/you_lose_screen/you_lose.jpeg")); //eingefügt aber nicht benutzt
+  //background.push_back(QPixmap(imageDirectory + "/you_win_screen/XYZ"));
+
 }
 
 vector<QPixmap> TextureContainer::getBackgrounds() const

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>468</width>
     <height>300</height>
    </rect>
   </property>
@@ -16,10 +16,10 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>-40</x>
-     <y>230</y>
+     <x>-20</x>
+     <y>260</y>
      <width>341</width>
-     <height>32</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="orientation">
@@ -29,6 +29,24 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>-10</x>
+     <y>0</y>
+     <width>481</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>textures/you_lose_screen/you_lose.jpg</pixmap>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>buttonBox</zorder>
  </widget>
  <resources/>
  <connections>

@@ -88,6 +88,20 @@ void LevelList::pop_front() {
     delete elementToDelete;
 }
 
+void LevelList::remove(Level* level) {
+    Element* current = start;
+
+    while (current->next != nullptr) {
+        if (current->level == level) {
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+
+            delete current;
+        }
+
+        current = current->next;
+    }
+}
 
 void LevelList::print() {
     Element* current = start;
@@ -124,11 +138,17 @@ void LevelList::test() {
     print();
 
     pop_back();
-
     print();
+
     push_back(level3);
     print();
 
     pop_front();
+    print();
+
+    push_front(level1);
+    print();
+
+    remove(level3);
     print();
 }

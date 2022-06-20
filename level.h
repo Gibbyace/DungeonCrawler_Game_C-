@@ -29,6 +29,7 @@ public:
     int getWidth() const;
     const vector<Character *> &getCharacterpointer() const;
     Character* getPlayerCharacter();
+    bool operator ==(Level* rhs);
 
 
     int getId() const;

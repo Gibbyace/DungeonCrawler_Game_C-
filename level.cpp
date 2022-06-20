@@ -112,6 +112,10 @@ Level& Level::operator=(Level rhs) {
     return *this;
 }
 
+bool Level::operator ==(Level* rhs) {
+    return this->id == rhs->id;
+}
+
 const vector<vector<Tile *> > &Level::getTilepointer() const
 {
     return tilepointer;

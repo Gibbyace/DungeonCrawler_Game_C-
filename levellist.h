@@ -5,16 +5,6 @@
 
 class LevelList
 {
-private:
-    struct Element {
-        Level* level;
-        Element* prev;
-        Element* next;
-    };
-
-    Element* start = nullptr;   //Pseudoelement, das den Anfang markiert
-    Element* ending = nullptr;     //Pseudoelement, das das Ende markiert
-    size_t size = 0;
 
 public:
     LevelList();
@@ -25,6 +15,12 @@ public:
     bool empty();
     size_t getSize() const;
     void remove(Level*);
+
+    struct Element {
+        Level* level;
+        Element* prev;
+        Element* next;
+    };
 
     class iterator {
     public:
@@ -62,6 +58,11 @@ public:
 
     void test();
     void print();
+
+private:
+    Element* start = nullptr;   //Pseudoelement, das den Anfang markiert
+    Element* ending = nullptr;     //Pseudoelement, das das Ende markiert
+    size_t size = 0;
 };
 
 #endif // LEVELLIST_H

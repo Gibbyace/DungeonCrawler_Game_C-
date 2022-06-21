@@ -152,7 +152,68 @@ const vector<Character *> &Level::getCharacterpointer() const
     return characterpointer;
 }
 
-Level::Level(const int height, const int width):height(height),width(width)
+Level::Level(vector<vector<string>> level_as_string, const int height, const int width):height(height),width(width) {
+    idCounter++;
+    id = idCounter;
+
+    for (int i = 0; i < height; i++) {
+        vector<Tile*> row = vector<Tile*>();
+        tilepointer.push_back(row);
+    }
+
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            string tileAsString = level_as_string[row][col];
+
+            if (tileAsString == "#") {
+                tilepointer[row].push_back(new Wall(row, col));
+            }
+            else if (tileAsString == "_") {
+                tilepointer[row].push_back(new Pit(row, col));
+            }
+            else if (tileAsString == "<") {
+                tilepointer[row].push_back(new Ramp(row, col));
+            }
+            else if (tileAsString == "e") {
+                tilepointer[row].push_back(new LootChest(row, col));
+            }
+            else if (tileAsString == "l") {
+                tilepointer[row].push_back(new Levelchanger(row, col));
+            }
+
+            else {
+                Floor* new_floor = new Floor(row, col);
+                tilepointer[row].push_back(new_floor);
+
+                if (tileAsString == "X") {
+                    Character* new_character = new Character(10, 10, 10, true);
+                    placeCharacter(new_character, row, col);
+
+                    characterpointer.push_back(new_character);
+                }
+                else if (tileAsString == "N") {
+                    Character* newNpc = new Character(10, 10, 10, false);
+                    Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+                    newNpc->setController(npcController);
+
+                    placeCharacter(newNpc, row, col);
+
+                    characterpointer.push_back(newNpc);
+                }
+            }
+        }
+    }
+
+
+    placePortals(1, 1, 8, 8);
+    placePortals(1, 8, 8, 1);
+
+    placeSwitchAndDoor(2, 2, 7, 7);
+
+}
+
+
+/*Level::Level(const int height, const int width):height(height),width(width)
 {
     idCounter++;
     id = idCounter;
@@ -224,7 +285,7 @@ Level::Level(const int height, const int width):height(height),width(width)
 
     placeSwitchAndDoor(2, 2, 7, 7);
 
-}
+}*/
 
 Level::~Level() {
     for (int row = 0; row < this->height; row++) {

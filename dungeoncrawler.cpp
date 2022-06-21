@@ -7,9 +7,46 @@
 
 #include <QTest>
 
+void DungeonCrawler::generateLevels() {
+    Level* level1 = new Level(
+        {
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", "N", "#"},
+        {"#", ".", "_", "_", ".", ".", ".", "e", ".", "#"},
+        {"#", ".", "_", "<", ".", "X", ".", ".", ".", "#"},
+        {"#", ".", "_", "_", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        }, 10, 10
+    );
+
+    Level* level2 = new Level({
+      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", "l", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", "N", "#"},
+      {"#", "_", "_", "_", ".", ".", ".", "e", ".", "#"},
+      {"#", "_", "_", "<", ".", "X", ".", ".", ".", "#"},
+      {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+      }, 10, 10);
+
+    levels.push_back(level1);
+    levels.push_back(level2);
+
+    currentLevel = level1;
+}
+
 DungeonCrawler::DungeonCrawler()
 {
-    Level* level = new Level(10, 10);
+    generateLevels();
+
+    //Level* level = new Level(10, 10);
 
     //Kopierkonstruktor testen
     /*
@@ -23,8 +60,9 @@ DungeonCrawler::DungeonCrawler()
     delete tmp;
     */
 
-    levels.push_back(level);
-    currentLevel = level;
+    //levels.push_back(level);
+
+    //currentLevel = level;
 
     this->abstractUI = new GraphicalUI(levels.begin().m_ptr->level);
     //this->abstractUI = new TerminalUI();
@@ -48,7 +86,6 @@ void DungeonCrawler::play()
 
     Character* playerCharacter = currentLevel->getPlayerCharacter();
     playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
-
 
     while (abstractUI->getUserWantsToEndThisApp() == false) {
         if (abstractUI->getInputProcessed() == true) {
@@ -145,6 +182,10 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
 }
 
 void DungeonCrawler::notify(Active* source) {
-    cout << "Fühlen Sie es jetzt mr. Krabs?";
-    qDebug("HalLOOOOOOOO");
+    //sollte hier schon das destination LEvel übergeben werden?
+    //dazu sollten die LevelChanger alle einen Pointer auf das dazugehörigere LEvel bekommen
+    //das könnte in einer DungeonCrawler::connectLEvels-Methode passieren
+
+    qDebug("ES IST ZEIT FÜR EIN NEUES LEVEL!!!!!!!!!!!!!!");
+    //currentLevel = levels.;
 }

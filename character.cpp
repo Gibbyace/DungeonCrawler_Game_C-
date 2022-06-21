@@ -61,6 +61,11 @@ int Character::getId() const
     return id;
 }
 
+void Character::setHitpoints(int newHitpoints)
+{
+    hitpoints = newHitpoints;
+}
+
 Character::Character(int strength, int stamina, int hitpoints, bool isPlayerCharacter)
 {
     idCounter++;

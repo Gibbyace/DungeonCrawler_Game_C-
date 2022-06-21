@@ -267,8 +267,8 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
-                else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) {
-                    MainWindow::gameWin();
+                else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) { //TODO: PLS FIXTHIS
+                    gameWin();
                 }
 
             }
@@ -276,7 +276,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     }
 
     setStatusbarMessage(level);
-
+    checkIfCharacterIsDead(level);
 
 }
 
@@ -293,16 +293,17 @@ void MainWindow::battle() {
 
 void MainWindow::checkIfCharacterIsDead(Level* level) {
 
-    if(level->getPlayerCharacter()->getHitpoints()==0){
-        MainWindow::characterIsDead();
+    if(level->getPlayerCharacter()->getHitpoints() == 0) {
+        characterIsDead();
     }
 }
 
 void MainWindow::characterIsDead(){
 
-        ui->centralwidget->hide();
+        //ui->centralwidget->hide();
+        hide();
         delete ui;
-
+        cout<<"YOU ARE DEAD; AHAHAHAHHA";
         endscreen endscreen1;
         endscreen1.exec();
 }
@@ -311,7 +312,8 @@ void MainWindow::characterIsDead(){
 
 void MainWindow::gameWin() {
 
-    ui->centralwidget->hide();
+    //ui->centralwidget->hide();
+    hide();
     delete ui;
 
     std::cout<<"YOU WON!";

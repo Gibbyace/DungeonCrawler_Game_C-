@@ -95,7 +95,7 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
         }
     }
 
-    Character* new_character = new Character(10, 10, 10, true);
+    Character* new_character = new Character(1, 10, 10, true);
     placeCharacter(new_character, charRow, charCol);
     characterpointer.push_back(new_character);
 }
@@ -189,7 +189,7 @@ Level::Level(const int height, const int width):height(height),width(width)
                     characterpointer.push_back(new_character);
                 }
                 else if (tileAsString == "N") {
-                    Character* newNpc = new Character(10, 10, 10, false);
+                    Character* newNpc = new Character(1, 2, 2, false);
                     Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
                     newNpc->setController(npcController);
 

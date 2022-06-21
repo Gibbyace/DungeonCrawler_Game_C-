@@ -38,6 +38,7 @@ public:
 
     static int idCounter;
     int getId() const;
+    void setHitpoints(int newHitpoints);
 };
 
 #endif // CHARACTER_H

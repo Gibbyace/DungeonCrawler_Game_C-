@@ -55,11 +55,21 @@ bool Tile::moveTo(Tile *destTile, Character *who){
         return false;
     }
 
-    who->setTile(enteredTile);
-    this->character = nullptr;
-    enteredTile->setCharacter(who);
+
+    if (destTile->hasCharacter() && who->getTile() != destTile) {
+        std::cout<<"Hey du Arschgesicht ";
+        battle(destTile, who);
+    }
+    else {
+        who->setTile(enteredTile);
+        this->character = nullptr;
+        enteredTile->setCharacter(who);
+    }
 
     return true;
 }
 
-
+void Tile::battle(Tile *destTile, Character *who) {
+    int damage = character->getStrength();
+    destTile->getCharacter()->setHitpoints(destTile->getCharacter()->getHitpoints() - damage);
+}

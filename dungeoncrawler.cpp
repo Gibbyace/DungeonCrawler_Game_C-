@@ -22,9 +22,10 @@ DungeonCrawler::DungeonCrawler()
     delete tmp;
     */
 
-    this->levels.push_back(level);
+    levels.push_back(level);
+    currentLevel = level;
 
-    this->abstractUI = new GraphicalUI(levels[0]);
+    this->abstractUI = new GraphicalUI(levels.begin().m_ptr->level);
     //this->abstractUI = new TerminalUI();
 }
 
@@ -32,7 +33,7 @@ DungeonCrawler::~DungeonCrawler() {
     delete this->abstractUI;
 
     while (!levels.empty()) {
-        delete levels.back();
+        //delete levels.back();
         levels.pop_back();
     }
 }
@@ -41,7 +42,9 @@ void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
-    Level* currentLevel = levels[0];
+    setLevel(levels.begin().m_ptr->level);
+    //will ich Attribut currentLevel setzen oder lieber nen Iterator benutzen?
+    //Level* currentLevel = levels[0];
 
     Character* playerCharacter = currentLevel->getPlayerCharacter();
     playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
@@ -76,6 +79,11 @@ void DungeonCrawler::play()
         //Muss für TerminalUI auskommentiert werden
         abstractUI->setInputProcessed(true);
     }
+}
+
+void DungeonCrawler::setLevel(Level *level) {
+    Level* currentLevel = level;
+
 }
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)
@@ -126,4 +134,6 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
     return destinationTile;
 }
 
+void DungeonCrawler::notify(Active* source) {
 
+}

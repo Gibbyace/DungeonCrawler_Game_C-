@@ -10,6 +10,7 @@
 #include "door.h"
 #include "pit.h"
 #include "ramp.h"
+#include "levelchanger.h"
 #include "stationarycontroller.h"
 #include "guardcontroller.h"
 
@@ -171,7 +172,7 @@ Level::Level(const int height, const int width):height(height),width(width)
             {"#", "_", "_", "<", ".", "X", ".", ".", ".", "#"},
             {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
             {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#"},
             {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         };
 
@@ -182,14 +183,17 @@ Level::Level(const int height, const int width):height(height),width(width)
             if (tileAsString == "#") {
                 tilepointer[row].push_back(new Wall(row, col));
             }
-            else if(tileAsString == "_"){
+            else if (tileAsString == "_") {
                 tilepointer[row].push_back(new Pit(row, col));
             }
-            else if(tileAsString == "<"){
+            else if (tileAsString == "<") {
                 tilepointer[row].push_back(new Ramp(row, col));
             }
-            else if(tileAsString == "e"){
+            else if (tileAsString == "e") {
                 tilepointer[row].push_back(new LootChest(row, col));
+            }
+            else if (tileAsString == "l") {
+                tilepointer[row].push_back(new Levelchanger(row, col));
             }
 
             else {

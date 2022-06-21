@@ -24,6 +24,8 @@ TextureContainer::TextureContainer()
     floors.push_back(QPixmap(imageDirectory + "/floor/floor4.png"));
     floors.push_back(QPixmap(imageDirectory + "/floor/floor5.png"));
 
+    levelchanger.push_back(QPixmap(imageDirectory + "/levelchanger.jpeg"));
+
     lootchest.push_back(QPixmap(imageDirectory + "/lootchest/lootchest1.png"));
 
     pits.push_back(QPixmap(imageDirectory + "/pit.png"));
@@ -134,4 +136,9 @@ vector<QPixmap> TextureContainer::getCharLefts() const
 vector<QPixmap> TextureContainer::getCharRights() const
 {
     return charRights;
+}
+
+vector<QPixmap> TextureContainer::getLevelchanger() const
+{
+    return levelchanger;
 }

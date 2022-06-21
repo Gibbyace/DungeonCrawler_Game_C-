@@ -123,7 +123,7 @@ LevelList::iterator LevelList::begin() {
 }
 
 LevelList::iterator LevelList::end() {
-    iterator it = iterator(ending->prev);
+    iterator it = iterator(ending);
     return it;
 }
 

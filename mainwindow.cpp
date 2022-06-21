@@ -3,6 +3,7 @@
 #include "endscreen.h"
 #include <door.h>
 #include <floor.h>
+#include "levelchanger.h"
 #include <lootchest.h>
 #include <pit.h>
 #include <portal.h>
@@ -58,6 +59,9 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
                 int randomizer = rand() % tileTextureCount;
 
                 tilePixmap = texturecontainer->getFloors()[randomizer];
+            }
+            else if (dynamic_cast<Levelchanger*>(currentTile) != nullptr) {
+                tilePixmap = texturecontainer->getLevelchanger()[0];
             }
             else if (dynamic_cast<LootChest*>(currentTile) != nullptr) {
                 tilePixmap = texturecontainer->getLootChest()[0];

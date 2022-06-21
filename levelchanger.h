@@ -4,6 +4,8 @@
 #include "tile.h"
 #include "active.h"
 
+class Character;
+
 class Levelchanger : public Tile, public Active
 {
 public:

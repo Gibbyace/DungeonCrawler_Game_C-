@@ -1,6 +1,7 @@
 ﻿#include "dungeoncrawler.h"
 #include "character.h"
 #include "level.h"
+#include "levelchanger.h"
 #include "terminalui.h"
 #include "graphicalui.h"
 
@@ -43,8 +44,7 @@ void DungeonCrawler::play()
     abstractUI->printDirectionOptions();
 
     setLevel(levels.begin().m_ptr->level);
-    //will ich Attribut currentLevel setzen oder lieber nen Iterator benutzen?
-    //Level* currentLevel = levels[0];
+    //vielleicht wollen wir hier lieber nen Iterator benutzen
 
     Character* playerCharacter = currentLevel->getPlayerCharacter();
     playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
@@ -82,8 +82,18 @@ void DungeonCrawler::play()
 }
 
 void DungeonCrawler::setLevel(Level *level) {
-    Level* currentLevel = level;
+    currentLevel = level;
 
+    for (int row = 0; row < level->getHeight(); row++) {
+        for (int col = 0; col < level->getWidth(); col++) {
+            Tile* currentTile = level->getTilepointer()[row][col];
+
+            if (dynamic_cast<Levelchanger*>(currentTile) != nullptr) {
+                cout << "Guck mal, ich hab nen Levelchanger gefunden" << "!!!" << endl;
+                dynamic_cast<Active*>(currentTile)->attach(this);
+            }
+        }
+    }
 }
 
 Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithCharacter, int direction)
@@ -135,5 +145,6 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
 }
 
 void DungeonCrawler::notify(Active* source) {
-
+    cout << "Fühlen Sie es jetzt mr. Krabs?";
+    qDebug("HalLOOOOOOOO");
 }

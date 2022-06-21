@@ -14,7 +14,7 @@ LevelList::LevelList()
     endElement->level = nullptr;
 
     start = startElement;
-    end = endElement;
+    ending = endElement;
 }
 
 size_t LevelList::getSize() const
@@ -32,17 +32,17 @@ void LevelList::push_back(Level* level) {
 
     if (empty()) {
         element->prev = start;
-        element->next = end;
+        element->next = ending;
 
         start->next = element;
-        end->prev = element;
+        ending->prev = element;
     }
     else {
-        element->prev = end->prev;
-        element->next = end;
+        element->prev = ending->prev;
+        element->next = ending;
 
-        end->prev->next = element;
-        end->prev = element;
+        ending->prev->next = element;
+        ending->prev = element;
     }
 
     size++;
@@ -54,10 +54,10 @@ void LevelList::push_front(Level* level) {
 
     if (empty()) {
         element->prev = start;
-        element->next = end;
+        element->next = ending;
 
         start->next = element;
-        end->prev = element;
+        ending->prev = element;
     }
     else {
         element->next = start->next;
@@ -75,10 +75,10 @@ void LevelList::pop_back() {
         throw std::runtime_error("Versuch, Element aus leerer Liste zu entfernen");
     }
 
-    Element* elementToDelete = end->prev;
+    Element* elementToDelete = ending->prev;
 
-    end->prev->prev->next = end;
-    end->prev = end->prev->prev;
+    ending->prev->prev->next = ending;
+    ending->prev = ending->prev->prev;
 
     delete elementToDelete;
 
@@ -115,6 +115,16 @@ void LevelList::remove(Level* level) {
 
         current = current->next;
     }
+}
+
+LevelList::iterator LevelList::begin() {
+    iterator it = iterator(start->next);
+    return it;
+}
+
+LevelList::iterator LevelList::end() {
+    iterator it = iterator(ending->prev);
+    return it;
 }
 
 void LevelList::print() {
@@ -165,4 +175,13 @@ void LevelList::test() {
 
     remove(level3);
     print();
+
+    push_back(level3);
+    print();
+
+    cout << "Und jetzt iterieren wir einmal durch die Liste" << endl;
+
+    for (iterator it = begin(); it.m_ptr != ending; it++) {
+        cout << it.m_ptr->level->getId() << endl;
+    }
 }

@@ -7,6 +7,25 @@
 
 #include <QTest>
 
+void DungeonCrawler::connectLevels() {
+    for (LevelList::iterator it = levels.begin(); it != levels.end(); it++) {
+        Level* level = it.m_ptr->level;
+        Level* nextLevel = it.m_ptr->next->level;
+
+        //levelchanger des Levels suchen und destinationLevel des levelchangers auf das nächste Level
+        for (int row = 0; row < level->getHeight(); row++) {
+            for (int col = 0; col < level->getWidth(); col++) {
+                Tile* currentTile = level->getTilepointer()[row][col];
+                Levelchanger* currentTileAsLevelchanger = dynamic_cast<Levelchanger*>(currentTile);
+
+                if (currentTileAsLevelchanger != nullptr) {
+                    currentTileAsLevelchanger->setDestinationLevel(nextLevel);
+                }
+            }
+        }
+    }
+}
+
 void DungeonCrawler::generateLevels() {
     Level* level1 = new Level(
         {
@@ -40,6 +59,8 @@ void DungeonCrawler::generateLevels() {
     levels.push_back(level2);
 
     currentLevel = level1;
+
+    connectLevels();
 }
 
 DungeonCrawler::DungeonCrawler()
@@ -182,10 +203,7 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
 }
 
 void DungeonCrawler::notify(Active* source) {
-    //sollte hier schon das destination LEvel übergeben werden?
-    //dazu sollten die LevelChanger alle einen Pointer auf das dazugehörigere LEvel bekommen
-    //das könnte in einer DungeonCrawler::connectLEvels-Methode passieren
-
     qDebug("ES IST ZEIT FÜR EIN NEUES LEVEL!!!!!!!!!!!!!!");
+    qDebug() << "Das neue Level hat die ID " << static_cast<Levelchanger*>(source)->getDestinationLevel()->getId();
     //currentLevel = levels.;
 }

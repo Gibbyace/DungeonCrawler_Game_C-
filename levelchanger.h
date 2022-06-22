@@ -14,6 +14,10 @@ public:
     Tile* onEnter(Tile *fromTile, Character *who) override;
     Tile* onLeave(Tile *destTile, Character *who) override;
 
+    void setDestinationLevel(Level *value);
+
+    Level *getDestinationLevel() const;
+
 private:
     Level* destinationLevel;
 };

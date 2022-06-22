@@ -17,3 +17,13 @@ Tile* Levelchanger::onEnter(Tile *fromTile, Character *who) {
 Tile* Levelchanger::onLeave(Tile *destTile, Character *who) {
     return this;
 }
+
+void Levelchanger::setDestinationLevel(Level *value)
+{
+    destinationLevel = value;
+}
+
+Level *Levelchanger::getDestinationLevel() const
+{
+    return destinationLevel;
+}

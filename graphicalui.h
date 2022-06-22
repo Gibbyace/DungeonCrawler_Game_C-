@@ -26,6 +26,10 @@ public:
     int move() override;
     void loadTextures();
 
+    MainWindow *getMainwindow() const;
+
+    TextureContainer *getTexturecontainer() const;
+
 public slots:
     void windowHasBeenClosed();
     void setLastInput(int direction);

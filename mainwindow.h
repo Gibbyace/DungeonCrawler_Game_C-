@@ -24,6 +24,8 @@ public:
     void draw(Level* level, TextureContainer* texturecontainer);
 
     void setChangesDrawn(bool value);
+    void setupPlayingField(TextureContainer* texturecontainer, Level* level);
+
 
 public slots:
 
@@ -36,7 +38,6 @@ private:
     std::map<int, QLabel*> characterLabels;
 
     void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
-    void setupPlayingField(TextureContainer* texturecontainer, Level* level);
 
     QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);

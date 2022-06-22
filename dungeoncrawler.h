@@ -22,6 +22,7 @@ public:
     void setLevel(Level* level);
     void generateLevels();
     void connectLevels();
+    void switchLevels(Level* level);
     Tile* determineDestinationTile(Level* level, Tile* tileWithCharacter, int direction);
     void notify(Active* source) override;
 };

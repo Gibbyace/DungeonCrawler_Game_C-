@@ -31,11 +31,11 @@ void DungeonCrawler::generateLevels() {
         {
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", "N", "#"},
-        {"#", ".", "_", "_", ".", ".", ".", "e", ".", "#"},
-        {"#", ".", "_", "<", ".", "X", ".", ".", ".", "#"},
-        {"#", ".", "_", "_", ".", ".", ".", ".", ".", "#"},
+        {"#", "_", "_", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", "_", ".", ".", ".", ".", ".", "N", "#"},
+        {"#", ".", "_", ".", ".", ".", ".", "e", ".", "#"},
+        {"#", ".", "_", ".", ".", "X", ".", ".", ".", "#"},
+        {"#", ".", "<", ".", ".", ".", ".", ".", ".", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
         {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#"},
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
@@ -46,11 +46,11 @@ void DungeonCrawler::generateLevels() {
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
       {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
       {"#", ".", "l", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", ".", ".", ".", ".", ".", ".", ".", "N", "#"},
-      {"#", "_", "_", "_", ".", ".", ".", "e", ".", "#"},
-      {"#", "_", "_", "<", ".", "X", ".", ".", ".", "#"},
-      {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
-      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "_", "_", "_", ".", ".", ".", ".", "N", "#"},
+      {"#", ".", ".", "_", ".", ".", ".", "e", ".", "#"},
+      {"#", "_", "_", "_", ".", "X", ".", ".", ".", "#"},
+      {"#", "_", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "_", "_", "<", ".", ".", ".", ".", ".", "#"},
       {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
       }, 10, 10);
@@ -118,7 +118,7 @@ void DungeonCrawler::play()
         for (unsigned i = 0; i < currentLevel->getCharacterpointer().size(); i++) {
             Character* character = currentLevel->getCharacterpointer()[i];
 
-            int direction = character->move();
+            int direction = character->move(); //wird nach dem Levelwechsel ziemlich groß
 
             if (direction == 0) {
                 abstractUI->setUserWantsToEndThisApp(true);
@@ -202,8 +202,29 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
     return destinationTile;
 }
 
+void DungeonCrawler::switchLevels(Level *level) {
+    currentLevel = level;
+
+    //wird nicht mit Terminal funktionieren
+    GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
+    graphicalUI->getMainwindow()->setupPlayingField(graphicalUI->getTexturecontainer(), level);
+    graphicalUI->getMainwindow()->draw(level, graphicalUI->getTexturecontainer());
+
+    //playerCharacter suchen und Controller auf GraphicalUI setzen
+    for (unsigned i = 0; i < level->getCharacterpointer().size(); i++) {
+        if (level->getCharacterpointer()[i]->getIsPlayerCharacter()) {
+            qDebug("Charakter gefunden und Controller setzen");
+            level->getCharacterpointer()[i]->setController(graphicalUI);
+        }
+    }
+
+    //characterpointer im Level setzen vielleicht?
+    //tilepointer der character setzen vielleicht?
+}
+
 void DungeonCrawler::notify(Active* source) {
-    qDebug("ES IST ZEIT FÜR EIN NEUES LEVEL!!!!!!!!!!!!!!");
-    qDebug() << "Das neue Level hat die ID " << static_cast<Levelchanger*>(source)->getDestinationLevel()->getId();
-    //currentLevel = levels.;
+    Level* newLevel = static_cast<Levelchanger*>(source)->getDestinationLevel();
+    qDebug() << "ZEIT FUER LEVEL " << newLevel->getId();
+
+    switchLevels(newLevel);
 }

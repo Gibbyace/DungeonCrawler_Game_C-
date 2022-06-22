@@ -43,6 +43,16 @@ void GraphicalUI::hide_startscreen_and_show_mainwindow() {
     mainwindow->show();
 }
 
+TextureContainer *GraphicalUI::getTexturecontainer() const
+{
+    return texturecontainer;
+}
+
+MainWindow *GraphicalUI::getMainwindow() const
+{
+    return mainwindow;
+}
+
 /*void GraphicalUI::setInputProcessed(bool value)
 {
     inputProcessed = value;

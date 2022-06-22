@@ -38,7 +38,7 @@ private:
     std::map<int, QLabel*> characterLabels;
 
     void setupArrowButtons(TextureContainer* texturecontainer, GraphicalUI* parent);
-
+    void clearPlayingField();
     QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
 

@@ -118,7 +118,7 @@ void DungeonCrawler::play()
         for (unsigned i = 0; i < currentLevel->getCharacterpointer().size(); i++) {
             Character* character = currentLevel->getCharacterpointer()[i];
 
-            int direction = character->move(); //wird nach dem Levelwechsel ziemlich groß
+            int direction = character->move();
 
             if (direction == 0) {
                 abstractUI->setUserWantsToEndThisApp(true);
@@ -147,7 +147,6 @@ void DungeonCrawler::setLevel(Level *level) {
             Tile* currentTile = level->getTilepointer()[row][col];
 
             if (dynamic_cast<Levelchanger*>(currentTile) != nullptr) {
-                cout << "Guck mal, ich hab nen Levelchanger gefunden" << "!!!" << endl;
                 dynamic_cast<Active*>(currentTile)->attach(this);
             }
         }
@@ -213,18 +212,13 @@ void DungeonCrawler::switchLevels(Level *level) {
     //playerCharacter suchen und Controller auf GraphicalUI setzen
     for (unsigned i = 0; i < level->getCharacterpointer().size(); i++) {
         if (level->getCharacterpointer()[i]->getIsPlayerCharacter()) {
-            qDebug("Charakter gefunden und Controller setzen");
             level->getCharacterpointer()[i]->setController(graphicalUI);
         }
     }
-
-    //characterpointer im Level setzen vielleicht?
-    //tilepointer der character setzen vielleicht?
 }
 
 void DungeonCrawler::notify(Active* source) {
     Level* newLevel = static_cast<Levelchanger*>(source)->getDestinationLevel();
-    qDebug() << "ZEIT FUER LEVEL " << newLevel->getId();
 
     switchLevels(newLevel);
 }

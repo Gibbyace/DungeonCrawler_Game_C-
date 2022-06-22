@@ -37,7 +37,17 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     setupArrowButtons(texturecontainer, parent);
 }
 
+void MainWindow::clearPlayingField() {
+    while (QLayoutItem* item = ui->gridLayoutWidget->layout()->takeAt(0)) {
+        Q_ASSERT(!item->layout());
+        delete item->widget();
+        delete item;
+    }
+}
+
 void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* level) {
+    clearPlayingField();
+
     int gridWidth = ui->gridLayoutWidget->width();
     int gridHeight = ui->gridLayoutWidget->height();
     int tileSize = min(gridWidth / level->getWidth(), gridHeight / level->getHeight());

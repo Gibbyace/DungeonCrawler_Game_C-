@@ -11,19 +11,34 @@ class Tile;
 class Character
 {
 private:
+    int id;
     string texture;
     int moveDirection = 2;
     Tile* tile;
     Controller* controller;
+    int strength;
+    int stamina;
+    int hitpoints;
+    bool isPlayerCharacter;
 
 public:
-    Character();
+    Character(int strength, int stamina, int hitpoints, bool isPlayerCharacter);
     int move();
     const string &getTexture() const;
     void setTile(Tile *newTile);
     Tile *getTile() const;
     void setController(Controller *value);
     int getMoveDirection() const;
+    int getMaxHP();
+    int getStrength() const;
+    int getStamina() const;
+    int getHitpoints() const;
+    bool getIsPlayerCharacter() const;
+    void setIsPlayerCharacter(bool value);
+
+    static int idCounter;
+    int getId() const;
+    void setHitpoints(int newHitpoints);
 };
 
 #endif // CHARACTER_H

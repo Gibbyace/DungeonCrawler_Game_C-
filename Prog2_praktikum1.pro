@@ -13,9 +13,14 @@ SOURCES += \
         controller.cpp \
         door.cpp \
         dungeoncrawler.cpp \
+        endscreen.cpp \
         floor.cpp \
         graphicalui.cpp \
+        guardcontroller.cpp \
         level.cpp \
+        levelchanger.cpp \
+        levellist.cpp \
+        lootchest.cpp \
         main.cpp \
         mainwindow.cpp \
         passive.cpp \
@@ -23,6 +28,7 @@ SOURCES += \
         portal.cpp \
         ramp.cpp \
         startscreen.cpp \
+        stationarycontroller.cpp \
         switch.cpp \
         terminalui.cpp \
         texturecontainer.cpp \
@@ -36,15 +42,21 @@ HEADERS += \
    controller.h \
    door.h \
    dungeoncrawler.h \
+   endscreen.h \
    floor.h \
    graphicalui.h \
+   guardcontroller.h \
    level.h \
+   levelchanger.h \
+   levellist.h \
+   lootchest.h \
    mainwindow.h \
    passive.h \
    pit.h \
    portal.h \
    ramp.h \
    startscreen.h \
+   stationarycontroller.h \
    switch.h \
    terminalui.h \
    texturecontainer.h \
@@ -52,5 +64,6 @@ HEADERS += \
    wall.h
 
 FORMS += \
+   endscreen.ui \
    mainwindow.ui \
    startscreen.ui

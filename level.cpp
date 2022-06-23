@@ -3,12 +3,18 @@
 #include <string>
 #include "portal.h"
 #include "floor.h"
+#include "lootchest.h"
 #include "wall.h"
 #include "tile.h"
 #include "switch.h"
 #include "door.h"
 #include "pit.h"
 #include "ramp.h"
+#include "levelchanger.h"
+#include "stationarycontroller.h"
+#include "guardcontroller.h"
+
+int Level::idCounter = 0;
 
 Level::Level(const Level& level) : height(level.height), width(level.width) {
     int charRow, charCol;
@@ -23,7 +29,6 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
         this->tilepointer.push_back(newRow);
     }
 
-
     for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
             if (this->tilepointer[row][col] != nullptr) {
@@ -37,6 +42,9 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
             }
             else if (dynamic_cast<Floor*>(tile) != nullptr) {
                 tilepointer[row][col] = new Floor(row, col);
+            }
+            else if (dynamic_cast<LootChest*>(tile) != nullptr) {
+                tilepointer[row][col] = new LootChest(row, col);
             }
             else if (dynamic_cast<Pit*>(tile) != nullptr) {
                 tilepointer[row][col] = new Pit(row, col);
@@ -90,7 +98,7 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
         }
     }
 
-    Character* new_character = new Character();
+    Character* new_character = new Character(1, 10, 10, true);
     placeCharacter(new_character, charRow, charCol);
     characterpointer.push_back(new_character);
 }
@@ -103,6 +111,61 @@ void swap(Level& lhs, Level& rhs) {
 Level& Level::operator=(Level rhs) {
     swap(*this, rhs);
     return *this;
+}
+
+bool Level::operator ==(Level* rhs) {
+    return this->id == rhs->id;
+}
+
+vector<Levelchanger *> Level::getLevelchangers() const
+{
+    return levelchangers;
+}
+
+LevelList* Level::generateLevels() {
+    LevelList* levels = new LevelList;
+
+    Level* level1 = new Level(
+        {
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
+        {"#", "_", "_", ".", ".", ".", ".", ".", ".", "#", "#"},
+        {"#", ".", "_", ".", ".", ".", ".", "N", "N", "#", "#"},
+        {"#", ".", "_", ".", ".", ".", ".", ".", ".", "#", "#"},
+        {"#", ".", "_", ".", ".", "X", ".", ".", ".", "#", "#"},
+        {"#", ".", "<", ".", ".", ".", ".", ".", ".", "#", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
+        {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        });
+
+    level1->placePortals(1, 1, 8, 8);
+    level1->placePortals(1, 8, 8, 1);
+    level1->placeSwitchAndDoor(3, 3, 6, 6);
+
+    Level* level2 = new Level({
+      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", "l", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "_", "_", "_", ".", ".", ".", ".", "N", "#"},
+      {"#", ".", ".", "_", ".", ".", ".", "e", ".", "#"},
+      {"#", "_", "_", "_", ".", "X", ".", ".", ".", "#"},
+      {"#", "_", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "_", "_", "<", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+      });
+
+    level2->placePortals(4, 5, 6, 7);
+
+    levels->push_back(level1);
+    levels->push_back(level2);
+
+    level1->levelchangers[0]->setDestinationLevel(level2);
+    level2->levelchangers[0]->setDestinationLevel(level1);
+
+    return levels;
 }
 
 const vector<vector<Tile *> > &Level::getTilepointer() const
@@ -120,33 +183,49 @@ int Level::getWidth() const
     return width;
 }
 
+Character* Level::getNPCCharacter() {
+    vector<Character*> characters = getCharacterpointer();
+     for (unsigned i = 0; i < characters.size(); i++) {
+         if (characters[i]->getIsPlayerCharacter() == false) {
+             return characters[i];
+         }
+     }
+
+}
+
+Character* Level::getPlayerCharacter() {
+    vector<Character*> characters = getCharacterpointer();
+
+    for (unsigned i = 0; i < characters.size(); i++) {
+        if (characters[i]->getIsPlayerCharacter()) {
+            return characters[i];
+        }
+    }
+
+    return nullptr;
+}
+
+int Level::getId() const
+{
+    return id;
+}
+
 const vector<Character *> &Level::getCharacterpointer() const
 {
     return characterpointer;
 }
 
-Level::Level(const int height, const int width):height(height),width(width)
-{
+Level::Level(vector<vector<string>> level_as_string) {
+    idCounter++;
+    id = idCounter;
+
+    height = level_as_string.size();
+    width = level_as_string[0].size();
+
     for (int i = 0; i < height; i++) {
         vector<Tile*> row = vector<Tile*>();
         tilepointer.push_back(row);
     }
-
-    //Wir können hier nicht einfach Portals reinschreiben, weil wir es sonst nicht hinbekommen, das sie aufeinander verweisen
-    //Daher placePortals() benutzen
-    vector<vector<string>> level_as_string =
-        {
-            {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
-            {"#", "_", "_", "<", ".", "X", ".", ".", ".", "#"},
-            {"#", "_", "_", "_", ".", ".", ".", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        };
 
     for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
@@ -155,31 +234,42 @@ Level::Level(const int height, const int width):height(height),width(width)
             if (tileAsString == "#") {
                 tilepointer[row].push_back(new Wall(row, col));
             }
-            else if(tileAsString == "_"){
+            else if (tileAsString == "_") {
                 tilepointer[row].push_back(new Pit(row, col));
             }
-            else if(tileAsString == "<"){
+            else if (tileAsString == "<") {
                 tilepointer[row].push_back(new Ramp(row, col));
             }
-
+            else if (tileAsString == "e") {
+                tilepointer[row].push_back(new LootChest(row, col));
+            }
+            else if (tileAsString == "l") {
+                Levelchanger* levelchanger = new Levelchanger(row, col);
+                tilepointer[row].push_back(levelchanger);
+                levelchangers.push_back(levelchanger);
+            }
             else {
                 Floor* new_floor = new Floor(row, col);
                 tilepointer[row].push_back(new_floor);
 
                 if (tileAsString == "X") {
-                    Character* new_character = new Character();
+                    Character* new_character = new Character(100, 100, 20, true); //immer hier die stats ändern
                     placeCharacter(new_character, row, col);
 
                     characterpointer.push_back(new_character);
                 }
+                else if (tileAsString == "N") {
+                    Character* newNpc = new Character(200, 2, 2, false);
+                    Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+                    newNpc->setController(npcController);
+
+                    placeCharacter(newNpc, row, col);
+
+                    characterpointer.push_back(newNpc);
+                }
             }
         }
     }
-
-    placePortals(1, 1, 8, 8);
-    placePortals(1, 8, 8, 1);
-
-    placeSwitchAndDoor(2, 2, 7, 7);
 
 }
 
@@ -198,6 +288,10 @@ Level::~Level() {
 }
 
 Tile* Level::getTile(int row, int col) {
+    return tilepointer[row][col];
+}
+
+Tile* Level::getLootChest(int row, int col) {
     return tilepointer[row][col];
 }
 
@@ -228,4 +322,13 @@ void Level::placeSwitchAndDoor(int row1, int col1, int row2, int col2) { //TODO:
 
     tilepointer[row1][col1] = newSwitch;
     tilepointer[row2][col2] = newDoor;
+}
+
+void Level::deleteCharacterById(int id) {
+    for (unsigned i = 0; i < characterpointer.size(); i++) {
+        if (characterpointer[i]->getId() == id) {
+            characterpointer[i]->getTile()->setCharacter(nullptr);
+            characterpointer.erase(characterpointer.begin() + i);
+        }
+    }
 }

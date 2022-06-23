@@ -24,11 +24,12 @@ public:
     virtual Tile* onLeave(Tile* destTile, Character* who) = 0;
     virtual ~Tile() = default;
 
-
+    //void battle(Character* attacker, Character* defender);
 
     void setCharacter(Character *newCharacter);
     int getRow() const;
     int getColumn() const;
+    Character *getCharacter() const;
 };
 
 #endif // TILE_H

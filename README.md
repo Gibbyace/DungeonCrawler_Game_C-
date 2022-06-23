@@ -33,5 +33,6 @@ Gibt auch tausend andere Möglichkeiten, aber so machen wir das
 - / geöffnete Tür
 - X geschlossene Tür
 - @ Charakter
+- e LootChest
 
 ## viel Spaß :)

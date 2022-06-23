@@ -16,6 +16,11 @@ int Tile::getColumn() const
     return column;
 }
 
+Character *Tile::getCharacter() const
+{
+    return character;
+}
+
 Tile::Tile(const int row, const int column) : row(row), column(column)
 {
 
@@ -50,11 +55,13 @@ bool Tile::moveTo(Tile *destTile, Character *who){
         return false;
     }
 
-    who->setTile(enteredTile);
-    this->character = nullptr;
-    enteredTile->setCharacter(who);
+    bool battleCondition = destTile->hasCharacter() && who->getTile() != destTile;
+
+    if (!battleCondition) {
+        who->setTile(enteredTile);
+        this->character = nullptr;
+        enteredTile->setCharacter(who);
+    }
 
     return true;
 }
-
-

@@ -39,15 +39,7 @@
       <height>491</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
-      <widget class="QLabel" name="characterLabel">
-       <property name="text">
-        <string>Character</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QGridLayout" name="gridLayout"/>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
@@ -58,7 +50,7 @@
       <height>152</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="buttonGridLayout">
      <property name="spacing">
       <number>10</number>
      </property>
@@ -199,6 +191,19 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="hpStatus">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>70</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>HP</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -206,7 +211,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

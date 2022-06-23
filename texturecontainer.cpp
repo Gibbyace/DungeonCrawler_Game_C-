@@ -1,4 +1,4 @@
-#include "texturecontainer.h"
+﻿#include "texturecontainer.h"
 
 TextureContainer::TextureContainer()
 {
@@ -23,6 +23,10 @@ TextureContainer::TextureContainer()
     floors.push_back(QPixmap(imageDirectory + "/floor/floor3.png"));
     floors.push_back(QPixmap(imageDirectory + "/floor/floor4.png"));
     floors.push_back(QPixmap(imageDirectory + "/floor/floor5.png"));
+
+    levelchanger.push_back(QPixmap(imageDirectory + "/levelchanger.jpeg"));
+
+    lootchest.push_back(QPixmap(imageDirectory + "/lootchest/lootchest1.png"));
 
     pits.push_back(QPixmap(imageDirectory + "/pit.png"));
 
@@ -58,6 +62,9 @@ TextureContainer::TextureContainer()
     backgrounds.push_back(QPixmap(imageDirectory + "/bloody_frame.png"));
     backgrounds.push_back(QPixmap(imageDirectory + "/new_game_button.png"));
     backgrounds.push_back(QPixmap(imageDirectory + "/startscreen.png"));
+    backgrounds.push_back(QPixmap(imageDirectory + "/you_lose_screen/you_lose.jpeg")); //eingefügt aber nicht benutzt
+  //background.push_back(QPixmap(imageDirectory + "/you_win_screen/XYZ"));
+
 }
 
 vector<QPixmap> TextureContainer::getBackgrounds() const
@@ -78,6 +85,10 @@ vector<QPixmap> TextureContainer::getDoors() const
 vector<QPixmap> TextureContainer::getFloors() const
 {
     return floors;
+}
+vector<QPixmap> TextureContainer::getLootChest() const
+{
+    return lootchest;
 }
 
 vector<QPixmap> TextureContainer::getPits() const
@@ -128,4 +139,9 @@ vector<QPixmap> TextureContainer::getCharLefts() const
 vector<QPixmap> TextureContainer::getCharRights() const
 {
     return charRights;
+}
+
+vector<QPixmap> TextureContainer::getLevelchanger() const
+{
+    return levelchanger;
 }

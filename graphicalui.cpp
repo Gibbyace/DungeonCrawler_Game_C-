@@ -53,16 +53,6 @@ MainWindow *GraphicalUI::getMainwindow() const
     return mainwindow;
 }
 
-/*void GraphicalUI::setInputProcessed(bool value)
-{
-    inputProcessed = value;
-}*/
-
-/*bool GraphicalUI::getInputProcessed() const
-{
-    return inputProcessed;
-}*/
-
 void GraphicalUI::setLastInput(int direction) {
     lastInput = direction;
     inputProcessed = false;

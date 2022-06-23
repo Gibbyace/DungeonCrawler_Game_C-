@@ -117,6 +117,57 @@ bool Level::operator ==(Level* rhs) {
     return this->id == rhs->id;
 }
 
+vector<Levelchanger *> Level::getLevelchangers() const
+{
+    return levelchangers;
+}
+
+LevelList* Level::generateLevels() {
+    LevelList* levels = new LevelList;
+
+    Level* level1 = new Level(
+        {
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", "_", "_", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", "_", ".", ".", ".", ".", ".", "N", "#"},
+        {"#", ".", "_", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", "_", ".", ".", "X", ".", ".", ".", "#"},
+        {"#", ".", "<", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        }, 10, 10
+    );
+
+    level1->placePortals(1, 1, 8, 8);
+    level1->placePortals(1, 8, 8, 1);
+    level1->placeSwitchAndDoor(3, 3, 6, 6);
+
+    Level* level2 = new Level({
+      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", "l", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "_", "_", "_", ".", ".", ".", ".", "N", "#"},
+      {"#", ".", ".", "_", ".", ".", ".", "e", ".", "#"},
+      {"#", "_", "_", "_", ".", "X", ".", ".", ".", "#"},
+      {"#", "_", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "_", "_", "<", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+      }, 10, 10);
+
+    level2->placePortals(4, 5, 6, 7);
+
+    levels->push_back(level1);
+    levels->push_back(level2);
+
+    level1->levelchangers[0]->setDestinationLevel(level2);
+    level2->levelchangers[0]->setDestinationLevel(level1);
+
+    return levels;
+}
+
 const vector<vector<Tile *> > &Level::getTilepointer() const
 {
     return tilepointer;
@@ -140,12 +191,14 @@ Character* Level::getPlayerCharacter() {
             return characters[i];
         }
     }
+
+    return nullptr;
 }
 
 int Level::getId() const
 {
     return id;
-}// TODO: falls nicht gefunden, return nullptr;
+}
 
 const vector<Character *> &Level::getCharacterpointer() const
 {
@@ -178,9 +231,10 @@ Level::Level(vector<vector<string>> level_as_string, const int height, const int
                 tilepointer[row].push_back(new LootChest(row, col));
             }
             else if (tileAsString == "l") {
-                tilepointer[row].push_back(new Levelchanger(row, col));
+                Levelchanger* levelchanger = new Levelchanger(row, col);
+                tilepointer[row].push_back(levelchanger);
+                levelchangers.push_back(levelchanger);
             }
-
             else {
                 Floor* new_floor = new Floor(row, col);
                 tilepointer[row].push_back(new_floor);
@@ -203,12 +257,6 @@ Level::Level(vector<vector<string>> level_as_string, const int height, const int
             }
         }
     }
-
-
-    placePortals(1, 1, 8, 8);
-    placePortals(1, 8, 8, 1);
-
-    placeSwitchAndDoor(8, 2, 7, 7);
 
 }
 

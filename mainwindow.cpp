@@ -252,7 +252,6 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 QLabel* parentAsLabel = dynamic_cast<QLabel*>(parentForCharacter);
 
                 Character* characterOnTile = currentTile->getCharacter();
-                //vector<Character*> characters = level->getCharacterpointer();
 
                 characterLabels[characterOnTile->getId()]->setParent(parentAsLabel);
                 characterLabels[characterOnTile->getId()]->raise();

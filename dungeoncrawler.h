@@ -5,12 +5,13 @@
 #include "passive.h"
 #include "levellist.h"
 
+class Level;
 
 class DungeonCrawler : public Passive
 {
 private:
     AbstractUI* abstractUI;
-    LevelList levels;
+    LevelList* levels;
     Level* currentLevel;
     vector<vector<vector<string>>> levelsAsStrings;
 
@@ -19,9 +20,6 @@ public:
     ~DungeonCrawler();
 
     void play();
-    void setLevel(Level* level);
-    void generateLevels();
-    void connectLevels();
     void switchLevels(Level* level);
     Tile* determineDestinationTile(Level* level, Tile* tileWithCharacter, int direction);
     void notify(Active* source) override;

@@ -7,65 +7,10 @@
 
 #include <QTest>
 
-void DungeonCrawler::connectLevels() {
-    for (LevelList::iterator it = levels.begin(); it != levels.end(); it++) {
-        Level* level = it.m_ptr->level;
-        Level* nextLevel = it.m_ptr->next->level;
-
-        //levelchanger des Levels suchen und destinationLevel des levelchangers auf das nächste Level
-        for (int row = 0; row < level->getHeight(); row++) {
-            for (int col = 0; col < level->getWidth(); col++) {
-                Tile* currentTile = level->getTilepointer()[row][col];
-                Levelchanger* currentTileAsLevelchanger = dynamic_cast<Levelchanger*>(currentTile);
-
-                if (currentTileAsLevelchanger != nullptr) {
-                    currentTileAsLevelchanger->setDestinationLevel(nextLevel);
-                }
-            }
-        }
-    }
-}
-
-void DungeonCrawler::generateLevels() {
-    Level* level1 = new Level(
-        {
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-        {"#", "_", "_", ".", ".", ".", ".", ".", ".", "#"},
-        {"#", ".", "_", ".", ".", ".", ".", ".", "N", "#"},
-        {"#", ".", "_", ".", ".", ".", ".", "e", ".", "#"},
-        {"#", ".", "_", ".", ".", "X", ".", ".", ".", "#"},
-        {"#", ".", "<", ".", ".", ".", ".", ".", ".", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-        {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#"},
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        }, 10, 10
-    );
-
-    Level* level2 = new Level({
-      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", ".", "l", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", "_", "_", "_", ".", ".", ".", ".", "N", "#"},
-      {"#", ".", ".", "_", ".", ".", ".", "e", ".", "#"},
-      {"#", "_", "_", "_", ".", "X", ".", ".", ".", "#"},
-      {"#", "_", ".", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", "_", "_", "<", ".", ".", ".", ".", ".", "#"},
-      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-      }, 10, 10);
-
-    levels.push_back(level1);
-    levels.push_back(level2);
-
-    currentLevel = level1;
-
-    connectLevels();
-}
-
 DungeonCrawler::DungeonCrawler()
 {
-    generateLevels();
+    levels = Level::generateLevels();
+    currentLevel = levels->begin().m_ptr->level;
 
     //Level* level = new Level(10, 10);
 
@@ -85,16 +30,15 @@ DungeonCrawler::DungeonCrawler()
 
     //currentLevel = level;
 
-    this->abstractUI = new GraphicalUI(levels.begin().m_ptr->level);
+    this->abstractUI = new GraphicalUI(levels->begin().m_ptr->level);
     //this->abstractUI = new TerminalUI();
 }
 
 DungeonCrawler::~DungeonCrawler() {
     delete this->abstractUI;
 
-    while (!levels.empty()) {
-        //delete levels.back();
-        levels.pop_back();
+    while (!levels->empty()) {
+        levels->pop_back();
     }
 }
 
@@ -102,8 +46,7 @@ void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
-    setLevel(levels.begin().m_ptr->level);
-    //vielleicht wollen wir hier lieber nen Iterator benutzen
+    switchLevels(levels->begin().m_ptr->level);
 
     Character* playerCharacter = currentLevel->getPlayerCharacter();
     playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
@@ -136,20 +79,6 @@ void DungeonCrawler::play()
 
         //Muss für TerminalUI auskommentiert werden
         abstractUI->setInputProcessed(true);
-    }
-}
-
-void DungeonCrawler::setLevel(Level *level) {
-    currentLevel = level;
-
-    for (int row = 0; row < level->getHeight(); row++) {
-        for (int col = 0; col < level->getWidth(); col++) {
-            Tile* currentTile = level->getTilepointer()[row][col];
-
-            if (dynamic_cast<Levelchanger*>(currentTile) != nullptr) {
-                dynamic_cast<Active*>(currentTile)->attach(this);
-            }
-        }
     }
 }
 
@@ -203,6 +132,10 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
 
 void DungeonCrawler::switchLevels(Level *level) {
     currentLevel = level;
+
+    for (unsigned i = 0; i < level->getLevelchangers().size(); i++) {
+        dynamic_cast<Active*>(level->getLevelchangers()[0])->attach(this);
+    }
 
     //wird nicht mit Terminal funktionieren
     GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);

@@ -8,10 +8,6 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    /*LevelList* asdf = new LevelList();
-    asdf->test();
-    delete asdf;*/
-
     QApplication application(argc, argv);
 
     DungeonCrawler Game1 = DungeonCrawler();

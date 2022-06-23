@@ -7,6 +7,8 @@
 
 class Character;
 
+class Level;
+
 class Levelchanger : public Tile, public Active
 {
 public:

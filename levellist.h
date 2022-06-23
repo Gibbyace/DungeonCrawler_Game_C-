@@ -3,6 +3,8 @@
 
 #include "level.h"
 
+class Level;
+
 class LevelList
 {
 

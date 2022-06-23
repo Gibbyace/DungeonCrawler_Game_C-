@@ -2,12 +2,19 @@
 #define LEVEL_H
 #include "character.h"
 #include "tile.h"
+#include "levellist.h"
+#include "levelchanger.h"
 #include <vector>
 
 using namespace std;
 
+class LevelList;
+class Levelchanger;
+
 class Level
 {
+private:
+    vector<Levelchanger*> levelchangers;
     vector<vector<Tile*>> tilepointer;
     vector<Character*> characterpointer;
     int height;
@@ -15,6 +22,8 @@ class Level
 
 
 public:
+    static LevelList* generateLevels();
+
     static int idCounter;
     friend void swap(Level& lhs, Level& rhs);
     Level(vector<vector<string>>, const int height, const int width);
@@ -34,6 +43,8 @@ public:
 
 
     int getId() const;
+
+    vector<Levelchanger *> getLevelchangers() const;
 
 protected:
     int id;

@@ -14,6 +14,7 @@ private:
     LevelList* levels;
     Level* currentLevel;
     vector<vector<vector<string>>> levelsAsStrings;
+    void battle(Character* attacker, Character* defender);
     void checkForDeaths();
     void checkForLootChest();
 

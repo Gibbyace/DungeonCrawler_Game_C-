@@ -74,18 +74,40 @@ void DungeonCrawler::play()
             Tile* destinationTile = determineDestinationTile(currentLevel, tileWithCharacter, direction);
 
             if (destinationTile != nullptr) {
-                tileWithCharacter->moveTo(destinationTile, character);
+                bool moveSuccessful = tileWithCharacter->moveTo(destinationTile, character);
+
+                if (moveSuccessful && destinationTile->hasCharacter() && character->getTile() != destinationTile) {
+                    battle(character, destinationTile->getCharacter());
+                    checkForDeaths();
+                }
             }
         }
 
         abstractUI->draw(currentLevel);
 
-        checkForDeaths();
+        //checkForDeaths();
         checkForLootChest();
 
         //Muss für TerminalUI auskommentiert werden
         abstractUI->setInputProcessed(true);
     }
+}
+
+void DungeonCrawler::battle(Character* attacker, Character* defender) {
+    cout << endl << attacker->getId() << " greift " << defender->getId() << " an." << endl;
+    cout << "Angreifer HP: " << attacker->getHitpoints() << endl;
+    cout << "Verteidig HP: " << defender->getHitpoints() << endl;
+
+    int attackerDamage = attacker->getStrength();
+    defender->setHitpoints(defender->getHitpoints() - attackerDamage);
+
+    if (defender->getHitpoints() > 0) {
+        int defenderDamage = defender->getStrength();
+        attacker->setHitpoints(attacker->getHitpoints() - defenderDamage);
+    }
+
+    cout << "Angreifer HP nachher: " << attacker->getHitpoints() << endl;
+    cout << "Verteidig HP nachher: " << defender->getHitpoints() << endl;
 }
 
 void DungeonCrawler::checkForDeaths() {

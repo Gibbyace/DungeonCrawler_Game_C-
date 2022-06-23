@@ -120,7 +120,7 @@ void DungeonCrawler::checkForDeaths() {
     for (unsigned i = 0; i < currentLevel->getCharacterpointer().size(); i++) {
         Character* character = currentLevel->getCharacterpointer()[i];
 
-        if (character->getHitpoints() <= 0) {//warum stribt der player nicht?
+        if (character->getHitpoints() <= 0) {
             if (character->getIsPlayerCharacter()) {
                 graphicalUI->getMainwindow()->showEndscreen("Oh no, you ded");
             }

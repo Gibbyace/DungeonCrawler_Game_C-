@@ -138,8 +138,7 @@ LevelList* Level::generateLevels() {
         {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#", "#"},
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        }, 11, 11
-    );
+        });
 
     level1->placePortals(1, 1, 8, 8);
     level1->placePortals(1, 8, 8, 1);
@@ -156,7 +155,7 @@ LevelList* Level::generateLevels() {
       {"#", "_", "_", "<", ".", ".", ".", ".", ".", "#"},
       {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-      }, 10, 10);
+      });
 
     level2->placePortals(4, 5, 6, 7);
 
@@ -206,9 +205,12 @@ const vector<Character *> &Level::getCharacterpointer() const
     return characterpointer;
 }
 
-Level::Level(vector<vector<string>> level_as_string, const int height, const int width):height(height),width(width) {
+Level::Level(vector<vector<string>> level_as_string) {
     idCounter++;
     id = idCounter;
+
+    height = level_as_string.size();
+    width = level_as_string[0].size();
 
     for (int i = 0; i < height; i++) {
         vector<Tile*> row = vector<Tile*>();

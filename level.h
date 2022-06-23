@@ -26,8 +26,7 @@ public:
 
     static int idCounter;
     friend void swap(Level& lhs, Level& rhs);
-    Level(vector<vector<string>>, const int height, const int width);
-    Level(const int height, const int width);
+    Level(vector<vector<string>>);
     Level(const Level& level);
     Level& operator=(const Level rhs);
     ~Level();

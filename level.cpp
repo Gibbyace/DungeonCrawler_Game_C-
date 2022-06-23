@@ -253,7 +253,7 @@ Level::Level(vector<vector<string>> level_as_string) {
                 tilepointer[row].push_back(new_floor);
 
                 if (tileAsString == "X") {
-                    Character* new_character = new Character(100, 100, 100, true); //immer hier die stats ändern
+                    Character* new_character = new Character(100, 100, 20, true); //immer hier die stats ändern
                     placeCharacter(new_character, row, col);
 
                     characterpointer.push_back(new_character);
@@ -322,4 +322,13 @@ void Level::placeSwitchAndDoor(int row1, int col1, int row2, int col2) { //TODO:
 
     tilepointer[row1][col1] = newSwitch;
     tilepointer[row2][col2] = newDoor;
+}
+
+void Level::deleteCharacterById(int id) {
+    for (unsigned i = 0; i < characterpointer.size(); i++) {
+        if (characterpointer[i]->getId() == id) {
+            characterpointer[i]->getTile()->setCharacter(nullptr);
+            characterpointer.erase(characterpointer.begin() + i);
+        }
+    }
 }

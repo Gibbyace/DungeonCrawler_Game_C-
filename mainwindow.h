@@ -25,6 +25,7 @@ public:
 
     void setChangesDrawn(bool value);
     void setupPlayingField(TextureContainer* texturecontainer, Level* level);
+    void deleteCharacterLabelById(int id);
     void showEndscreen(QString message);
 
 public slots:
@@ -41,9 +42,6 @@ private:
     void clearPlayingField();
     QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
-
-    void checkIfNPCIsDead(Level* level);
-    void NPCIsDead();
 
     void closeEvent(QCloseEvent* event);
 };

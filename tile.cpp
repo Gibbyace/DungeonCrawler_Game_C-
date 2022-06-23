@@ -57,8 +57,8 @@ bool Tile::moveTo(Tile *destTile, Character *who){
 
 
     if (destTile->hasCharacter() && who->getTile() != destTile) {
-        std::cout<<"Hey du Arschgesicht ";
-        battle(destTile, who);
+        //TODO: Absichern, dass sich keine Spieler gegenseitig und keine NPCs gegenseitig kloppen
+        battle(who, destTile->getCharacter());
     }
     else {
         who->setTile(enteredTile);
@@ -69,8 +69,19 @@ bool Tile::moveTo(Tile *destTile, Character *who){
     return true;
 }
 
-void Tile::battle(Tile *destTile, Character *who) {
+void Tile::battle(Character* attacker, Character* defender) {
+    cout << endl << attacker->getId() << " greift " << defender->getId() << " an." << endl;
+    cout << "Angreifer HP: " << attacker->getHitpoints() << endl;
+    cout << "Verteidig HP: " << defender->getHitpoints() << endl;
 
-    int damage = character->getStrength();
-    destTile->getCharacter()->setHitpoints(destTile->getCharacter()->getHitpoints() - damage);
+    int attackerDamage = attacker->getStrength();
+    defender->setHitpoints(defender->getHitpoints() - attackerDamage);
+
+    if (defender->getHitpoints() > 0) {
+        int defenderDamage = defender->getStrength();
+        attacker->setHitpoints(attacker->getHitpoints() - defenderDamage);
+    }
+
+    cout << "Angreifer HP nachher: " << attacker->getHitpoints() << endl;
+    cout << "Verteidig HP nachher: " << defender->getHitpoints() << endl;
 }

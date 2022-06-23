@@ -15,11 +15,7 @@ Endscreen::Endscreen(QString message, TextureContainer* texturecontainer, QWidge
     ui->setupUi(this);
     //TODO implementation von scaled bild
 
-    ui->backgroundLabel->setPixmap(texturecontainer->getBackgrounds()[3]);
-
-    ui->messageLabel->setStyleSheet(("color: #FFF"));
     ui->messageLabel->setText(message);
-
 }
 
 Endscreen::~Endscreen()

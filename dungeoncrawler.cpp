@@ -73,36 +73,47 @@ void DungeonCrawler::play()
             Tile* tileWithCharacter = character->getTile();
             Tile* destinationTile = determineDestinationTile(currentLevel, tileWithCharacter, direction);
 
-
-
             if (destinationTile != nullptr) {
                 tileWithCharacter->moveTo(destinationTile, character);
             }
         }
 
-        Character* playerCharacter = currentLevel->getPlayerCharacter();
-
-        if (dynamic_cast<LootChest*>(playerCharacter->getTile()) != nullptr) {
-            GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
-            graphicalUI->getMainwindow()->showEndscreen("Congratulations, you won :)");
-        }
-
         abstractUI->draw(currentLevel);
-        checkIfCharacterIsDead();
+
+        checkForDeaths();
+        checkForLootChest();
 
         //Muss für TerminalUI auskommentiert werden
         abstractUI->setInputProcessed(true);
     }
 }
 
-void DungeonCrawler::checkIfCharacterIsDead() {
-    if(currentLevel->getPlayerCharacter()->getHitpoints() == 0) {
+void DungeonCrawler::checkForDeaths() {
+    GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
+
+    for (int i = 0; i < currentLevel->getCharacterpointer().size(); i++) {
+        Character* character = currentLevel->getCharacterpointer()[0];
+
+        if (character->getHitpoints() <= 0) {
+            if (character->getIsPlayerCharacter()) {
+                graphicalUI->getMainwindow()->showEndscreen("Oh no, you ded");
+            }
+            else {
+                int characterId = character->getId();
+
+                currentLevel->deleteCharacterById(characterId);
+                graphicalUI->getMainwindow()->deleteCharacterLabelById(characterId);
+            }
+        }
+    }
+}
+
+void DungeonCrawler::checkForLootChest() {
+    Character* playerCharacter = currentLevel->getPlayerCharacter();
+
+    if (dynamic_cast<LootChest*>(playerCharacter->getTile()) != nullptr) {
         GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
-        graphicalUI->getMainwindow()->hide();
-
-        cout << "YOU ARE DEAD; AHAHAHAHHA";
-
-        graphicalUI->getMainwindow()->showEndscreen("YOU DED");
+        graphicalUI->getMainwindow()->showEndscreen("Congratulations, you won :)");
     }
 }
 

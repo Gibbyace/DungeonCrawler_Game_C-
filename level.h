@@ -41,6 +41,7 @@ public:
     Character* getNPCCharacter();
     bool operator ==(Level* rhs);
     int getId() const;
+    void deleteCharacterById(int id);
     vector<Levelchanger *> getLevelchangers() const;
 
 protected:

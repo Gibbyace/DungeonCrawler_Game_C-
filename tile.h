@@ -24,7 +24,7 @@ public:
     virtual Tile* onLeave(Tile* destTile, Character* who) = 0;
     virtual ~Tile() = default;
 
-    void battle(Tile *destTile, Character *who);
+    void battle(Character* attacker, Character* defender);
 
     void setCharacter(Character *newCharacter);
     int getRow() const;

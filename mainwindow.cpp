@@ -281,17 +281,18 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
-                /*else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) { //TODO: Refactoring pls;
-                    gameWin();
-                }*/
 
             }
         }
     }
 
     setStatusbarMessage(level);
-    //checkIfCharacterIsDead(level);
+}
 
+void MainWindow::deleteCharacterLabelById(int id) {
+    ui->gridLayout->removeWidget(characterLabels[id]);
+    delete characterLabels[id];
+    characterLabels.erase(id);
 }
 
 void MainWindow::setChangesDrawn(bool value)
@@ -299,53 +300,14 @@ void MainWindow::setChangesDrawn(bool value)
     changesDrawn = value;
 }
 
-
-
-void MainWindow::checkIfNPCIsDead(Level* level){
-
-    if (level->getNPCCharacter()->getHitpoints() == 0) {
-        delete level->getNPCCharacter();
-    }
-}
-
-
-
-/*void MainWindow::checkIfCharacterIsDead(Level* level) {
-    if(level->getPlayerCharacter()->getHitpoints() == 0) {
-        characterIsDead();
-    }
-}*/
-/*
-void MainWindow::characterIsDead(){
-        hide();
-        delete ui;
-
-        cout<<"YOU ARE DEAD; AHAHAHAHHA";
-        Endscreen endscreen1("YOU DED", dynamic_cast<TextureContainer*>(parent())->getTe);
-        endscreen1.exec();
-}*/
-
 void MainWindow::showEndscreen(QString message) {
-    hide();
-
     Endscreen endscreen(message, dynamic_cast<GraphicalUI*>(parent())->getTexturecontainer());
     endscreen.exec();
 
+    hide(); //TODO: beides?
+
     close();
 }
-
-
-
-/*void MainWindow::gameWin() {
-    hide();
-    delete ui;
-
-    std::cout<<"YOU WON!";
-    Endscreen endscreen1("YOU WON!", );
-    endscreen1.exec(); //TODO: bitte einen schönen game win screen machen und endscreen1 mit etwas anderem ersetzen
-}*/
-
-
 
 void MainWindow::closeEvent(QCloseEvent* event) {
     GraphicalUI* parentAsGUI = dynamic_cast<GraphicalUI*>(parent());

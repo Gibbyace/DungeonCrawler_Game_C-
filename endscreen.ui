@@ -29,38 +29,19 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="backgroundLabel">
-   <property name="geometry">
-    <rect>
-     <x>-10</x>
-     <y>0</y>
-     <width>481</width>
-     <height>301</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>textures/you_lose_screen/you_lose.jpg</pixmap>
-   </property>
-  </widget>
   <widget class="QLabel" name="messageLabel">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>23</x>
      <y>160</y>
-     <width>54</width>
-     <height>17</height>
+     <width>421</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string>ASDFGH</string>
    </property>
   </widget>
-  <zorder>backgroundLabel</zorder>
-  <zorder>buttonBox</zorder>
-  <zorder>messageLabel</zorder>
  </widget>
  <resources/>
  <connections>

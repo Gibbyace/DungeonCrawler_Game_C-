@@ -3,6 +3,7 @@
 #include "endscreen.h"
 #include <door.h>
 #include <floor.h>
+#include "levelchanger.h"
 #include <lootchest.h>
 #include <pit.h>
 #include <portal.h>
@@ -36,7 +37,17 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     setupArrowButtons(texturecontainer, parent);
 }
 
+void MainWindow::clearPlayingField() {
+    while (QLayoutItem* item = ui->gridLayoutWidget->layout()->takeAt(0)) {
+        Q_ASSERT(!item->layout());
+        delete item->widget();
+        delete item;
+    }
+}
+
 void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* level) {
+    clearPlayingField();
+
     int gridWidth = ui->gridLayoutWidget->width();
     int gridHeight = ui->gridLayoutWidget->height();
     int tileSize = min(gridWidth / level->getWidth(), gridHeight / level->getHeight());
@@ -58,6 +69,9 @@ void MainWindow::setupPlayingField(TextureContainer* texturecontainer, Level* le
                 int randomizer = rand() % tileTextureCount;
 
                 tilePixmap = texturecontainer->getFloors()[randomizer];
+            }
+            else if (dynamic_cast<Levelchanger*>(currentTile) != nullptr) {
+                tilePixmap = texturecontainer->getLevelchanger()[0];
             }
             else if (dynamic_cast<LootChest*>(currentTile) != nullptr) {
                 tilePixmap = texturecontainer->getLootChest()[0];
@@ -250,9 +264,9 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
                 QLabel* parentAsLabel = dynamic_cast<QLabel*>(parentForCharacter);
 
                 Character* characterOnTile = currentTile->getCharacter();
-                vector<Character*> characters = level->getCharacterpointer();
 
                 characterLabels[characterOnTile->getId()]->setParent(parentAsLabel);
+                characterLabels[characterOnTile->getId()]->raise();
                 characterLabels[characterOnTile->getId()]->show();
 
                 int characterMoveDirection = currentTile->getCharacter()->getMoveDirection();
@@ -290,7 +304,7 @@ void MainWindow::setChangesDrawn(bool value)
 void MainWindow::checkIfNPCIsDead(Level* level){
 
     if (level->getNPCCharacter()->getHitpoints() == 0) {
-        delete level->getCharacterpointer();
+        delete level->getNPCCharacter();
     }
 }
 

@@ -22,11 +22,4 @@ StartScreen::StartScreen(TextureContainer* texturecontainer, GraphicalUI *parent
 StartScreen::~StartScreen()
 {
     delete ui;
-
 }
-
-/*void StartScreen::on_pushButton_clicked()
-{
-    //ui->pushButton->hide();
-    this->hide();
-}*/

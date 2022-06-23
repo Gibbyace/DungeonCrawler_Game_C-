@@ -16,6 +16,7 @@ public:
     vector<QPixmap> getArrows() const;
     vector<QPixmap> getDoors() const;
     vector<QPixmap> getFloors() const;
+    vector<QPixmap> getLevelchanger() const;
     vector<QPixmap> getLootChest() const;
     vector<QPixmap> getPits() const;
     vector<QPixmap> getPortals() const;
@@ -33,6 +34,7 @@ private:
     vector<QPixmap> arrows;
     vector<QPixmap> doors;
     vector<QPixmap> floors;
+    vector<QPixmap> levelchanger;
     vector<QPixmap> lootchest;
     vector<QPixmap> pits;
     vector<QPixmap> portals;

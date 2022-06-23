@@ -43,15 +43,15 @@ void GraphicalUI::hide_startscreen_and_show_mainwindow() {
     mainwindow->show();
 }
 
-/*void GraphicalUI::setInputProcessed(bool value)
+TextureContainer *GraphicalUI::getTexturecontainer() const
 {
-    inputProcessed = value;
-}*/
+    return texturecontainer;
+}
 
-/*bool GraphicalUI::getInputProcessed() const
+MainWindow *GraphicalUI::getMainwindow() const
 {
-    return inputProcessed;
-}*/
+    return mainwindow;
+}
 
 void GraphicalUI::setLastInput(int direction) {
     lastInput = direction;

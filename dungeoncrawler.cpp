@@ -1,6 +1,7 @@
 ﻿#include "dungeoncrawler.h"
 #include "character.h"
 #include "level.h"
+#include "levelchanger.h"
 #include "terminalui.h"
 #include "graphicalui.h"
 #include "mainwindow.h"
@@ -9,7 +10,10 @@
 
 DungeonCrawler::DungeonCrawler()
 {
-    Level* level = new Level(10, 10);
+    levels = Level::generateLevels();
+    currentLevel = levels->begin().m_ptr->level;
+
+    //Level* level = new Level(10, 10);
 
     //Kopierkonstruktor testen
     /*
@@ -23,18 +27,19 @@ DungeonCrawler::DungeonCrawler()
     delete tmp;
     */
 
-    this->levels.push_back(level);
+    //levels.push_back(level);
 
-    this->abstractUI = new GraphicalUI(levels[0]);
+    //currentLevel = level;
+
+    this->abstractUI = new GraphicalUI(levels->begin().m_ptr->level);
     //this->abstractUI = new TerminalUI();
 }
 
 DungeonCrawler::~DungeonCrawler() {
     delete this->abstractUI;
 
-    while (!levels.empty()) {
-        delete levels.back();
-        levels.pop_back();
+    while (!levels->empty()) {
+        levels->pop_back();
     }
 }
 
@@ -42,11 +47,10 @@ void DungeonCrawler::play()
 {
     abstractUI->printDirectionOptions();
 
-    Level* currentLevel = levels[0];
+    switchLevels(levels->begin().m_ptr->level);
 
     Character* playerCharacter = currentLevel->getPlayerCharacter();
     playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
-
 
     while (abstractUI->getUserWantsToEndThisApp() == false) {
         if (abstractUI->getInputProcessed() == true) {
@@ -131,4 +135,28 @@ Tile* DungeonCrawler::determineDestinationTile(Level* level, Tile *tileWithChara
     return destinationTile;
 }
 
+void DungeonCrawler::switchLevels(Level *level) {
+    currentLevel = level;
 
+    for (unsigned i = 0; i < level->getLevelchangers().size(); i++) {
+        dynamic_cast<Active*>(level->getLevelchangers()[0])->attach(this);
+    }
+
+    //wird nicht mit Terminal funktionieren
+    GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
+    graphicalUI->getMainwindow()->setupPlayingField(graphicalUI->getTexturecontainer(), level);
+    graphicalUI->getMainwindow()->draw(level, graphicalUI->getTexturecontainer());
+
+    //playerCharacter suchen und Controller auf GraphicalUI setzen
+    for (unsigned i = 0; i < level->getCharacterpointer().size(); i++) {
+        if (level->getCharacterpointer()[i]->getIsPlayerCharacter()) {
+            level->getCharacterpointer()[i]->setController(graphicalUI);
+        }
+    }
+}
+
+void DungeonCrawler::notify(Active* source) {
+    Level* newLevel = static_cast<Levelchanger*>(source)->getDestinationLevel();
+
+    switchLevels(newLevel);
+}

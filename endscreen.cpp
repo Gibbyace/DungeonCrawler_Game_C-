@@ -8,21 +8,26 @@
 class GraphicalUI;
 class TextureContainer;
 
-endscreen::endscreen(QWidget *parent) :
+Endscreen::Endscreen(QString message, TextureContainer* texturecontainer, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::endscreen)
 {
     ui->setupUi(this);
     //TODO implementation von scaled bild
 
+    ui->backgroundLabel->setPixmap(texturecontainer->getBackgrounds()[3]);
+
+    ui->messageLabel->setStyleSheet(("color: #FFF"));
+    ui->messageLabel->setText(message);
+
 }
 
-endscreen::~endscreen()
+Endscreen::~Endscreen()
 {
     delete ui;
 }
 
-bool endscreen::buttonboxpressed() {
+bool Endscreen::buttonboxpressed() {
 
 
 

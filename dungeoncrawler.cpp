@@ -2,9 +2,11 @@
 #include "character.h"
 #include "level.h"
 #include "levelchanger.h"
+#include "lootchest.h"
 #include "terminalui.h"
 #include "graphicalui.h"
 #include "mainwindow.h"
+#include "endscreen.h"
 
 #include <QTest>
 
@@ -76,14 +78,31 @@ void DungeonCrawler::play()
             if (destinationTile != nullptr) {
                 tileWithCharacter->moveTo(destinationTile, character);
             }
-
         }
 
+        Character* playerCharacter = currentLevel->getPlayerCharacter();
+
+        if (dynamic_cast<LootChest*>(playerCharacter->getTile()) != nullptr) {
+            GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
+            graphicalUI->getMainwindow()->showEndscreen("Congratulations, you won :)");
+        }
 
         abstractUI->draw(currentLevel);
+        checkIfCharacterIsDead();
 
         //Muss für TerminalUI auskommentiert werden
         abstractUI->setInputProcessed(true);
+    }
+}
+
+void DungeonCrawler::checkIfCharacterIsDead() {
+    if(currentLevel->getPlayerCharacter()->getHitpoints() == 0) {
+        GraphicalUI* graphicalUI = dynamic_cast<GraphicalUI*>(abstractUI);
+        graphicalUI->getMainwindow()->hide();
+
+        cout << "YOU ARE DEAD; AHAHAHAHHA";
+
+        graphicalUI->getMainwindow()->showEndscreen("YOU DED");
     }
 }
 

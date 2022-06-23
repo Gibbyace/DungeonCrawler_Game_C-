@@ -1,19 +1,20 @@
 ﻿#ifndef ENDSCREEN_H
 #define ENDSCREEN_H
 
+#include "texturecontainer.h"
 #include <QDialog>
 
 namespace Ui {
 class endscreen;
 }
 
-class endscreen : public QDialog
+class Endscreen : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit endscreen(QWidget *parent = nullptr);
-    ~endscreen();
+    explicit Endscreen(QString message, TextureContainer* texturecontainer, QWidget *parent = nullptr);
+    ~Endscreen();
     bool buttonboxpressed();
 
 private:

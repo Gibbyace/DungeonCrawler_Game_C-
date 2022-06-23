@@ -25,7 +25,7 @@ public:
 
     void setChangesDrawn(bool value);
     void setupPlayingField(TextureContainer* texturecontainer, Level* level);
-
+    void showEndscreen(QString message);
 
 public slots:
 
@@ -44,12 +44,6 @@ private:
 
     void checkIfNPCIsDead(Level* level);
     void NPCIsDead();
-
-    void checkIfCharacterIsDead(Level* level);
-    void characterIsDead();
-
-    void checkIfGameWin(Level* level);
-    void gameWin();
 
     void closeEvent(QCloseEvent* event);
 };

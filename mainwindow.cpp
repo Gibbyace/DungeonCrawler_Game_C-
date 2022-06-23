@@ -281,16 +281,16 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
-                else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) { //TODO: Refactoring pls;
+                /*else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) { //TODO: Refactoring pls;
                     gameWin();
-                }
+                }*/
 
             }
         }
     }
 
     setStatusbarMessage(level);
-    checkIfCharacterIsDead(level);
+    //checkIfCharacterIsDead(level);
 
 }
 
@@ -310,36 +310,40 @@ void MainWindow::checkIfNPCIsDead(Level* level){
 
 
 
-void MainWindow::checkIfCharacterIsDead(Level* level) {
-
+/*void MainWindow::checkIfCharacterIsDead(Level* level) {
     if(level->getPlayerCharacter()->getHitpoints() == 0) {
         characterIsDead();
     }
-}
-
+}*/
+/*
 void MainWindow::characterIsDead(){
-
-        //ui->centralwidget->hide();
         hide();
         delete ui;
 
         cout<<"YOU ARE DEAD; AHAHAHAHHA";
-        endscreen endscreen1;
+        Endscreen endscreen1("YOU DED", dynamic_cast<TextureContainer*>(parent())->getTe);
         endscreen1.exec();
+}*/
+
+void MainWindow::showEndscreen(QString message) {
+    hide();
+
+    Endscreen endscreen(message, dynamic_cast<GraphicalUI*>(parent())->getTexturecontainer());
+    endscreen.exec();
+
+    close();
 }
 
 
 
-void MainWindow::gameWin() {
-
-    //ui->centralwidget->hide();
+/*void MainWindow::gameWin() {
     hide();
     delete ui;
 
     std::cout<<"YOU WON!";
-    endscreen endscreen1;
+    Endscreen endscreen1("YOU WON!", );
     endscreen1.exec(); //TODO: bitte einen schönen game win screen machen und endscreen1 mit etwas anderem ersetzen
-}
+}*/
 
 
 

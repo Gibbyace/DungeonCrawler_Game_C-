@@ -70,6 +70,7 @@ bool Tile::moveTo(Tile *destTile, Character *who){
 }
 
 void Tile::battle(Tile *destTile, Character *who) {
+
     int damage = character->getStrength();
     destTile->getCharacter()->setHitpoints(destTile->getCharacter()->getHitpoints() - damage);
 }

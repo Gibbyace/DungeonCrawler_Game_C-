@@ -41,7 +41,8 @@ private:
     QPixmap setCharacterPixmapFromDirection(int moveDirection, TextureContainer* texturecontainer);
     void setStatusbarMessage(Level* level);
 
-    void battle();
+    void checkIfNPCIsDead(Level* level);
+    void NPCIsDead();
 
     void checkIfCharacterIsDead(Level* level);
     void characterIsDead();

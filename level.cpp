@@ -125,6 +125,16 @@ int Level::getWidth() const
     return width;
 }
 
+Character* Level::getNPCCharacter() {
+    vector<Character*> characters = getCharacterpointer();
+     for (unsigned i = 0; i < characters.size(); i++) {
+         if (characters[i]->getIsPlayerCharacter() == false) {
+             return characters[i];
+         }
+     }
+
+}
+
 Character* Level::getPlayerCharacter() {
     vector<Character*> characters = getCharacterpointer();
 
@@ -183,7 +193,7 @@ Level::Level(const int height, const int width):height(height),width(width)
                 tilepointer[row].push_back(new_floor);
 
                 if (tileAsString == "X") {
-                    Character* new_character = new Character(10, 10, 10, true);
+                    Character* new_character = new Character(100, 100, 100, true); //immer hier die stats ändern
                     placeCharacter(new_character, row, col);
 
                     characterpointer.push_back(new_character);

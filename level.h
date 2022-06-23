@@ -28,6 +28,7 @@ public:
     int getWidth() const;
     const vector<Character *> &getCharacterpointer() const;
     Character* getPlayerCharacter();
+    Character* getNPCCharacter();
 
 
 protected:

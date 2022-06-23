@@ -267,7 +267,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
-                else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) { //TODO: PLS FIXTHIS
+                else if ((dynamic_cast<LootChest*>(currentTile) != nullptr)&&(currentTile->getCharacter()->getIsPlayerCharacter()==true) ) { //TODO: Refactoring pls;
                     gameWin();
                 }
 
@@ -287,9 +287,14 @@ void MainWindow::setChangesDrawn(bool value)
 
 
 
-void MainWindow::battle() {
+void MainWindow::checkIfNPCIsDead(Level* level){
 
+    if (level->getNPCCharacter()->getHitpoints() == 0) {
+        delete level->getCharacterpointer();
+    }
 }
+
+
 
 void MainWindow::checkIfCharacterIsDead(Level* level) {
 
@@ -303,6 +308,7 @@ void MainWindow::characterIsDead(){
         //ui->centralwidget->hide();
         hide();
         delete ui;
+
         cout<<"YOU ARE DEAD; AHAHAHAHHA";
         endscreen endscreen1;
         endscreen1.exec();

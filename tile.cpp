@@ -55,12 +55,9 @@ bool Tile::moveTo(Tile *destTile, Character *who){
         return false;
     }
 
+    bool battleCondition = destTile->hasCharacter() && who->getTile() != destTile;
 
-    if (destTile->hasCharacter() && who->getTile() != destTile) {
-        //TODO: Absichern, dass sich keine Spieler gegenseitig und keine NPCs gegenseitig kloppen
-        //battle(who, destTile->getCharacter());
-    }
-    else {
+    if (!battleCondition) {
         who->setTile(enteredTile);
         this->character = nullptr;
         enteredTile->setCharacter(who);

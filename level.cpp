@@ -130,7 +130,7 @@ LevelList* Level::generateLevels() {
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", "_", "_", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", "_", ".", ".", ".", ".", ".", "N", "#", "#"},
+        {"#", ".", "_", ".", ".", ".", ".", "N", "N", "#", "#"},
         {"#", ".", "_", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", ".", "_", ".", ".", "X", ".", ".", ".", "#", "#"},
         {"#", ".", "<", ".", ".", ".", ".", ".", ".", "#", "#"},
@@ -259,7 +259,7 @@ Level::Level(vector<vector<string>> level_as_string) {
                     characterpointer.push_back(new_character);
                 }
                 else if (tileAsString == "N") {
-                    Character* newNpc = new Character(1, 2, 2, false);
+                    Character* newNpc = new Character(200, 2, 2, false);
                     Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
                     newNpc->setController(npcController);
 

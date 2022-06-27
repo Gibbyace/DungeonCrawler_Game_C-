@@ -9,6 +9,7 @@ CONFIG += qt
 SOURCES += \
         abstractui.cpp \
         active.cpp \
+        attackcontroller.cpp \
         character.cpp \
         controller.cpp \
         door.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
 HEADERS += \
    abstractui.h \
    active.h \
+   attackcontroller.h \
    character.h \
    controller.h \
    door.h \

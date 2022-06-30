@@ -17,7 +17,16 @@
 int Level::idCounter = 0;
 
 Level::Level(const Level& level) : height(level.height), width(level.width) {
-    int charRow, charCol;
+    struct characterDataset {
+        int row;
+        int col;
+        int isPlayer;
+        int strength;
+        int stamina;
+        int hitpoints;
+    };
+
+    vector<characterDataset> characterData;
 
     for (int row = 0; row < height; row++) {
         vector<Tile*> newRow;
@@ -42,6 +51,15 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
             }
             else if (dynamic_cast<Floor*>(tile) != nullptr) {
                 tilepointer[row][col] = new Floor(row, col);
+            }
+            else if (dynamic_cast<Levelchanger*>(tile) != nullptr) {
+                Levelchanger* tileAsLevelchanger = dynamic_cast<Levelchanger*>(tile);
+                Levelchanger* newLevelchanger = new Levelchanger(row, col);
+
+                newLevelchanger->setDestinationLevel(tileAsLevelchanger->getDestinationLevel());
+                levelchangers.push_back(newLevelchanger);
+
+                tilepointer[row][col] = newLevelchanger;
             }
             else if (dynamic_cast<LootChest*>(tile) != nullptr) {
                 tilepointer[row][col] = new LootChest(row, col);
@@ -92,15 +110,34 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
             }
 
             if (tile->hasCharacter()) {
-                charRow = row;
-                charCol = col;
+                Character* oldCharacter = tile->getCharacter();
+
+                characterDataset newCharacterDataset = characterDataset();
+                newCharacterDataset.row = row;
+                newCharacterDataset.col = col;
+                newCharacterDataset.isPlayer = oldCharacter->getIsPlayerCharacter();
+                newCharacterDataset.stamina = oldCharacter->getStamina();
+                newCharacterDataset.strength = oldCharacter->getStrength();
+                newCharacterDataset.hitpoints = oldCharacter->getHitpoints();
+
+                characterData.push_back(newCharacterDataset);
             }
         }
     }
 
-    Character* new_character = new Character(1, 10, 10, true);
-    placeCharacter(new_character, charRow, charCol);
-    characterpointer.push_back(new_character);
+    for (unsigned i = 0; i < characterData.size(); i++) {
+        characterDataset set = characterData[i];
+        Character* newCharacter = new Character(set.stamina, set.strength, set.hitpoints, set.isPlayer);
+
+        if (!set.isPlayer) {
+            //TODO: Controller richtig kopieren, bei GuardController auch Pattern anpassen
+            Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+            newCharacter->setController(npcController);
+        }
+
+        placeCharacter(newCharacter, set.row, set.col);
+        characterpointer.push_back(newCharacter);
+    }
 }
 
 void swap(Level& lhs, Level& rhs) {
@@ -144,6 +181,11 @@ LevelList* Level::generateLevels() {
     level1->placePortals(1, 8, 8, 1);
     level1->placeSwitchAndDoor(3, 3, 6, 6);
 
+    //Kopierkonstruktor testen !!!!!!!!!!!!!!!!!
+    Level* level0 = new Level(*level1);
+    //TODO: HMM... irgendwie ist das Angriff-Verhalten anders als vorher...
+    //Eventuell separater Kopierkonstruktor für Characters?
+
     Level* level2 = new Level({
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
       {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
@@ -159,11 +201,11 @@ LevelList* Level::generateLevels() {
 
     level2->placePortals(4, 5, 6, 7);
 
-    levels->push_back(level1);
+    levels->push_back(level0);
     levels->push_back(level2);
 
-    level1->levelchangers[0]->setDestinationLevel(level2);
-    level2->levelchangers[0]->setDestinationLevel(level1);
+    level0->levelchangers[0]->setDestinationLevel(level2);
+    level2->levelchangers[0]->setDestinationLevel(level0);
 
     return levels;
 }

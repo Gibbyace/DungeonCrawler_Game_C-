@@ -16,6 +16,7 @@ SOURCES += \
         dungeoncrawler.cpp \
         endscreen.cpp \
         floor.cpp \
+        graph.cpp \
         graphicalui.cpp \
         guardcontroller.cpp \
         level.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
    dungeoncrawler.h \
    endscreen.h \
    floor.h \
+   graph.h \
    graphicalui.h \
    guardcontroller.h \
    level.h \

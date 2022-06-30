@@ -6,7 +6,7 @@ Graph::Graph(Level* level)
     //generiert adjacencyList basierend auf Tilepointer des Levels
 }
 
-vector<Tile*> Graph::getPath(Tile *from, Tile *to) {
+vector<Tile*> Graph::getPath(Tile *from, Tile *to, int traveledDistance) {
     vector<Tile*> path;
 
     map<Tile*, pair<int, Tile*>> nodes = initializeDijkstra(from);
@@ -16,14 +16,18 @@ vector<Tile*> Graph::getPath(Tile *from, Tile *to) {
     /*
     nachbarn = neighboursFrom(from)
 
+    speichern dass from besucht wurde
+    irgendwie bisherige Distanz vergleichen und ggf. Speichern
+
+    traveledDistance += 1
+
     for (nachbar of nachbarn) {
-        getPath(nachbar, to)
+        if (nachbar noch nicht besucht) {
+            getPath(nachbar, to, traveledDistance)
+        }
     }
 
-
-    irgendwie muss mit nem bool markiert werden, welche Knoten bereits besucht wurden
-
-    Abbruchbedingung?
+    Abbruchbedingung? Vielleicht ist keine notwendig
     */
 
     return path;
@@ -75,6 +79,7 @@ vector<Tile *> Graph::neighboursFrom(Tile *tile)
         Character dummyCharacter = Character(10, 10, 10, false);
 
         //TODO: ACHTUNG, DAS HAT SEITENEFFEKTE!
+        //TODO: Portale
         Tile* fromTile = tile->onLeave(neighbourTile, &dummyCharacter);
         Tile* enteredTile = neighbourTile->onEnter(fromTile, &dummyCharacter);
 

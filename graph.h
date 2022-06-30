@@ -18,7 +18,7 @@ private:
 
 public:
     Graph(Level* level);
-    vector<Tile*> getPath(Tile* from, Tile* to);
+    vector<Tile*> getPath(Tile* from, Tile* to, int traveledDistance = 0);
 };
 
 #endif // GRAPH_H

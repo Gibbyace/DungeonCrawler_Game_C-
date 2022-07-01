@@ -11,24 +11,7 @@ vector<Tile*> Graph::getPath(Tile *from, Tile *to, int traveledDistance) {
 
     map<Tile*, tuple<int, Tile*, bool>> nodes = initializeDijkstra(from); //das könnte man zu nem Attribut machen
 
-    vector<Tile*> neighbours = neighboursFrom(from);
-
-    //speichern, dass from besucht wurde
-    nodes[from] = {get<0>(nodes[from]), get<1>(nodes[from]), true};
-
-    traveledDistance += 1;
-
-    for (auto neighbour : neighbours) {
-        bool nodeHasBeenVisited = get<2>(nodes[neighbour]);
-        if (!nodeHasBeenVisited) {
-            int shortestDistance = get<0>(nodes[neighbour]);
-
-            if (traveledDistance < shortestDistance || shortestDistance == -1) {
-                get<0>(nodes[neighbour]) = traveledDistance;
-                get<1>(nodes[neighbour]) = from;
-            }
-        }
-    }
+    nodes = executeDijkstra(from, nodes, 0);
 
     /*
     nachbarn = neighboursFrom(from)
@@ -49,6 +32,31 @@ vector<Tile*> Graph::getPath(Tile *from, Tile *to, int traveledDistance) {
     */
 
     return path;
+}
+
+map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*, tuple<int, Tile*, bool>> nodes, int traveledDistance) {
+    vector<Tile*> neighbours = neighboursFrom(from);
+
+    //speichern, dass from besucht wurde
+    nodes[from] = {get<0>(nodes[from]), get<1>(nodes[from]), true};
+
+    traveledDistance += 1;
+
+    for (auto neighbour : neighbours) {
+        bool nodeHasBeenVisited = get<2>(nodes[neighbour]);
+        if (!nodeHasBeenVisited) {
+            int shortestDistance = get<0>(nodes[neighbour]);
+
+            if (traveledDistance < shortestDistance || shortestDistance == -1) {
+                get<0>(nodes[neighbour]) = traveledDistance;
+                get<1>(nodes[neighbour]) = from;
+            }
+
+            //nodes = executeDijkstra(neighbour, nodes, traveledDistance);
+        }
+    }
+
+    return nodes;
 }
 
 map<Tile*, tuple<int, Tile*, bool>> Graph::initializeDijkstra(Tile* from) {

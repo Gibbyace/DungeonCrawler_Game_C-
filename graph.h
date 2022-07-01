@@ -12,7 +12,7 @@ class Graph
 {
 private:
     map<Tile*, vector<Tile*>> adjacencyList;
-    map<Tile*, pair<int, Tile*>> initializeDijkstra(Tile* from);
+    map<Tile*, tuple<int, Tile*, bool>> initializeDijkstra(Tile* from);
     vector<Tile*> neighboursFrom(Tile* tile);
     Level* level;
 

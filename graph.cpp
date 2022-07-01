@@ -9,21 +9,39 @@ Graph::Graph(Level* level)
 vector<Tile*> Graph::getPath(Tile *from, Tile *to, int traveledDistance) {
     vector<Tile*> path;
 
-    map<Tile*, pair<int, Tile*>> nodes = initializeDijkstra(from);
+    map<Tile*, tuple<int, Tile*, bool>> nodes = initializeDijkstra(from); //das könnte man zu nem Attribut machen
 
     vector<Tile*> neighbours = neighboursFrom(from);
+
+    //speichern, dass from besucht wurde
+    nodes[from] = {get<0>(nodes[from]), get<1>(nodes[from]), true};
+
+    traveledDistance += 1;
+
+    for (auto neighbour : neighbours) {
+        bool nodeHasBeenVisited = get<2>(nodes[neighbour]);
+        if (!nodeHasBeenVisited) {
+            int shortestDistance = get<0>(nodes[neighbour]);
+
+            if (traveledDistance < shortestDistance || shortestDistance == -1) {
+                get<0>(nodes[neighbour]) = traveledDistance;
+                get<1>(nodes[neighbour]) = from;
+            }
+        }
+    }
 
     /*
     nachbarn = neighboursFrom(from)
 
     speichern dass from besucht wurde
+
     irgendwie bisherige Distanz vergleichen und ggf. Speichern
 
     traveledDistance += 1
 
     for (nachbar of nachbarn) {
         if (nachbar noch nicht besucht) {
-            getPath(nachbar, to, traveledDistance)
+            getPath(nachbar, to, traveledDistance) //nodes mit übergeben?
         }
     }
 
@@ -33,8 +51,8 @@ vector<Tile*> Graph::getPath(Tile *from, Tile *to, int traveledDistance) {
     return path;
 }
 
-map<Tile*, pair<int, Tile*>> Graph::initializeDijkstra(Tile* from) {
-    map<Tile*, pair<int, Tile*>> nodes;
+map<Tile*, tuple<int, Tile*, bool>> Graph::initializeDijkstra(Tile* from) {
+    map<Tile*, tuple<int, Tile*, bool>> nodes;
 
     vector<vector<Tile*>> levelTilePointer = level->getTilepointer();
 
@@ -43,10 +61,10 @@ map<Tile*, pair<int, Tile*>> Graph::initializeDijkstra(Tile* from) {
             Tile* currentTile = level->getTilepointer()[row][col];
 
             if (currentTile != from) {
-                nodes[currentTile] = {-1, nullptr};
+                nodes[currentTile] = {-1, nullptr, false};
             }
             else {
-                nodes[currentTile] = {0, nullptr};
+                nodes[currentTile] = {0, nullptr, true};
             }
         }
     }

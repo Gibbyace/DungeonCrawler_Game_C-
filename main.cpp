@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     });
 
     Graph desdGraph = Graph(desdLevel);
-    Tile* from = desdLevel->getTilepointer()[1][1];
+    Tile* from = desdLevel->getTilepointer()[8][8];
     Tile* to = desdLevel->getTilepointer()[2][2];
     desdGraph.getPath(from, to);
 

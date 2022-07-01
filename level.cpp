@@ -127,7 +127,7 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
 
     for (unsigned i = 0; i < characterData.size(); i++) {
         characterDataset set = characterData[i];
-        Character* newCharacter = new Character(set.stamina, set.strength, set.hitpoints, set.isPlayer);
+        Character* newCharacter = new Character(set.strength, set.stamina, set.hitpoints, set.isPlayer);
 
         if (!set.isPlayer) {
             //TODO: Controller richtig kopieren, bei GuardController auch Pattern anpassen
@@ -181,10 +181,10 @@ LevelList* Level::generateLevels() {
     level1->placePortals(1, 8, 8, 1);
     level1->placeSwitchAndDoor(3, 3, 6, 6);
 
-    //Kopierkonstruktor testen !!!!!!!!!!!!!!!!!
-    Level* level0 = new Level(*level1);
-    //TODO: HMM... irgendwie ist das Angriff-Verhalten anders als vorher...
-    //Eventuell separater Kopierkonstruktor für Characters?
+    //Kopierkonstruktor testen:
+    //Dafür level1 in den vorherigen Zeilen durch level0 ersetzen
+    //und folgende Zeile auskommentieren:
+    //Level* level1 = new Level(*level0);
 
     Level* level2 = new Level({
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
@@ -201,11 +201,11 @@ LevelList* Level::generateLevels() {
 
     level2->placePortals(4, 5, 6, 7);
 
-    levels->push_back(level0);
+    levels->push_back(level1);
     levels->push_back(level2);
 
-    level0->levelchangers[0]->setDestinationLevel(level2);
-    level2->levelchangers[0]->setDestinationLevel(level0);
+    level1->levelchangers[0]->setDestinationLevel(level2);
+    level2->levelchangers[0]->setDestinationLevel(level1);
 
     return levels;
 }

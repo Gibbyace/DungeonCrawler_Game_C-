@@ -1,5 +1,7 @@
 #include "graph.h"
 #include "wall.h"
+#include "pit.h"
+#include "ramp.h"
 #include <iomanip>
 
 Graph::Graph(Level* level)
@@ -21,12 +23,12 @@ vector<Tile*> Graph::getPath(Tile *from, Tile *to) {
 map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*, tuple<int, Tile*, bool>> nodes) {
     cout << endl << "Looking at: " << from->getRow() << " " << from->getColumn() << endl << endl;
 
-    vector<Tile*> neighbours = neighboursFrom(from);
-
     //speichern, dass from besucht wurde
     nodes[from] = {get<0>(nodes[from]), get<1>(nodes[from]), true};
 
     printNodes(nodes);
+
+    vector<Tile*> neighbours = neighboursFrom(from);
 
     if (neighbours.size() == 0) {
         return nodes;
@@ -44,6 +46,7 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*
 
     vector<Tile*> unvisitedNeighbours = filterOutVisitedTiles(neighbours, nodes);
 
+    //Das ganze mit den unbesuchten Nachbarn ausführen und zwar immer den mit der niedrigsten Distanz zuerst
     while (unvisitedNeighbours.size() > 0) {
         int shortestDistance = get<0>(nodes[unvisitedNeighbours[0]]);
         Tile* unvisitedNeighbourWithShortestDistance = unvisitedNeighbours[0];
@@ -104,12 +107,12 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::initializeDijkstra(Tile* from) {
     return nodes;
 }
 
-vector<Tile *> Graph::neighboursFrom(Tile *tile)
+vector<Tile *> Graph::neighboursFrom(Tile *from)
 {
     vector<Tile*> neighbours;
     vector<vector<Tile*>> tiles = level->getTilepointer();
-    int row = tile->getRow();
-    int col = tile->getColumn();
+    int row = from->getRow();
+    int col = from->getColumn();
 
     vector<pair<int, int>> relativeNeighbourPositions = {
         {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}
@@ -123,24 +126,20 @@ vector<Tile *> Graph::neighboursFrom(Tile *tile)
             continue;
         }
 
-        Tile* neighbourTile = tiles[neighbourRow][neighbourCol];
+        Tile* neighbour = tiles[neighbourRow][neighbourCol];
 
-        if (dynamic_cast<Wall*>(neighbourTile) == nullptr) {
-            neighbours.push_back(neighbourTile);
+        bool tileIsPit = dynamic_cast<Pit*>(from) != nullptr;
+        bool neighbourIsWall = dynamic_cast<Wall*>(neighbour) != nullptr;
+        bool neighbourIsNotPitAndNotRamp = dynamic_cast<Pit*>(neighbour) == nullptr && dynamic_cast<Ramp*>(neighbour) == nullptr;
+
+        if (neighbourIsWall) {
+            continue;
         }
-        /*bool neighbourTileIsEnterable = false;
+        else if (tileIsPit && neighbourIsNotPitAndNotRamp) {
+            continue;
+        }//wie kann ich das testen?
 
-        Character dummyCharacter = Character(10, 10, 10, false);
-
-        //TODO: ACHTUNG, DAS HAT SEITENEFFEKTE!
-        //TODO: Portale
-        Tile* fromTile = tile->onLeave(neighbourTile, &dummyCharacter);
-        Tile* enteredTile = neighbourTile->onEnter(fromTile, &dummyCharacter);
-
-        if (fromTile != nullptr && enteredTile != nullptr) {
-            neighbourTileIsEnterable = true;
-            neighbours.push_back(neighbourTile);
-        }*/
+        neighbours.push_back(neighbour);
     }
 
     cout << endl << "Neighbours at: ";

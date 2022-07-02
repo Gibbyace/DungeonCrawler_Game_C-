@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    Level* testLevel = new Level({
+    /*Level* testLevel = new Level({
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
@@ -30,13 +30,12 @@ int main(int argc, char* argv[])
     Graph testGraph = Graph(testLevel);
     Tile* from = testLevel->getTilepointer()[1][1];
     Tile* to = testLevel->getTilepointer()[5][1];
-    //Tile* to = testLevel->getTilepointer()[2][8];
-    testGraph.getPath(from, to);
+    testGraph.getPath(from, to);*/
 
-    /*QApplication application(argc, argv);
+    QApplication application(argc, argv);
 
     DungeonCrawler Game1 = DungeonCrawler();
-    Game1.play();*/
+    Game1.play();
 
     return 0;
 }

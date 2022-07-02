@@ -11,6 +11,7 @@
 #include "pit.h"
 #include "ramp.h"
 #include "levelchanger.h"
+#include "attackcontroller.h"
 #include "stationarycontroller.h"
 #include "guardcontroller.h"
 
@@ -301,7 +302,8 @@ Level::Level(vector<vector<string>> level_as_string) {
                 }
                 else if (tileAsString == "N") {
                     Character* newNpc = new Character(200, 2, 2, false);
-                    Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+                    //Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+                    Controller* npcController = new Attackcontroller(this, newNpc);
                     newNpc->setController(npcController);
 
                     placeCharacter(newNpc, row, col);

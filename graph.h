@@ -12,7 +12,6 @@ using namespace std;
 class Graph
 {
 private:
-    //map<Tile*, vector<Tile*>> adjacencyList;
     map<Tile*, tuple<int, Tile*, bool>> initializeDijkstra(Tile* from);
     map<Tile*, tuple<int, Tile*, bool>> executeDijkstra(Tile* from, map<Tile*, tuple<int, Tile*, bool>> &nodes);
     void printNodes(map<Tile*, tuple<int, Tile*, bool>> &nodes);

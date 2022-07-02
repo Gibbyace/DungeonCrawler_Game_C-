@@ -2,6 +2,7 @@
 #include "wall.h"
 #include "pit.h"
 #include "ramp.h"
+#include "portal.h"
 #include <iomanip>
 
 Graph::Graph(Level* level)
@@ -128,16 +129,21 @@ vector<Tile *> Graph::neighboursFrom(Tile *from)
 
         Tile* neighbour = tiles[neighbourRow][neighbourCol];
 
-        bool tileIsPit = dynamic_cast<Pit*>(from) != nullptr;
         bool neighbourIsWall = dynamic_cast<Wall*>(neighbour) != nullptr;
+        bool tileIsPit = dynamic_cast<Pit*>(from) != nullptr;
         bool neighbourIsNotPitAndNotRamp = dynamic_cast<Pit*>(neighbour) == nullptr && dynamic_cast<Ramp*>(neighbour) == nullptr;
+        bool neighbourIsPortal = dynamic_cast<Portal*>(neighbour) != nullptr;
 
         if (neighbourIsWall) {
             continue;
         }
         else if (tileIsPit && neighbourIsNotPitAndNotRamp) {
             continue;
-        }//wie kann ich das testen?
+        }
+        else if (neighbourIsPortal) {
+            Tile* connectedPortal = dynamic_cast<Portal*>(neighbour)->getDestination();
+            neighbours.push_back(connectedPortal);
+        }
 
         neighbours.push_back(neighbour);
     }

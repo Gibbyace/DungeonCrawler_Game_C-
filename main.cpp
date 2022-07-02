@@ -10,13 +10,13 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    Level* desdLevel = new Level({
+    Level* testLevel = new Level({
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", "N", ".", "#", "#"},
         {"#", "#", "#", "#", "#", "#", "#", "#", "_", "#", "#"},
-        {"#", ".", ".", ".", ".", "X", ".", "_", "_", "#", "#"},
+        {"#", ".", "X.", ".", ".", ".", ".", "_", "_", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", "_", "_", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", "_", "_", "#", "#"},
         {"#", ".", ".", ".", ".", "l", ".", "<", ".", "#", "#"},
@@ -24,10 +24,13 @@ int main(int argc, char* argv[])
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
     });
 
-    Graph desdGraph = Graph(desdLevel);
-    Tile* from = desdLevel->getTilepointer()[1][1];
-    Tile* to = desdLevel->getTilepointer()[2][2];
-    desdGraph.getPath(from, to);
+    //TODO: ACHTUNG placePortals gehört zu protected!!!
+    testLevel->placePortals(2, 2, 3, 8);
+
+    Graph testGraph = Graph(testLevel);
+    Tile* from = testLevel->getTilepointer()[1][1];
+    Tile* to = testLevel->getTilepointer()[2][2];
+    testGraph.getPath(from, to);
 
     /*QApplication application(argc, argv);
 

@@ -8,20 +8,40 @@
 Graph::Graph(Level* level)
 {
     this->level = level;
-    //generiert adjacencyList basierend auf Tilepointer des Levels, vielleicht auch nicht
 }
 
-vector<Tile*> Graph::getPath(Tile *from, Tile *to) {
-    vector<Tile*> path;
-
-    map<Tile*, tuple<int, Tile*, bool>> nodes = initializeDijkstra(from); //das könnte man zu nem Attribut machen
+list<Tile*> Graph::getPath(Tile *from, Tile *to) {
+    map<Tile*, tuple<int, Tile*, bool>> nodes = initializeDijkstra(from);
 
     nodes = executeDijkstra(from, nodes);
+
+    list<Tile*> path = calculatePath(from, to, nodes);
 
     return path;
 }
 
-map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*, tuple<int, Tile*, bool>> nodes) {
+map<Tile*, tuple<int, Tile*, bool>> Graph::initializeDijkstra(Tile* from) {
+    map<Tile*, tuple<int, Tile*, bool>> nodes;
+
+    vector<vector<Tile*>> levelTilePointer = level->getTilepointer();
+
+    for (unsigned row = 0; row < levelTilePointer.size(); row++) {
+        for (unsigned col = 0; col < level->getTilepointer()[row].size(); col++) {
+            Tile* currentTile = level->getTilepointer()[row][col];
+
+            if (currentTile != from) {
+                nodes[currentTile] = {-1, nullptr, false};
+            }
+            else {
+                nodes[currentTile] = {0, nullptr, true};
+            }
+        }
+    }
+
+    return nodes;
+}
+
+map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*, tuple<int, Tile*, bool>> &nodes) {
     cout << endl << "Looking at: " << from->getRow() << " " << from->getColumn() << endl << endl;
 
     //speichern, dass from besucht wurde
@@ -35,15 +55,7 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*
         return nodes;
     }
 
-    //Distanzen zu den Nachbarn updaten
-    for (auto neighbour : neighbours) {
-        int shortestDistanceToThisNeighbourYet = get<0>(nodes[neighbour]);
-
-        if (get<0>(nodes[from]) < shortestDistanceToThisNeighbourYet || shortestDistanceToThisNeighbourYet == -1) {
-            get<0>(nodes[neighbour]) = get<0>(nodes[from]) + 1;
-            get<1>(nodes[neighbour]) = from;
-        }
-    }
+    nodes = updateDistancesToNeighbours(from, neighbours, nodes);
 
     vector<Tile*> unvisitedNeighbours = filterOutVisitedTiles(neighbours, nodes);
 
@@ -72,6 +84,27 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*
     return nodes;
 }
 
+map<Tile *, tuple<int, Tile *, bool> > Graph::updateDistancesToNeighbours(
+        Tile *from,
+        const vector<Tile*> &neighbours,
+        map<Tile *, tuple<int, Tile *, bool>> &nodes
+)
+{
+    for (auto neighbour : neighbours) {
+        int shortestDistanceToThisNeighbourYet = get<0>(nodes[neighbour]);
+
+        if (
+                get<0>(nodes[from]) < shortestDistanceToThisNeighbourYet ||
+                shortestDistanceToThisNeighbourYet == -1
+        ) {
+            get<0>(nodes[neighbour]) = get<0>(nodes[from]) + 1;
+            get<1>(nodes[neighbour]) = from;
+        }
+    }
+
+    return nodes;
+}
+
 void Graph::printNodes(map<Tile *, tuple<int, Tile *, bool>>& nodes) {
     for (unsigned row = 0; row < level->getTilepointer().size(); row++) {
         for (unsigned col = 0; col < level->getTilepointer()[row].size(); col++) {
@@ -87,27 +120,6 @@ void Graph::printNodes(map<Tile *, tuple<int, Tile *, bool>>& nodes) {
     cout << endl;
 }
 
-map<Tile*, tuple<int, Tile*, bool>> Graph::initializeDijkstra(Tile* from) {
-    map<Tile*, tuple<int, Tile*, bool>> nodes;
-
-    vector<vector<Tile*>> levelTilePointer = level->getTilepointer();
-
-    for (unsigned row = 0; row < levelTilePointer.size(); row++) {
-        for (unsigned col = 0; col < level->getTilepointer()[row].size(); col++) {
-            Tile* currentTile = level->getTilepointer()[row][col];
-
-            if (currentTile != from) {
-                nodes[currentTile] = {-1, nullptr, false};
-            }
-            else {
-                nodes[currentTile] = {0, nullptr, true};
-            }
-        }
-    }
-
-    return nodes;
-}
-
 vector<Tile *> Graph::neighboursFrom(Tile *from)
 {
     vector<Tile*> neighbours;
@@ -118,6 +130,13 @@ vector<Tile *> Graph::neighboursFrom(Tile *from)
     vector<pair<int, int>> relativeNeighbourPositions = {
         {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}
     };
+
+    bool fromIsPortal = dynamic_cast<Portal*>(from) != nullptr;
+
+    if (fromIsPortal) {
+        Tile* connectedPortal = dynamic_cast<Portal*>(from)->getDestination();
+        neighbours.push_back(connectedPortal);
+    }
 
     for (unsigned i = 0; i < relativeNeighbourPositions.size(); i++) {
         int neighbourRow = row + relativeNeighbourPositions[i].first;
@@ -131,18 +150,15 @@ vector<Tile *> Graph::neighboursFrom(Tile *from)
 
         bool neighbourIsWall = dynamic_cast<Wall*>(neighbour) != nullptr;
         bool tileIsPit = dynamic_cast<Pit*>(from) != nullptr;
-        bool neighbourIsNotPitAndNotRamp = dynamic_cast<Pit*>(neighbour) == nullptr && dynamic_cast<Ramp*>(neighbour) == nullptr;
-        bool neighbourIsPortal = dynamic_cast<Portal*>(neighbour) != nullptr;
+        bool neighbourIsNotPitAndNotRamp =
+                dynamic_cast<Pit*>(neighbour) == nullptr &&
+                dynamic_cast<Ramp*>(neighbour) == nullptr;
 
         if (neighbourIsWall) {
             continue;
         }
         else if (tileIsPit && neighbourIsNotPitAndNotRamp) {
             continue;
-        }
-        else if (neighbourIsPortal) {
-            Tile* connectedPortal = dynamic_cast<Portal*>(neighbour)->getDestination();
-            neighbours.push_back(connectedPortal);
         }
 
         neighbours.push_back(neighbour);
@@ -178,4 +194,26 @@ vector<Tile *> Graph::filterOutVisitedTiles(vector<Tile *> tiles, map<Tile*, tup
     cout << endl;
 
     return unvisitedTiles;
+}
+
+list<Tile*> Graph::calculatePath(Tile *from, Tile *to, map<Tile *, tuple<int, Tile *, bool> > &nodes) {
+    list<Tile*> path;
+
+    //TODO: Portale aus dem Pfad entfernen
+
+    while (to != from) {
+        path.push_front(to);
+        Tile* previousTile = get<1>(nodes[to]);
+        to = previousTile;
+    }
+
+    cout << endl << "Path: ";
+
+    for (Tile* tile : path) {
+        cout << tile->getRow() << " " << tile->getColumn() << ", ";
+    }
+
+    cout << endl;
+
+    return path;
 }

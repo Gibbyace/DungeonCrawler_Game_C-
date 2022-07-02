@@ -1,15 +1,15 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "endscreen.h"
-#include <door.h>
-#include <floor.h>
+#include "door.h"
+#include "floor.h"
 #include "levelchanger.h"
-#include <lootchest.h>
-#include <pit.h>
-#include <portal.h>
-#include <ramp.h>
-#include <switch.h>
-#include <wall.h>
+#include "lootchest.h"
+#include "pit.h"
+#include "portal.h"
+#include "ramp.h"
+#include "switch.h"
+#include "wall.h"
 #include <QDebug>
 
 
@@ -241,7 +241,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     changesDrawn = true;
 
     for (int row = 0; row < level->getHeight(); row++) {
-        for (int col = 0; col < level->getHeight(); col++) {
+        for (int col = 0; col < level->getWidth(); col++) {
             Tile* currentTile = level->getTilepointer()[row][col];
 
             if (dynamic_cast<Door*>(currentTile) != nullptr) {
@@ -281,7 +281,6 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
-
             }
         }
     }

@@ -15,8 +15,6 @@ DungeonCrawler::DungeonCrawler()
     levels = Level::generateLevels();
     currentLevel = levels->begin().m_ptr->level;
 
-    //Level* level = new Level(10, 10);
-
     //Kopierkonstruktor testen
     /*
     Level* tmp = new Level(10, 10);
@@ -28,10 +26,6 @@ DungeonCrawler::DungeonCrawler()
     *level = *tmp;
     delete tmp;
     */
-
-    //levels.push_back(level);
-
-    //currentLevel = level;
 
     this->abstractUI = new GraphicalUI(levels->begin().m_ptr->level);
     //this->abstractUI = new TerminalUI();

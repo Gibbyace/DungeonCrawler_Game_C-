@@ -44,12 +44,10 @@ public:
     void deleteCharacterById(int id);
     vector<Levelchanger *> getLevelchangers() const;
 
-    void placePortals(int row1, int col1, int row2, int col2); //TODO: gehört zu protected
-
 protected:
     int id;
     void placeCharacter(Character *c, int row, int col);
-    //void placePortals(int row1, int col1, int row2, int col2); //TODO: gehört zu protected
+    void placePortals(int row1, int col1, int row2, int col2);
     void placeSwitchAndDoor(int row1, int col1, int row2, int col2);
 };
 

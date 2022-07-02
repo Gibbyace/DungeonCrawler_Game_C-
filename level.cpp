@@ -132,7 +132,7 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
 
         if (!set.isPlayer) {
             //TODO: Controller richtig kopieren, bei GuardController auch Pattern anpassen
-            Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+            Controller* npcController = new Attackcontroller(this, newCharacter);
             newCharacter->setController(npcController);
         }
 
@@ -155,7 +155,7 @@ bool Level::operator ==(Level* rhs) {
     return this->id == rhs->id;
 }
 
-vector<Levelchanger *> Level::getLevelchangers() const
+vector<Levelchanger*> Level::getLevelchangers() const
 {
     return levelchangers;
 }
@@ -164,42 +164,44 @@ LevelList* Level::generateLevels() {
     LevelList* levels = new LevelList;
 
     Level* level1 = new Level({
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", "N", ".", "#", "#"},
-        {"#", "#", "#", "#", "#", "#", "#", "#", ".", "#", "#"},
-        {"#", ".", ".", ".", ".", "X", ".", ".", ".", "#", "#"},
-        {"#", ".", "<", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#", "#"},
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        {"#", ".", "X", ".", ".", "#", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", "#", "#", "#", "#", "#", ".", "#", "#"},
+        {"#", ".", "_", "_", ".", ".", ".", ".", "#"},
+        {"#", ".", "_", "_", ".", ".", ".", ".", "#"},
+        {"#", "N", "_", "<", ".", "l", ".", ".", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#"},
         });
 
-    level1->placePortals(1, 1, 8, 8);
-    level1->placePortals(1, 8, 8, 1);
-    level1->placeSwitchAndDoor(3, 3, 6, 6);
+    level1->placePortals(1, 1, 7, 7);
+    level1->placeSwitchAndDoor(1, 4, 4, 6);
 
-    //Kopierkonstruktor testen:
+    //Kopierkonstruktor und Zuweisungsoperator testen:
     //Dafür level1 in den vorherigen Zeilen durch level0 ersetzen
-    //und folgende Zeile auskommentieren:
-    //Level* level1 = new Level(*level0);
+    //und folgende Zeilen einkommentieren:
+    /*Level* level1 = new Level(*level0);
+    Level* tmp = new Level(*level0);
+    *level1 = *tmp;
+    delete tmp;*/
 
     Level* level2 = new Level({
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", ".", "l", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", "_", "_", "_", ".", ".", ".", ".", "N", "#"},
-      {"#", ".", ".", "_", ".", ".", ".", "e", ".", "#"},
-      {"#", "_", "_", "_", ".", "X", ".", ".", ".", "#"},
-      {"#", "_", ".", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", "_", "_", "<", ".", ".", ".", ".", ".", "#"},
+      {"#", "X", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", "#", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", "#", ".", "#"},
+      {"#", ".", ".", ".", "#", "#", ".", "#", "N", "#"},
+      {"#", ".", ".", ".", "#", ".", ".", "#", ".", "#"},
+      {"#", ".", ".", ".", "#", "l", "e", "#", ".", "#"},
+      {"#", "#", "#", "#", "#", "#", "#", "#", ".", "#"},
       {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
       });
 
-    level2->placePortals(4, 5, 6, 7);
+    level2->placePortals(8, 1, 6, 1);
+    level2->placeSwitchAndDoor(1, 3, 1, 7);
+    level2->placeSwitchAndDoor(3, 8, 4, 6);
 
     levels->push_back(level1);
     levels->push_back(level2);
@@ -233,6 +235,7 @@ Character* Level::getNPCCharacter() {
          }
      }
 
+     return nullptr;
 }
 
 Character* Level::getPlayerCharacter() {
@@ -313,7 +316,6 @@ Level::Level(vector<vector<string>> level_as_string) {
             }
         }
     }
-
 }
 
 Level::~Level() {

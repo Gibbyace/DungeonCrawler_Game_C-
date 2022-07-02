@@ -211,8 +211,6 @@ list<Tile*> Graph::calculatePath(Tile *from, Tile *to, map<Tile *, tuple<int, Ti
         return path;
     }
 
-    //TODO: Portale aus dem Pfad entfernen
-
     while (to != from) {
         path.push_front(to);
         Tile* previousTile = get<1>(nodes[to]);

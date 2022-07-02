@@ -1,4 +1,5 @@
 #include "attackcontroller.h"
+#include "portal.h"
 
 Attackcontroller::Attackcontroller(Level* level, Character* controllingCharacter) {
     this->level = level;
@@ -17,6 +18,13 @@ int Attackcontroller::move() {
     }
 
     Tile* destinationTile = path.front();
+
+    /*if (path.front() == controllingCharacterTile && dynamic_cast<Portal*>(path.front()) != nullptr) {
+        destinationTile = path.front();
+    }
+    else {
+        destinationTile = *std::next(path.begin());
+    }*/
 
     pair<int, int> controllingCharacterPosition = {
         controllingCharacterTile->getRow(),

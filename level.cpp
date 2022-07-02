@@ -162,8 +162,7 @@ vector<Levelchanger *> Level::getLevelchangers() const
 LevelList* Level::generateLevels() {
     LevelList* levels = new LevelList;
 
-    Level* level1 = new Level(
-        {
+    Level* level1 = new Level({
         {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},

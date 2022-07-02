@@ -5,7 +5,7 @@
 Graph::Graph(Level* level)
 {
     this->level = level;
-    //generiert adjacencyList basierend auf Tilepointer des Levels
+    //generiert adjacencyList basierend auf Tilepointer des Levels, vielleicht auch nicht
 }
 
 vector<Tile*> Graph::getPath(Tile *from, Tile *to) {
@@ -59,8 +59,7 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*
         }
     }
 
-    //nimm von den unbesuchten Nacharn den mit dem niedrigsten Wert
-    //das macht er irgendwie nicht richtig. Wie kann ich das debuggen?
+    //mach weiter mit dem unbesuchten Nacharn mit dem niedrigsten Wert
     nodes = executeDijkstra(unvisitedNeighbourWithShortestDistance, nodes);
 
     return nodes;

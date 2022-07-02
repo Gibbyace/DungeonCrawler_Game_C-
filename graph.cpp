@@ -42,25 +42,28 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*
         }
     }
 
-    //unbesuchte Nachbarn herausfiltern
     vector<Tile*> unvisitedNeighbours = filterOutVisitedTiles(neighbours, nodes);
 
-    if (unvisitedNeighbours.size() == 0) {
-        return nodes;
-    }
+    while (unvisitedNeighbours.size() > 0) {
+        int shortestDistance = get<0>(nodes[unvisitedNeighbours[0]]);
+        Tile* unvisitedNeighbourWithShortestDistance = unvisitedNeighbours[0];
+        int indexOfTileWithShortestDistance = 0;
 
-    int shortestDistance = get<0>(nodes[unvisitedNeighbours[0]]);
-    Tile* unvisitedNeighbourWithShortestDistance = unvisitedNeighbours[0];
+        for (unsigned i = 0; i < unvisitedNeighbours.size(); i++) {
+            Tile* neighbour = unvisitedNeighbours[i];
 
-    for (auto neighbour : unvisitedNeighbours) {
-        if (get<0>(nodes[neighbour]) < shortestDistance && get<0>(nodes[neighbour]) != -1) {
-            shortestDistance = get<0>(nodes[neighbour]);
-            unvisitedNeighbourWithShortestDistance = neighbour;
+            if (get<0>(nodes[neighbour]) < shortestDistance && get<0>(nodes[neighbour]) != -1) {
+                shortestDistance = get<0>(nodes[neighbour]);
+                unvisitedNeighbourWithShortestDistance = neighbour;
+                indexOfTileWithShortestDistance = i;
+            }
         }
-    }
 
-    //mach weiter mit dem unbesuchten Nacharn mit dem niedrigsten Wert
-    nodes = executeDijkstra(unvisitedNeighbourWithShortestDistance, nodes);
+        unvisitedNeighbours.erase(unvisitedNeighbours.begin() + indexOfTileWithShortestDistance);
+
+        //mach weiter mit dem unbesuchten Nacharn mit dem niedrigsten Wert
+        nodes = executeDijkstra(unvisitedNeighbourWithShortestDistance, nodes);
+    }
 
     return nodes;
 }

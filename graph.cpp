@@ -199,6 +199,10 @@ vector<Tile *> Graph::filterOutVisitedTiles(vector<Tile *> tiles, map<Tile*, tup
 list<Tile*> Graph::calculatePath(Tile *from, Tile *to, map<Tile *, tuple<int, Tile *, bool> > &nodes) {
     list<Tile*> path;
 
+    if (get<0>(nodes[to]) == -1) {
+        return path;
+    }
+
     //TODO: Portale aus dem Pfad entfernen
 
     while (to != from) {

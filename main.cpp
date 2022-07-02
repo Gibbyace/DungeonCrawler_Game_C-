@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", "N", ".", "#", "#"},
-        {"#", "#", "#", "#", "#", "#", "#", "#", "_", "#", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
         {"#", ".", "X", ".", ".", ".", ".", "_", "_", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", "_", "_", "#", "#"},
         {"#", ".", ".", ".", ".", ".", ".", "_", "_", "#", "#"},
@@ -29,8 +29,8 @@ int main(int argc, char* argv[])
 
     Graph testGraph = Graph(testLevel);
     Tile* from = testLevel->getTilepointer()[1][1];
-    //Tile* to = testLevel->getTilepointer()[5][1];
-    Tile* to = testLevel->getTilepointer()[2][8];
+    Tile* to = testLevel->getTilepointer()[5][1];
+    //Tile* to = testLevel->getTilepointer()[2][8];
     testGraph.getPath(from, to);
 
     /*QApplication application(argc, argv);

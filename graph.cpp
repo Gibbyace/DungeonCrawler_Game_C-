@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "door.h"
 #include "wall.h"
 #include "pit.h"
 #include "ramp.h"
@@ -153,9 +154,16 @@ vector<Tile *> Graph::neighboursFrom(Tile *from)
         bool neighbourIsNotPitAndNotRamp =
                 dynamic_cast<Pit*>(neighbour) == nullptr &&
                 dynamic_cast<Ramp*>(neighbour) == nullptr;
+        bool neighbourIsDoor = dynamic_cast<Door*>(neighbour);
 
         if (neighbourIsWall) {
             continue;
+        }
+        else if (neighbourIsDoor) {
+            Door* neighbourAsDoor = dynamic_cast<Door*>(neighbour);
+            if (neighbourAsDoor->getTexture() == "X") {
+                continue;
+            }
         }
         else if (tileIsPit && neighbourIsNotPitAndNotRamp) {
             continue;

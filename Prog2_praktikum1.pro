@@ -15,6 +15,7 @@ SOURCES += \
         door.cpp \
         dungeoncrawler.cpp \
         endscreen.cpp \
+        filemanager.cpp \
         floor.cpp \
         graph.cpp \
         graphicalui.cpp \
@@ -22,8 +23,6 @@ SOURCES += \
         level.cpp \
         levelchanger.cpp \
         levellist.cpp \
-        levelloader.cpp \
-        levelsaver.cpp \
         lootchest.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -48,6 +47,7 @@ HEADERS += \
    door.h \
    dungeoncrawler.h \
    endscreen.h \
+   filemanager.h \
    floor.h \
    graph.h \
    graphicalui.h \
@@ -55,8 +55,6 @@ HEADERS += \
    level.h \
    levelchanger.h \
    levellist.h \
-   levelloader.h \
-   levelsaver.h \
    lootchest.h \
    mainwindow.h \
    passive.h \

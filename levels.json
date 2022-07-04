@@ -1,0 +1,86 @@
+{
+	"levellist": [
+		{
+			"id": 0,
+			"layout" : [
+				["##########"],
+				["#........#"],
+				["#......#.#"],
+				["#......#.#"],
+				["#...##.#.#"],
+				["#...#..#.#"],
+				["#...#.e#.#"],
+				["########.#"],
+				["#........#"],
+				["##########"]
+			],
+			"characters": [
+				{
+					"id": 0,
+					"row": 1,
+					"col": 1,
+					"strength": 100,
+					"stamina": 100,
+					"hitpoints": 20,
+					"isPlayer": true,
+					"moveDirection": 5
+				},
+				{
+					"id": 1,
+					"row": 4,
+					"col": 8,
+					"strength": 200,
+					"stamina": 2,
+					"hitpoints": 2,
+					"isPlayer": false,
+					"moveDirection": 5
+				},
+			],
+			"levelchangers": [
+				{
+					"row": 6,
+					"col": 5,
+					"destinationLevelID": 1
+				}
+			],
+			"portals": [
+				{
+					"row": 8,
+					"col": 1,
+					"destRow": 6,
+					"destCol": 1,
+				},
+				{
+					"row": 6,
+					"col": 1,
+					"destRow": 8,
+					"destCol": 1,
+				}
+			],
+			"switches": [
+				{
+					"row": 1,
+					"col": 3,
+					"connectedDoors": [
+						{
+							"row": 1,
+							"col": 7,
+							"isOpen": false
+						},
+					]
+				},
+				{
+					"row": 3,
+					"col": 8,
+					"connectedDoors": [
+						{
+							"row": 4,
+							"col": 6,
+							"isOpen": false
+						},
+					]
+				}
+			]
+		},
+	]
+}

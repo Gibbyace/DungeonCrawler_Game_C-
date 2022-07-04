@@ -22,6 +22,8 @@ SOURCES += \
         level.cpp \
         levelchanger.cpp \
         levellist.cpp \
+        levelloader.cpp \
+        levelsaver.cpp \
         lootchest.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -53,6 +55,8 @@ HEADERS += \
    level.h \
    levelchanger.h \
    levellist.h \
+   levelloader.h \
+   levelsaver.h \
    lootchest.h \
    mainwindow.h \
    passive.h \
@@ -65,7 +69,8 @@ HEADERS += \
    terminalui.h \
    texturecontainer.h \
    tile.h \
-   wall.h
+   wall.h  \
+   json.hpp
 
 FORMS += \
    endscreen.ui \

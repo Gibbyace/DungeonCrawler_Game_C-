@@ -1,4 +1,4 @@
-#include "graph.h"
+﻿#include "graph.h"
 #include "door.h"
 #include "wall.h"
 #include "pit.h"
@@ -43,12 +43,12 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::initializeDijkstra(Tile* from) {
 }
 
 map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*, tuple<int, Tile*, bool>> &nodes) {
-    cout << endl << "Looking at: " << from->getRow() << " " << from->getColumn() << endl << endl;
+    //cout << endl << "Looking at: " << from->getRow() << " " << from->getColumn() << endl << endl;
 
     //speichern, dass from besucht wurde
     nodes[from] = {get<0>(nodes[from]), get<1>(nodes[from]), true};
 
-    printNodes(nodes);
+    //printNodes(nodes);
 
     vector<Tile*> neighbours = neighboursFrom(from);
 
@@ -112,13 +112,13 @@ void Graph::printNodes(map<Tile *, tuple<int, Tile *, bool>>& nodes) {
             Tile* currentTile = level->getTilepointer()[row][col];
             std::cout.width(5);
 
-            cout << get<0>(nodes[currentTile]);
+            //cout << get<0>(nodes[currentTile]);
         }
 
-        cout << endl;
+        //cout << endl;
     }
 
-    cout << endl;
+    //cout << endl;
 }
 
 vector<Tile *> Graph::neighboursFrom(Tile *from)
@@ -172,13 +172,13 @@ vector<Tile *> Graph::neighboursFrom(Tile *from)
         neighbours.push_back(neighbour);
     }
 
-    cout << endl << "Neighbours at: ";
+    //cout << endl << "Neighbours at: ";
 
     for (auto neighbour : neighbours) {
-        cout << neighbour->getRow() << " " << neighbour->getColumn() << ", ";
+        //cout << neighbour->getRow() << " " << neighbour->getColumn() << ", ";
     }
 
-    cout << endl;
+    //cout << endl;
 
     return neighbours;
 }
@@ -193,13 +193,13 @@ vector<Tile *> Graph::filterOutVisitedTiles(vector<Tile *> tiles, map<Tile*, tup
         }
     }
 
-    cout << endl << "Unvisited Tiles at: ";
+    //cout << endl << "Unvisited Tiles at: ";
 
     for (auto tile : unvisitedTiles) {
-        cout << tile->getRow() << " " << tile->getColumn() << "; ";
+        //cout << tile->getRow() << " " << tile->getColumn() << "; ";
     }
 
-    cout << endl;
+    //cout << endl;
 
     return unvisitedTiles;
 }
@@ -217,13 +217,13 @@ list<Tile*> Graph::calculatePath(Tile *from, Tile *to, map<Tile *, tuple<int, Ti
         to = previousTile;
     }
 
-    cout << endl << "Path: ";
+    //cout << endl << "Path: ";
 
     for (Tile* tile : path) {
-        cout << tile->getRow() << " " << tile->getColumn() << ", ";
+        //cout << tile->getRow() << " " << tile->getColumn() << ", ";
     }
 
-    cout << endl;
+    //cout << endl;
 
     return path;
 }

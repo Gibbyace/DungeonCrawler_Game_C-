@@ -160,6 +160,11 @@ vector<Levelchanger*> Level::getLevelchangers() const
     return levelchangers;
 }
 
+void Level::setId(int value)
+{
+    id = value;
+}
+
 LevelList* Level::generateLevels() {
     LevelList* levels = new LevelList;
 

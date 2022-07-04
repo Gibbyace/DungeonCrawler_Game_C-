@@ -44,11 +44,14 @@ public:
     void deleteCharacterById(int id);
     vector<Levelchanger *> getLevelchangers() const;
 
-protected:
-    int id;
+    void setId(int value);
+
     void placeCharacter(Character *c, int row, int col);
     void placePortals(int row1, int col1, int row2, int col2);
     void placeSwitchAndDoor(int row1, int col1, int row2, int col2);
+
+protected:
+    int id;
 };
 
 #endif // LEVEL_H

@@ -34,7 +34,7 @@
 					"hitpoints": 2,
 					"isPlayer": false,
 					"moveDirection": 5
-				},
+				}
 			],
 			"levelchangers": [
 				{
@@ -48,13 +48,13 @@
 					"row": 8,
 					"col": 1,
 					"destRow": 6,
-					"destCol": 1,
+					"destCol": 1
 				},
 				{
 					"row": 6,
 					"col": 1,
 					"destRow": 8,
-					"destCol": 1,
+					"destCol": 1
 				}
 			],
 			"switches": [
@@ -66,7 +66,7 @@
 							"row": 1,
 							"col": 7,
 							"isOpen": false
-						},
+						}
 					]
 				},
 				{
@@ -77,10 +77,10 @@
 							"row": 4,
 							"col": 6,
 							"isOpen": false
-						},
+						}
 					]
 				}
 			]
-		},
+		}
 	]
 }

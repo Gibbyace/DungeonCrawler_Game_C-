@@ -35,6 +35,7 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
 
     setupPlayingField(texturecontainer, level);
     setupArrowButtons(texturecontainer, parent);
+    setStatusbarMessage(level);
 }
 
 void MainWindow::clearPlayingField() {

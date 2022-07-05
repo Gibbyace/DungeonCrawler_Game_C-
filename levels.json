@@ -43,19 +43,15 @@
 					"destinationLevelID": 1
 				}
 			],
-			"portals": [
-				{
-					"row": 8,
-					"col": 1,
-					"destRow": 6,
-					"destCol": 1
-				},
-				{
-					"row": 6,
-					"col": 1,
-					"destRow": 8,
-					"destCol": 1
-				}
+			"portalpairs" : [
+				[
+					{
+						"row1": 8,
+						"col1": 1,
+						"row2": 6,
+						"col2": 1
+					}
+				]
 			],
 			"switches": [
 				{

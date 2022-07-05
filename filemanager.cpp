@@ -1,4 +1,4 @@
-#include "filemanager.h"
+﻿#include "filemanager.h"
 #include <fstream>
 
 Filemanager::Filemanager()
@@ -56,10 +56,50 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
             character->setId(characterAsJson["id"]);
             character->setMoveDirection(moveDirection);
             level->placeCharacter(character, row, col);
+            level->characterpointerpushback(character);
         }
 
         levellist->push_back(level);
 
+        for (auto levelchangersAsJson : levelAsJson["levelchanger"]) {
+            int row = levelchangersAsJson["row"];
+            int col= levelchangersAsJson["clo"];
+            int destinationID   = levelchangersAsJson["destinationLevelID"];
+
+            Levelchanger* levelchanger = new Levelchanger(row, col);
+
+            vector<vector<Tile*>> tilepointer = level->getTilepointer();
+            tilepointer[row][col] = levelchanger;
+            level->setTilepointer(tilepointer);
+
+            //TODO: destination setzen
+
+            vector<Levelchanger*> levelchangers = level->getLevelchangers();
+            levelchangers.push_back(levelchanger);
+            level->setLevelchangers(levelchangers);
+        }
+
+        for (auto portalpairsAsJson : levelAsJson["portalpairs"]) {
+            for (auto portalpair : portalpairsAsJson) {
+
+                int portalsrow1  = portalpair["row1"];
+                int portalscol1  = portalpair["col1"];
+                int portalsrow2  = portalpair["row2"];
+                int portalscol2  = portalpair["col2"];
+
+                level->placePortals(portalsrow1,portalscol1,portalsrow2,portalscol2);
+            }
+        }
+
+        for (auto switchesAsJson : levelAsJson["switches"]) {
+            for (auto switchAsJson : switchesAsJson) {
+                int switchRow = switchesAsJson["row"];
+                int switchCol = switchesAsJson["col"];
+                int doorRow = switchAsJson["connectedDoor"]["row"];
+                int doorCol = switchAsJson["connectedDoor"]["col"];
+                level->placeSwitchAndDoor(switchRow, switchCol, doorRow, doorCol);
+            }
+        }
     }
 
     return levellist;

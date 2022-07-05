@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
     Filemanager filemanager = Filemanager();
     nlohmann::json json = filemanager.loadLevels();
-    filemanager.createLevelListFromJSON(json);
+    LevelList* levellist = filemanager.createLevelListFromJSON(json);
 
     /*QApplication application(argc, argv);
 

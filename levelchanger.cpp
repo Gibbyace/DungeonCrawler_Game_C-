@@ -27,3 +27,13 @@ Level *Levelchanger::getDestinationLevel() const
 {
     return destinationLevel;
 }
+
+int Levelchanger::getDestinationLevelId() const
+{
+    return destinationLevelId;
+}
+
+void Levelchanger::setDestinationLevelId(int newDestinationLevelId)
+{
+    destinationLevelId = newDestinationLevelId;
+}

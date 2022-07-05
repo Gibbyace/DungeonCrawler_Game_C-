@@ -12,7 +12,12 @@
 
 DungeonCrawler::DungeonCrawler()
 {
-    levels = Level::generateLevels();
+    filemanager = new Filemanager();
+    nlohmann::json levelsAsJson = filemanager->loadLevels();
+    levels = filemanager->createLevelListFromJSON(levelsAsJson);
+
+
+    //levels = Level::generateLevels();
     currentLevel = levels->begin().m_ptr->level;
 
     //Kopierkonstruktor testen

@@ -1,4 +1,5 @@
 ﻿#include "filemanager.h"
+#include "attackcontroller.h"
 #include <fstream>
 
 Filemanager::Filemanager()
@@ -55,18 +56,25 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
             Character* character = new Character(strength, stamina, hitpoints, isPlayer);
             character->setId(characterAsJson["id"]);
             character->setMoveDirection(moveDirection);
+
+            if (!isPlayer) {
+                character->setController(new Attackcontroller(level, character));
+            }
+
             level->placeCharacter(character, row, col);
             level->characterpointerpushback(character);
         }
 
         levellist->push_back(level);
 
-        for (auto levelchangersAsJson : levelAsJson["levelchanger"]) {
+        for (auto levelchangersAsJson : levelAsJson["levelchangers"]) {
             int row = levelchangersAsJson["row"];
-            int col= levelchangersAsJson["clo"];
+            int col= levelchangersAsJson["col"];
             int destinationID   = levelchangersAsJson["destinationLevelID"];
 
             Levelchanger* levelchanger = new Levelchanger(row, col);
+
+            levelchanger->setDestinationLevelId(destinationID);
 
             vector<vector<Tile*>> tilepointer = level->getTilepointer();
             tilepointer[row][col] = levelchanger;
@@ -75,6 +83,7 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
             //TODO: destination setzen
 
             vector<Levelchanger*> levelchangers = level->getLevelchangers();
+
             levelchangers.push_back(levelchanger);
             level->setLevelchangers(levelchangers);
         }
@@ -91,13 +100,29 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
             }
         }
 
-        for (auto switchesAsJson : levelAsJson["switches"]) {
-            for (auto switchAsJson : switchesAsJson) {
-                int switchRow = switchesAsJson["row"];
-                int switchCol = switchesAsJson["col"];
-                int doorRow = switchAsJson["connectedDoor"]["row"];
-                int doorCol = switchAsJson["connectedDoor"]["col"];
-                level->placeSwitchAndDoor(switchRow, switchCol, doorRow, doorCol);
+        auto test = levelAsJson["switches"][0]["row"];
+
+        for (unsigned i = 0; i<levelAsJson["switches"].size(); i++) {
+            int switchRow = levelAsJson["switches"][i]["row"];
+            int switchCol = levelAsJson["switches"][i]["col"];
+            int doorRow = levelAsJson["switches"][i]["connectedDoor"]["row"];
+            int doorCol = levelAsJson["switches"][i]["connectedDoor"]["col"];
+            level->placeSwitchAndDoor(switchRow, switchCol, doorRow, doorCol);
+        }
+    }
+
+    for (LevelList::iterator it = levellist->begin(); it.m_ptr != levellist->end().m_ptr; it++) {
+        Level* level = it.m_ptr->level;
+
+        for (Levelchanger* levelchanger : level->getLevelchangers()) {
+            int destinationLevelId = levelchanger->getDestinationLevelId();
+
+            for (LevelList::iterator innerit = levellist->begin(); innerit.m_ptr != levellist->end().m_ptr; innerit++) {
+                Level* potentialDestinationLevel = innerit.m_ptr->level;
+
+                if (potentialDestinationLevel->getId() == destinationLevelId) {
+                    levelchanger->setDestinationLevel(potentialDestinationLevel);
+                }
             }
         }
     }

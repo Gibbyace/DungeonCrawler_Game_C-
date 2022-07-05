@@ -19,7 +19,7 @@ Portal::Portal(int row, int col) : Tile(row, col)
 }
 
 Portal::~Portal() {
-    delete destination;
+    //delete destination;
 }
 
 Tile *Portal::getDestination() const

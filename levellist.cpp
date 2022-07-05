@@ -17,6 +17,13 @@ LevelList::LevelList()
     ending = endElement;
 }
 
+LevelList::~LevelList() {
+    for (iterator it = begin(); it.m_ptr != ending; it++) {
+        Level* level = it.m_ptr->level;
+        delete level;
+    }
+}
+
 size_t LevelList::getSize() const
 {
     return size;

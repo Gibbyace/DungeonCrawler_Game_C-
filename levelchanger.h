@@ -13,6 +13,7 @@ class Levelchanger : public Tile, public Active
 {
 public:
     Levelchanger(int row, int col);
+    virtual ~Levelchanger() override = default;
     Tile* onEnter(Tile *fromTile, Character *who) override;
     Tile* onLeave(Tile *destTile, Character *who) override;
 

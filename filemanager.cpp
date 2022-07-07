@@ -146,8 +146,8 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
         int levelID = level->getId();
         //konverter level to string
 
-        for (int i = 0; i<level->getCharacterpointer().size(); i++) {
-            int ID = level->getCharacterpointer()[i]->getId();
+        for (unsigned int i = 0; i<level->getCharacterpointer().size(); i++) {
+            int id = level->getCharacterpointer()[i]->getId();
             int row = level->getCharacterpointer()[i]->getTile()->getRow();
             int col = level->getCharacterpointer()[i]->getTile()->getColumn();
             int strength = level->getCharacterpointer()[i]->getStrength();
@@ -159,7 +159,7 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
             //insert to json
         }
 
-        for (int i = 0; i<level->getLevelchangers().size();i++) {
+        for (unsigned int i = 0; i<level->getLevelchangers().size();i++) {
 
             int row = level->getLevelchangers()[i]->getRow();
             int col = level->getLevelchangers()[i]->getColumn();
@@ -167,6 +167,31 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 
             //insert to json
 
+        }
+        for (unsigned int i = 0; i<level->getTilepointer().size(); i++) {
+
+            for (unsigned j = 0; j<level->getTilepointer().size(); i++) {
+                level->getTilepointer()[i][j]->getTexture();
+                //save to json
+
+                if ("O" == level->getTilepointer()[i][j]->getTexture()) {
+                    int row = i;
+                    int col = j;
+                    //save to json
+
+                }
+
+                if ("l" == level->getTilepointer()[i][j]->getTexture()) {
+                    int row = i;
+                    int col = j;
+                    //save to json
+                }
+
+                if ("?" == level->getTilepointer()[i][j]->getTexture()) {
+
+
+            }
+        }
         }
 
        //itterieren durch alle tilepointer der level und von dort aus platz der portale, der lootchest und co mitnehmen

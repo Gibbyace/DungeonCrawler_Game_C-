@@ -7,6 +7,15 @@ Filemanager::Filemanager()
 
 }
 
+void Filemanager::saveLevels(nlohmann::json json) {
+
+
+    nlohmann::json savefile;
+}
+
+
+
+
 nlohmann::json Filemanager::loadLevels()
 {
     std::ifstream file("../pg2_Di45y-TeamA-Herrmann_Kotwal/levels.json");
@@ -88,16 +97,13 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
             level->setLevelchangers(levelchangers);
         }
 
-        for (auto portalpairsAsJson : levelAsJson["portalpairs"]) {
-            for (auto portalpair : portalpairsAsJson) {
-
+        for (auto portalpair : levelAsJson["portalpairs"]) {
                 int portalsrow1  = portalpair["row1"];
                 int portalscol1  = portalpair["col1"];
                 int portalsrow2  = portalpair["row2"];
                 int portalscol2  = portalpair["col2"];
 
                 level->placePortals(portalsrow1,portalscol1,portalsrow2,portalscol2);
-            }
         }
 
         auto test = levelAsJson["switches"][0]["row"];
@@ -128,4 +134,43 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
     }
 
     return levellist;
+}
+
+nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
+{
+
+
+    for (LevelList::iterator it = levellist->begin(); it.m_ptr != levellist->end().m_ptr; it++) {
+        Level* level = it.m_ptr->level;
+
+        int levelID = level->getId();
+        //konverter level to string
+
+        for (int i = 0; i<level->getCharacterpointer().size(); i++) {
+            int ID = level->getCharacterpointer()[i]->getId();
+            int row = level->getCharacterpointer()[i]->getTile()->getRow();
+            int col = level->getCharacterpointer()[i]->getTile()->getColumn();
+            int strength = level->getCharacterpointer()[i]->getStrength();
+            int stamina = level->getCharacterpointer()[i]->getStamina();
+            int hitpoints = level->getCharacterpointer()[i]->getHitpoints();
+            bool isplayer = level->getCharacterpointer()[i]->getIsPlayerCharacter();
+            int movedirection = level->getCharacterpointer()[i]->getMoveDirection();
+
+            //insert to json
+        }
+
+        for (int i = 0; i<level->getLevelchangers().size();i++) {
+
+            int row = level->getLevelchangers()[i]->getRow();
+            int col = level->getLevelchangers()[i]->getColumn();
+            int destinationLevelID = level->getLevelchangers()[i]->getDestinationLevelId();
+
+            //insert to json
+
+        }
+
+       //itterieren durch alle tilepointer der level und von dort aus platz der portale, der lootchest und co mitnehmen
+
+
+    }
 }

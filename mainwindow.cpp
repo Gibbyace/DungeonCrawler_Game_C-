@@ -155,6 +155,9 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     ui->leftbutton->setIcon(        QIcon(texturecontainer->getArrows()[2]));
     ui->centerbutton->setIcon(      QIcon(texturecontainer->getArrows()[8]));
 
+    //ui->saveButton.setIcon(       QIcon(texturecontainer->getSavebutton()[0]));
+    //ui->loadButton.setIcon(       QIcon(texturecontainer->getLoadbutton()[0]));
+
     QSize sizer = QSize(50,50);
     ui->topleftbutton->setIconSize(sizer);
     ui->topbutton->setIconSize(sizer);
@@ -166,6 +169,9 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     ui->leftbutton->setIconSize(sizer);
     ui->centerbutton->setIconSize(sizer);
 
+    ui->saveButton->setIconSize(sizer);
+    ui->saveButton->setIconSize(sizer);
+
 
     connect(ui->topleftbutton,      &QPushButton::clicked, [parent]() {parent->setLastInput(7);});
     connect(ui->topbutton,          &QPushButton::clicked, [parent]() {parent->setLastInput(8);});
@@ -176,6 +182,9 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     connect(ui->bottomleftbutton,   &QPushButton::clicked, [parent]() {parent->setLastInput(1);});
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
+
+    connect(ui->saveButton,         &QPushButton::clicked, [parent]() {parent->setLastInput(true);});
+    connect(ui->saveButton,         &QPushButton::clicked, [parent]() {parent->setLastInput(true);});
 
     QObjectList arrowButtons = ui->buttonGridLayout->children();
 

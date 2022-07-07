@@ -1,5 +1,6 @@
 ﻿#include "filemanager.h"
 #include "attackcontroller.h"
+#include "json.hpp"
 #include <fstream>
 
 Filemanager::Filemanager()
@@ -26,6 +27,7 @@ nlohmann::json Filemanager::loadLevels()
 
     return levels;
 }
+
 
 LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
 {
@@ -138,8 +140,6 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
 
 nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 {
-
-
     for (LevelList::iterator it = levellist->begin(); it.m_ptr != levellist->end().m_ptr; it++) {
         Level* level = it.m_ptr->level;
 

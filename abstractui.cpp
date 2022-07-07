@@ -28,3 +28,15 @@ void AbstractUI::setInputProcessed(bool value)
 {
     inputProcessed = value;
 }
+
+bool AbstractUI::loadRequested()
+{
+    return true;
+}
+
+bool AbstractUI::saveRequested()
+{
+    return true;
+}
+
+

@@ -28,6 +28,9 @@ public:
     void deleteCharacterLabelById(int id);
     void showEndscreen(QString message);
 
+    bool onLoadButtonPressed();
+    bool onSaveButtonPressed();
+
 public slots:
 
 private:

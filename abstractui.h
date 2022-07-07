@@ -19,6 +19,9 @@ public:
 
     void setInputProcessed(bool value);
 
+    bool loadRequested();
+    bool saveRequested();
+
 private:
     bool userWantsToEndThisApp = false;
 

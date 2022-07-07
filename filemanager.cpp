@@ -28,7 +28,7 @@ nlohmann::json Filemanager::loadLevels()
     return levels;
 }
 
-
+//load file
 LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
 {
     LevelList* levellist = new LevelList();
@@ -138,6 +138,9 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
     return levellist;
 }
 
+
+
+// save file
 nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 {
     for (LevelList::iterator it = levellist->begin(); it.m_ptr != levellist->end().m_ptr; it++) {
@@ -158,7 +161,7 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 
             //insert to json
         }
-
+            //Texturen weitergeben?
         for (unsigned int i = 0; i<level->getLevelchangers().size();i++) {
 
             int row = level->getLevelchangers()[i]->getRow();
@@ -189,10 +192,28 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 
                 if ("?" == level->getTilepointer()[i][j]->getTexture()) {
 
+                    int row = level->getTilepointer()[i][j]->getRow();
+                    int col = level->getTilepointer()[i][j]->getColumn();
+                    //save to json
 
             }
-        }
-        }
+                if ("X" == level->getTilepointer()[i][j]->getTexture()) {
+                    int row = level->getTilepointer()[i][j]->getRow();
+                    int col = level->getTilepointer()[i][j]->getColumn();
+                    bool isOpen = false;
+                    //save to json
+                }
+                else if ("/" == level->getTilepointer()[i][j]->getTexture()) {
+                    int row = level->getTilepointer()[i][j]->getRow();
+                    int col = level->getTilepointer()[i][j]->getColumn();
+                    bool isOpen = true;
+                    //save to json
+
+                }
+
+
+             }
+      }
 
        //itterieren durch alle tilepointer der level und von dort aus platz der portale, der lootchest und co mitnehmen
 

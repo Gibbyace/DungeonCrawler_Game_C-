@@ -308,6 +308,17 @@ void MainWindow::showEndscreen(QString message) {
     close();
 }
 
+bool MainWindow::onLoadButtonPressed()
+{
+    //insertbutton und dann auf true setzen
+
+}
+
+bool MainWindow::onSaveButtonPressed()
+{
+    //interbutton und dann auf true setzen
+}
+
 void MainWindow::closeEvent(QCloseEvent* event) {
     GraphicalUI* parentAsGUI = dynamic_cast<GraphicalUI*>(parent());
 

@@ -89,10 +89,18 @@ void DungeonCrawler::play()
         }
 
         if (abstractUI->loadRequested) {
-           nlohmann::json levelListAsJson =  filemanager->loadLevels();
+           int levelIdBeforeLoad = currentLevel->getId();
+
+           nlohmann::json levelListAsJson = filemanager->loadLevels();
            delete levels;
            levels = filemanager->createLevelListFromJSON(levelListAsJson);
-           currentLevel = levels->begin().m_ptr->level;
+
+           for (LevelList::iterator it = levels->begin(); it.m_ptr != levels->end().m_ptr; it++) {
+                if (it.m_ptr->level->getId() == levelIdBeforeLoad) {
+                    currentLevel = it.m_ptr->level;
+                }
+           }
+           //currentLevel = levels->begin().m_ptr->level;
 
            TextureContainer* texturecontainer = dynamic_cast<GraphicalUI*>(abstractUI)->getTexturecontainer();
            dynamic_cast<GraphicalUI*>(abstractUI)->getMainwindow()->setupPlayingField(texturecontainer, currentLevel);

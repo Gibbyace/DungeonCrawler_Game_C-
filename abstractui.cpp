@@ -29,14 +29,16 @@ void AbstractUI::setInputProcessed(bool value)
     inputProcessed = value;
 }
 
-bool AbstractUI::loadRequested()
+void AbstractUI::setSaveRequested(bool newSaveRequested)
 {
-    return true;
+    saveRequested = newSaveRequested;
 }
 
-bool AbstractUI::saveRequested()
+void AbstractUI::setLoadRequested(bool newLoadRequested)
 {
-    return true;
+    loadRequested = newLoadRequested;
 }
+
+
 
 

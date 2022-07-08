@@ -1,4 +1,4 @@
-#include "graphicalui.h"
+﻿#include "graphicalui.h"
 #include <startscreen.h>
 #include <mainwindow.h>
 #include <qtest.h>
@@ -31,7 +31,6 @@ int GraphicalUI::move() {
     QCoreApplication::processEvents();
 
     if (inputProcessed == false) {
-        //inputProcessed = true;
         return lastInput;
     }
 
@@ -67,3 +66,4 @@ void GraphicalUI::windowHasBeenClosed() {
 void GraphicalUI::loadTextures() {
     texturecontainer = new TextureContainer();
 }
+

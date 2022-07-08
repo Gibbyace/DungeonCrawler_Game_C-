@@ -286,8 +286,8 @@ void Level::characterpointerpushback(Character *character)
 }
 
 Level::Level(vector<vector<string>> level_as_string) {
-    idCounter++;
-    id = idCounter;
+    //idCounter++;
+    //id = idCounter;
 
     height = level_as_string.size();
     width = level_as_string[0].size();

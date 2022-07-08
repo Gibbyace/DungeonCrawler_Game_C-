@@ -28,15 +28,11 @@ nlohmann::json Filemanager::loadLevels()
     return levels;
 }
 
-//load file
 LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
 {
     LevelList* levellist = new LevelList();
 
     for (auto levelAsJson : json["levellist"]) {
-        //cout << level["id"] << endl;
-
-        //Level* level = Level()
         vector<string> layout = levelAsJson["layout"];
         vector<vector<string>> finalLayout;
 

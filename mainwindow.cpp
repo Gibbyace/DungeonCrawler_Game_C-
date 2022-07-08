@@ -30,8 +30,16 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
 
+    ui->saveButton->setStyleSheet(("Background-color: #ffffff;"));
+    ui->loadButton->setStyleSheet(("Background-color: #ffffff;"));
+
+
     ui->gridLayoutWidget_2->raise();
     ui->statusbar->setStyleSheet(("background-color: #F00"));
+
+    ui->horizontalLayoutWidget->raise();
+    ui->saveButton->raise();
+    ui->loadButton->raise();
 
     setupPlayingField(texturecontainer, level);
     setupArrowButtons(texturecontainer, parent);
@@ -155,8 +163,11 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     ui->leftbutton->setIcon(        QIcon(texturecontainer->getArrows()[2]));
     ui->centerbutton->setIcon(      QIcon(texturecontainer->getArrows()[8]));
 
+    //TODO: Fancy Bicksmöpps
     //ui->saveButton.setIcon(       QIcon(texturecontainer->getSavebutton()[0]));
     //ui->loadButton.setIcon(       QIcon(texturecontainer->getLoadbutton()[0]));
+
+
 
     QSize sizer = QSize(50,50);
     ui->topleftbutton->setIconSize(sizer);
@@ -183,8 +194,10 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
 
-    connect(ui->saveButton,         &QPushButton::clicked, [parent]() {parent->setLastInput(true);});
-    connect(ui->saveButton,         &QPushButton::clicked, [parent]() {parent->setLastInput(true);});
+    connect(ui->loadButton,         &QPushButton::clicked, [parent]() {
+        parent->setLoadRequested(true);
+    });
+    connect(ui->saveButton,         &QPushButton::clicked, [parent]() {parent->setSaveRequested(true);});
 
     QObjectList arrowButtons = ui->buttonGridLayout->children();
 
@@ -317,17 +330,6 @@ void MainWindow::showEndscreen(QString message) {
     close();
 }
 
-bool MainWindow::onLoadButtonPressed()
-{
-    //insertbutton und dann auf true setzen
-
-}
-
-bool MainWindow::onSaveButtonPressed()
-{
-    //interbutton und dann auf true setzen
-}
-
 void MainWindow::closeEvent(QCloseEvent* event) {
     GraphicalUI* parentAsGUI = dynamic_cast<GraphicalUI*>(parent());
 
@@ -340,4 +342,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-

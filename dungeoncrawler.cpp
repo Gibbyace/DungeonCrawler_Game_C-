@@ -8,6 +8,7 @@
 #include "mainwindow.h"
 #include "endscreen.h"
 
+
 #include <QTest>
 
 DungeonCrawler::DungeonCrawler()
@@ -85,6 +86,26 @@ void DungeonCrawler::play()
                     }
                 }
             }
+        }
+
+        if (abstractUI->loadRequested) {
+           nlohmann::json levelListAsJson =  filemanager->loadLevels();
+           delete levels;
+           levels = filemanager->createLevelListFromJSON(levelListAsJson);
+           currentLevel = levels->begin().m_ptr->level;
+
+           TextureContainer* texturecontainer = dynamic_cast<GraphicalUI*>(abstractUI)->getTexturecontainer();
+           dynamic_cast<GraphicalUI*>(abstractUI)->getMainwindow()->setupPlayingField(texturecontainer, currentLevel);
+
+           playerCharacter = currentLevel->getPlayerCharacter();
+           playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
+
+           vector <Levelchanger*> levelchangers = currentLevel->getLevelchangers();
+           for (auto levelchanger : levelchangers) {
+               levelchanger->attach(this);
+           }
+
+           abstractUI->loadRequested = false;
         }
 
         abstractUI->draw(currentLevel);

@@ -5,6 +5,7 @@
 #include "passive.h"
 #include "levellist.h"
 #include "filemanager.h"
+#include "json.hpp"
 
 class Level;
 
@@ -15,7 +16,6 @@ private:
     Filemanager* filemanager;
     LevelList* levels;
     Level* currentLevel;
-    vector<vector<vector<string>>> levelsAsStrings;
     void battle(Character* attacker, Character* defender);
     void checkForDeaths();
     void checkForLootChest();

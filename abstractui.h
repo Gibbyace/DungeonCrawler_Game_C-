@@ -19,8 +19,12 @@ public:
 
     void setInputProcessed(bool value);
 
-    bool loadRequested();
-    bool saveRequested();
+    bool loadRequested = false;
+    bool saveRequested = false;
+
+    void setLoadRequested(bool newLoadRequested);
+
+    void setSaveRequested(bool newSaveRequested);
 
 private:
     bool userWantsToEndThisApp = false;

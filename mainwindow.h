@@ -31,8 +31,6 @@ public:
     bool onLoadButtonPressed();
     bool onSaveButtonPressed();
 
-public slots:
-
 private:
     Ui::MainWindow *ui;
     QPixmap characterPixmapCopy;

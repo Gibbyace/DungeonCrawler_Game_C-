@@ -96,12 +96,12 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
         }
 
         for (auto portalpair : levelAsJson["portalpairs"]) {
-                int portalsrow1  = portalpair["row1"];
-                int portalscol1  = portalpair["col1"];
-                int portalsrow2  = portalpair["row2"];
-                int portalscol2  = portalpair["col2"];
+            int portalsrow1  = portalpair["row1"];
+            int portalscol1  = portalpair["col1"];
+            int portalsrow2  = portalpair["row2"];
+            int portalscol2  = portalpair["col2"];
 
-                level->placePortals(portalsrow1,portalscol1,portalsrow2,portalscol2);
+            level->placePortals(portalsrow1,portalscol1,portalsrow2,portalscol2);
         }
 
         auto test = levelAsJson["switches"][0]["row"];
@@ -139,10 +139,14 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
 // save file
 nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 {
+    nlohmann::json levelsAsJson;
+    levelsAsJson["levellist"] = {};
+
     for (LevelList::iterator it = levellist->begin(); it.m_ptr != levellist->end().m_ptr; it++) {
         Level* level = it.m_ptr->level;
 
         int levelID = level->getId();
+        levelsAsJson["levellist"][0]["id"] = levelID;
         //konverter level to string
 
         for (unsigned int i = 0; i<level->getCharacterpointer().size(); i++) {
@@ -157,7 +161,7 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 
             //insert to json
         }
-            //Texturen weitergeben?
+        //Texturen weitergeben?
         for (unsigned int i = 0; i<level->getLevelchangers().size();i++) {
 
             int row = level->getLevelchangers()[i]->getRow();
@@ -167,51 +171,67 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
             //insert to json
 
         }
-        for (unsigned int i = 0; i<level->getTilepointer().size(); i++) {
 
-            for (unsigned j = 0; j<level->getTilepointer().size(); i++) {
-                level->getTilepointer()[i][j]->getTexture();
+        vector<string> layoutString;
+
+        for (unsigned int i = 0; i<level->getTilepointer().size(); i++) {
+            string row;
+
+            for (unsigned j = 0; j<level->getTilepointer()[i].size(); j++) {
+                string texture = level->getTilepointer()[i][j]->getTexture();
                 //save to json
 
-                if ("O" == level->getTilepointer()[i][j]->getTexture()) {
+                if (
+                        texture == "#" or
+                        texture == "." or
+                        texture == "_" or
+                        texture == "<" or
+                        texture == "e"
+                        ) {
+                    row += texture;
+                }
+                else {
+                    row += ".";
+                }
+
+                if ("O" == texture) {
                     int row = i;
                     int col = j;
                     //save to json
 
                 }
 
-                if ("l" == level->getTilepointer()[i][j]->getTexture()) {
+                else if ("l" == texture) {
                     int row = i;
                     int col = j;
                     //save to json
                 }
 
-                if ("?" == level->getTilepointer()[i][j]->getTexture()) {
+                else if ("?" == texture) {
 
                     int row = level->getTilepointer()[i][j]->getRow();
                     int col = level->getTilepointer()[i][j]->getColumn();
                     //save to json
 
-            }
-                if ("X" == level->getTilepointer()[i][j]->getTexture()) {
+                }
+                else if ("X" == texture) {
                     int row = level->getTilepointer()[i][j]->getRow();
                     int col = level->getTilepointer()[i][j]->getColumn();
                     bool isOpen = false;
                     //save to json
                 }
-                else if ("/" == level->getTilepointer()[i][j]->getTexture()) {
+                else if ("/" == texture) {
                     int row = level->getTilepointer()[i][j]->getRow();
                     int col = level->getTilepointer()[i][j]->getColumn();
                     bool isOpen = true;
                     //save to json
 
                 }
+            }
+            layoutString.push_back(row);
+        }
 
-
-             }
-      }
-
-       //itterieren durch alle tilepointer der level und von dort aus platz der portale, der lootchest und co mitnehmen
+        //itterieren durch alle tilepointer der level und von dort aus platz der portale, der lootchest und co mitnehmen
 
 
     }

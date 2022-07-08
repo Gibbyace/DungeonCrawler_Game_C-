@@ -6,6 +6,7 @@ class Controller
 {
 public:
     Controller();
+    virtual ~Controller() = default;
     virtual int move() = 0;
 };
 

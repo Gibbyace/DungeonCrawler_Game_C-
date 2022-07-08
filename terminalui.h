@@ -9,6 +9,7 @@ class TerminalUI : public AbstractUI, public Controller
 
 public:
     TerminalUI();
+    ~TerminalUI() override = default;
     void draw(Level* level) override;
     void printDirectionOptions();
     int move() override;

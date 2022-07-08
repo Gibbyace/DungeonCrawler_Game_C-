@@ -142,7 +142,7 @@ LevelList* Level::generateLevels() {
 
     level1->placePortals(1, 1, 8, 8);
     level1->placePortals(1, 8, 8, 1);
-    level1->placeSwitchAndDoor(3, 3, 6, 6);
+    //level1->placeSwitchAndDoor(3, 3, 6, 6);
 
     Level* level2 = new Level({
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},

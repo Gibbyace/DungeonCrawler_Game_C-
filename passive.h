@@ -7,6 +7,7 @@ class Passive
 {
 public:
     Passive();
+    virtual ~Passive() = default;
     virtual void notify(Active* source) = 0;
 };
 

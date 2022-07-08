@@ -1,5 +1,6 @@
 ﻿#include "active.h"
 #include "passive.h"
+#include "dungeoncrawler.h"
 
 vector<Passive *> Active::getObservers() const
 {
@@ -13,7 +14,11 @@ Active::Active()
 
 Active::~Active() {
     while (!observers.empty()) {
-        delete observers.back();
+        //( ͡° ͜ʖ ͡°) Wir mögen es schmutzig
+        if (dynamic_cast<DungeonCrawler*>(observers.back()) == nullptr) {
+            delete observers.back();
+        }
+
         observers.pop_back();
     }
 }

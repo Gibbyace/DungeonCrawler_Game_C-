@@ -39,10 +39,11 @@ DungeonCrawler::DungeonCrawler()
 
 DungeonCrawler::~DungeonCrawler() {
     delete this->abstractUI;
+    delete this->levels;
 
-    while (!levels->empty()) {
+    /*while (!levels->empty()) {
         levels->pop_back();
-    }
+    }*/
 }
 
 void DungeonCrawler::play()

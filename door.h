@@ -10,7 +10,7 @@ class Door : public Passive, public Tile
 public:
     Door(int row, int column);
     virtual void notify(Active* source) override;
-    virtual ~Door() override = default;
+    ~Door() = default;
     virtual Tile *onEnter(Tile* fromTile, Character* who) override;
     virtual Tile* onLeave(Tile* destTile, Character* who) override;
 };

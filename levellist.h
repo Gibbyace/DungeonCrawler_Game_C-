@@ -10,6 +10,7 @@ class LevelList
 
 public:
     LevelList();
+    ~LevelList();
     void push_back(Level* level);
     void push_front(Level* level);
     void pop_back();

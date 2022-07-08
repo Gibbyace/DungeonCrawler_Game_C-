@@ -1,4 +1,5 @@
 ﻿#include "character.h"
+#include "graphicalui.h"
 
 int Character::idCounter = 0;
 
@@ -75,6 +76,18 @@ Character::Character(int strength, int stamina, int hitpoints, bool isPlayerChar
     this->stamina = stamina;
     this->hitpoints = hitpoints;
     this->isPlayerCharacter = isPlayerCharacter;
+}
+
+Character::~Character()
+{
+    if (!isPlayerCharacter) {
+        delete controller;
+    }
+    /*if (controller != nullptr) {
+        if (dynamic_cast<GraphicalUI*>(controller) == nullptr) {
+            delete controller;
+        }
+    }*/
 }
 
 int Character::move() {

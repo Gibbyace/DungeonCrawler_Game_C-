@@ -23,6 +23,7 @@ private:
 
 public:
     Character(int strength, int stamina, int hitpoints, bool isPlayerCharacter);
+    ~Character();
     int move();
     const string &getTexture() const;
     void setTile(Tile *newTile);

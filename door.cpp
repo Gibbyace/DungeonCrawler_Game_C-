@@ -5,8 +5,6 @@ Door::Door(int row, int column): Passive(), Tile(row, column)
     this->texture = "X";
 }
 
-
-
 void Door::notify(Active *source){
     if (this->texture == "X") {
         this->texture = "/";

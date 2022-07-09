@@ -160,6 +160,15 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
             int movedirection = level->getCharacterpointer()[i]->getMoveDirection();
 
             //insert to json
+            levelsAsJson["character"]["id"] = id;
+            levelsAsJson["character"]["row"] = row;
+            levelsAsJson["character"]["col"] = col;
+            levelsAsJson["character"]["strength"] = strength;
+            levelsAsJson["character"]["stamina"] = stamina;
+            levelsAsJson["character"]["hitpoints"] = hitpoints;
+            levelsAsJson["character"]["isPlayer"] = isplayer;
+            levelsAsJson["character"]["movedirection"] = movedirection;
+
         }
         //Texturen weitergeben?
         for (unsigned int i = 0; i<level->getLevelchangers().size();i++) {
@@ -169,8 +178,12 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
             int destinationLevelID = level->getLevelchangers()[i]->getDestinationLevelId();
 
             //insert to json
+            levelsAsJson["levelchangers"]["row"] = row;
+            levelsAsJson["levelchangers"]["col"] = col;
+            levelsAsJson["levelchangers"]["destinationLevelID"] = destinationLevelID;
 
         }
+
 
         vector<string> layoutString;
 
@@ -194,10 +207,11 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
                     row += ".";
                 }
 
-                if ("O" == texture) {
+                if ("O" == texture) { //how should i do this?
                     int row = i;
                     int col = j;
                     //save to json
+                    //if O is connected to another portal in xyz then save position portal1, portal2
 
                 }
 
@@ -205,33 +219,48 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
                     int row = i;
                     int col = j;
                     //save to json
+                    levelsAsJson["levelchangers"]["row"] = row;
+                    levelsAsJson["levelchangers"]["col"] = col;
+
                 }
 
-                else if ("?" == texture) {
+                else if ("?" == texture) { //howshouldidothis?
 
                     int row = level->getTilepointer()[i][j]->getRow();
                     int col = level->getTilepointer()[i][j]->getColumn();
                     //save to json
+                    levelsAsJson["switches"]["row"] = row;
+                    levelsAsJson["switches"]["col"] = col;
 
                 }
                 else if ("X" == texture) {
                     int row = level->getTilepointer()[i][j]->getRow();
                     int col = level->getTilepointer()[i][j]->getColumn();
                     bool isOpen = false;
-                    //save to json
+
+                    levelsAsJson["switches"]["connectedDoor"]["row"] = row;
+                    levelsAsJson["switches"]["connectedDoor"]["col"] = col;
+                    levelsAsJson["switches"]["connectedDoor"]["isOpen"] = isOpen;
+
                 }
                 else if ("/" == texture) {
                     int row = level->getTilepointer()[i][j]->getRow();
                     int col = level->getTilepointer()[i][j]->getColumn();
                     bool isOpen = true;
-                    //save to json
+
+
+                    levelsAsJson["switches"]["connectedDoor"]["row"] = row;
+                    levelsAsJson["switches"]["connectedDoor"]["col"] = col;
+                    levelsAsJson["switches"]["connectedDoor"]["isOpen"] = isOpen;
+
 
                 }
             }
             layoutString.push_back(row);
         }
+        levelsAsJson["layout"]  = layoutString;
 
-        //itterieren durch alle tilepointer der level und von dort aus platz der portale, der lootchest und co mitnehmen
+
 
 
     }

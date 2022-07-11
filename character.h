@@ -40,6 +40,8 @@ public:
     static int idCounter;
     int getId() const;
     void setHitpoints(int newHitpoints);
+    void setId(int value);
+    void setMoveDirection(int value);
 };
 
 #endif // CHARACTER_H

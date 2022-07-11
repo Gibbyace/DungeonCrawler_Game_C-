@@ -1,4 +1,4 @@
-#include "levelchanger.h"
+﻿#include "levelchanger.h"
 #include "character.h"
 
 Levelchanger::Levelchanger(int row, int col) : Tile(row, col)
@@ -18,12 +18,22 @@ Tile* Levelchanger::onLeave(Tile *destTile, Character *who) {
     return this;
 }
 
-void Levelchanger::setDestinationLevel(Level *value)
+void Levelchanger::setDestinationLevel(Level *level)
 {
-    destinationLevel = value;
+    destinationLevel = level;
 }
 
 Level *Levelchanger::getDestinationLevel() const
 {
     return destinationLevel;
+}
+
+int Levelchanger::getDestinationLevelId() const
+{
+    return destinationLevelId;
+}
+
+void Levelchanger::setDestinationLevelId(int newDestinationLevelId)
+{
+    destinationLevelId = newDestinationLevelId;
 }

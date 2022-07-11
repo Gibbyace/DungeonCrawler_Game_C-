@@ -13,12 +13,12 @@ protected:
 
 public:
     Active();
-    ~Active();
+    virtual ~Active() = default;
     void attach(Passive*);
     void detach(Passive*);
     void activate();
 
-    vector<Passive *> getObservers() const;
+    vector<Passive*> getObservers() const;
 };
 
 #endif // ACTIVE_H

@@ -1,4 +1,4 @@
-#ifndef LEVELCHANGER_H
+﻿#ifndef LEVELCHANGER_H
 #define LEVELCHANGER_H
 
 #include "tile.h"
@@ -21,7 +21,11 @@ public:
 
     Level *getDestinationLevel() const;
 
+    int getDestinationLevelId() const;
+    void setDestinationLevelId(int newDestinationLevelId);
+
 private:
+    int destinationLevelId;
     Level* destinationLevel;
 };
 

@@ -11,13 +11,23 @@
 #include "pit.h"
 #include "ramp.h"
 #include "levelchanger.h"
+#include "attackcontroller.h"
 #include "stationarycontroller.h"
 #include "guardcontroller.h"
 
 int Level::idCounter = 0;
 
 Level::Level(const Level& level) : height(level.height), width(level.width) {
-    int charRow, charCol;
+    struct characterDataset {
+        int row;
+        int col;
+        int isPlayer;
+        int strength;
+        int stamina;
+        int hitpoints;
+    };
+
+    vector<characterDataset> characterData;
 
     for (int row = 0; row < height; row++) {
         vector<Tile*> newRow;
@@ -42,6 +52,15 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
             }
             else if (dynamic_cast<Floor*>(tile) != nullptr) {
                 tilepointer[row][col] = new Floor(row, col);
+            }
+            else if (dynamic_cast<Levelchanger*>(tile) != nullptr) {
+                Levelchanger* tileAsLevelchanger = dynamic_cast<Levelchanger*>(tile);
+                Levelchanger* newLevelchanger = new Levelchanger(row, col);
+
+                newLevelchanger->setDestinationLevel(tileAsLevelchanger->getDestinationLevel());
+                levelchangers.push_back(newLevelchanger);
+
+                tilepointer[row][col] = newLevelchanger;
             }
             else if (dynamic_cast<LootChest*>(tile) != nullptr) {
                 tilepointer[row][col] = new LootChest(row, col);
@@ -92,15 +111,34 @@ Level::Level(const Level& level) : height(level.height), width(level.width) {
             }
 
             if (tile->hasCharacter()) {
-                charRow = row;
-                charCol = col;
+                Character* oldCharacter = tile->getCharacter();
+
+                characterDataset newCharacterDataset = characterDataset();
+                newCharacterDataset.row = row;
+                newCharacterDataset.col = col;
+                newCharacterDataset.isPlayer = oldCharacter->getIsPlayerCharacter();
+                newCharacterDataset.stamina = oldCharacter->getStamina();
+                newCharacterDataset.strength = oldCharacter->getStrength();
+                newCharacterDataset.hitpoints = oldCharacter->getHitpoints();
+
+                characterData.push_back(newCharacterDataset);
             }
         }
     }
 
-    Character* new_character = new Character(1, 10, 10, true);
-    placeCharacter(new_character, charRow, charCol);
-    characterpointer.push_back(new_character);
+    for (unsigned i = 0; i < characterData.size(); i++) {
+        characterDataset set = characterData[i];
+        Character* newCharacter = new Character(set.strength, set.stamina, set.hitpoints, set.isPlayer);
+
+        if (!set.isPlayer) {
+            //TODO: Controller richtig kopieren, bei GuardController auch Pattern anpassen
+            Controller* npcController = new Attackcontroller(this, newCharacter);
+            newCharacter->setController(npcController);
+        }
+
+        placeCharacter(newCharacter, set.row, set.col);
+        characterpointer.push_back(newCharacter);
+    }
 }
 
 void swap(Level& lhs, Level& rhs) {
@@ -117,47 +155,79 @@ bool Level::operator ==(Level* rhs) {
     return this->id == rhs->id;
 }
 
-vector<Levelchanger *> Level::getLevelchangers() const
+vector<Levelchanger*> Level::getLevelchangers() const
 {
     return levelchangers;
+}
+
+void Level::setId(int value)
+{
+    id = value;
+}
+
+void Level::setCharacterpointer(const vector<Character *> &newCharacterpointer)
+{
+    characterpointer = newCharacterpointer;
+}
+
+void Level::setLevelchangers(const vector<Levelchanger *> &newLevelchangers)
+{
+    levelchangers = newLevelchangers;
+}
+
+void Level::setTilepointer(const vector<vector<Tile *> > &newTilepointer)
+{
+    tilepointer = newTilepointer;
 }
 
 LevelList* Level::generateLevels() {
     LevelList* levels = new LevelList;
 
-    Level* level1 = new Level(
-        {
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", "_", "_", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", "_", ".", ".", ".", ".", "N", "N", "#", "#"},
-        {"#", ".", "_", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", "_", ".", ".", "X", ".", ".", ".", "#", "#"},
-        {"#", ".", "<", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#", "#"},
-        {"#", ".", ".", ".", ".", "l", ".", ".", ".", "#", "#"},
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-        {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+    Level* level1 = new Level({
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#"},
+        {"#", ".", "X", ".", ".", "#", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", ".", ".", ".", ".", ".", ".", ".", "#"},
+        {"#", "#", "#", "#", "#", "#", ".", "#", "#"},
+        {"#", ".", "_", "_", ".", ".", ".", ".", "#"},
+        {"#", ".", "_", "_", ".", ".", ".", ".", "#"},
+        {"#", "N", "_", "<", ".", "l", ".", ".", "#"},
+        {"#", "#", "#", "#", "#", "#", "#", "#", "#"},
         });
 
+/*<<<<<<< HEAD
     level1->placePortals(1, 1, 8, 8);
     level1->placePortals(1, 8, 8, 1);
     //level1->placeSwitchAndDoor(3, 3, 6, 6);
+=======*/
+    level1->placePortals(1, 1, 7, 7);
+    level1->placeSwitchAndDoor(1, 4, 4, 6);
+
+    //Kopierkonstruktor und Zuweisungsoperator testen:
+    //Dafür level1 in den vorherigen Zeilen durch level0 ersetzen
+    //und folgende Zeilen einkommentieren:
+    /*Level* level1 = new Level(*level0);
+    Level* tmp = new Level(*level0);
+    *level1 = *tmp;
+    delete tmp;*/
+//>>>>>>> praktikum-5
 
     Level* level2 = new Level({
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-      {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", ".", "l", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", "_", "_", "_", ".", ".", ".", ".", "N", "#"},
-      {"#", ".", ".", "_", ".", ".", ".", "e", ".", "#"},
-      {"#", "_", "_", "_", ".", "X", ".", ".", ".", "#"},
-      {"#", "_", ".", ".", ".", ".", ".", ".", ".", "#"},
-      {"#", "_", "_", "<", ".", ".", ".", ".", ".", "#"},
+      {"#", "X", ".", ".", ".", ".", ".", ".", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", "#", ".", "#"},
+      {"#", ".", ".", ".", ".", ".", ".", "#", ".", "#"},
+      {"#", ".", ".", ".", "#", "#", ".", "#", "N", "#"},
+      {"#", ".", ".", ".", "#", ".", ".", "#", ".", "#"},
+      {"#", ".", ".", ".", "#", "l", "e", "#", ".", "#"},
+      {"#", "#", "#", "#", "#", "#", "#", "#", ".", "#"},
       {"#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
       {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
       });
 
-    level2->placePortals(4, 5, 6, 7);
+    level2->placePortals(8, 1, 6, 1);
+    level2->placeSwitchAndDoor(1, 3, 1, 7);
+    level2->placeSwitchAndDoor(3, 8, 4, 6);
 
     levels->push_back(level1);
     levels->push_back(level2);
@@ -191,6 +261,7 @@ Character* Level::getNPCCharacter() {
          }
      }
 
+     return nullptr;
 }
 
 Character* Level::getPlayerCharacter() {
@@ -215,9 +286,14 @@ const vector<Character *> &Level::getCharacterpointer() const
     return characterpointer;
 }
 
+void Level::characterpointerpushback(Character *character)
+{
+    characterpointer.push_back(character);
+}
+
 Level::Level(vector<vector<string>> level_as_string) {
-    idCounter++;
-    id = idCounter;
+    //idCounter++;
+    //id = idCounter;
 
     height = level_as_string.size();
     width = level_as_string[0].size();
@@ -260,7 +336,8 @@ Level::Level(vector<vector<string>> level_as_string) {
                 }
                 else if (tileAsString == "N") {
                     Character* newNpc = new Character(200, 2, 2, false);
-                    Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+                    //Controller* npcController = new GuardController({4, 4, 2, 6, 6, 6});
+                    Controller* npcController = new Attackcontroller(this, newNpc);
                     newNpc->setController(npcController);
 
                     placeCharacter(newNpc, row, col);
@@ -270,7 +347,6 @@ Level::Level(vector<vector<string>> level_as_string) {
             }
         }
     }
-
 }
 
 Level::~Level() {

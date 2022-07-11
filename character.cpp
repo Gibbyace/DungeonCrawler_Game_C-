@@ -67,6 +67,16 @@ void Character::setHitpoints(int newHitpoints)
     hitpoints = newHitpoints;
 }
 
+void Character::setId(int value)
+{
+    id = value;
+}
+
+void Character::setMoveDirection(int value)
+{
+    moveDirection = value;
+}
+
 Character::Character(int strength, int stamina, int hitpoints, bool isPlayerCharacter)
 {
     idCounter++;

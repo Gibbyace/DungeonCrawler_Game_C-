@@ -12,17 +12,6 @@ Active::Active()
 
 }
 
-Active::~Active() {
-    while (!observers.empty()) {
-        //( ͡° ͜ʖ ͡°) Wir mögen es schmutzig
-        if (dynamic_cast<DungeonCrawler*>(observers.back()) == nullptr) {
-            delete observers.back();
-        }
-
-        observers.pop_back();
-    }
-}
-
 void Active::attach(Passive* passiveTile) {
     for (unsigned i = 0; i < observers.size(); i++) {
         if (observers[i] == passiveTile) {

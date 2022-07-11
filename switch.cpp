@@ -12,6 +12,7 @@ Tile* Switch::onEnter(Tile *fromTile, Character *who){
 
     return this;
 }
+
 Tile* Switch::onLeave(Tile *destTile, Character *who){
     return this;
 }

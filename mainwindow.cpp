@@ -1,15 +1,15 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "endscreen.h"
-#include <door.h>
-#include <floor.h>
+#include "door.h"
+#include "floor.h"
 #include "levelchanger.h"
-#include <lootchest.h>
-#include <pit.h>
-#include <portal.h>
-#include <ramp.h>
-#include <switch.h>
-#include <wall.h>
+#include "lootchest.h"
+#include "pit.h"
+#include "portal.h"
+#include "ramp.h"
+#include "switch.h"
+#include "wall.h"
 #include <QDebug>
 
 
@@ -29,9 +29,14 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->raise();
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
+    ui->saveButton->setStyleSheet(("Background-color: #ffffff;"));
+    ui->loadButton->setStyleSheet(("Background-color: #ffffff;"));
+    ui->kaboomButton->setStyleSheet(("Background-color: #ffffff"));
 
     ui->gridLayoutWidget_2->raise();
     ui->statusbar->setStyleSheet(("background-color: #F00"));
+
+    ui->horizontalWidget->raise();
 
     setupPlayingField(texturecontainer, level);
     setupArrowButtons(texturecontainer, parent);
@@ -156,6 +161,12 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     ui->leftbutton->setIcon(        QIcon(texturecontainer->getArrows()[2]));
     ui->centerbutton->setIcon(      QIcon(texturecontainer->getArrows()[8]));
 
+    //TODO: Fancy Bicksmöpps
+    //ui->saveButton.setIcon(       QIcon(texturecontainer->getSavebutton()[0]));
+    //ui->loadButton.setIcon(       QIcon(texturecontainer->getLoadbutton()[0]));
+
+
+
     QSize sizer = QSize(50,50);
     ui->topleftbutton->setIconSize(sizer);
     ui->topbutton->setIconSize(sizer);
@@ -167,6 +178,9 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     ui->leftbutton->setIconSize(sizer);
     ui->centerbutton->setIconSize(sizer);
 
+    ui->saveButton->setIconSize(sizer);
+    ui->saveButton->setIconSize(sizer);
+
 
     connect(ui->topleftbutton,      &QPushButton::clicked, [parent]() {parent->setLastInput(7);});
     connect(ui->topbutton,          &QPushButton::clicked, [parent]() {parent->setLastInput(8);});
@@ -177,6 +191,10 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     connect(ui->bottomleftbutton,   &QPushButton::clicked, [parent]() {parent->setLastInput(1);});
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
+
+    connect(ui->loadButton,         &QPushButton::clicked, [parent]() {parent->setLoadRequested(true);});
+    connect(ui->saveButton,         &QPushButton::clicked, [parent]() {parent->setSaveRequested(true);});
+    connect(ui->kaboomButton,       &QPushButton::clicked, [parent]() {parent->setResetRequested(true);});
 
     QObjectList arrowButtons = ui->buttonGridLayout->children();
 
@@ -242,7 +260,7 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
     changesDrawn = true;
 
     for (int row = 0; row < level->getHeight(); row++) {
-        for (int col = 0; col < level->getHeight(); col++) {
+        for (int col = 0; col < level->getWidth(); col++) {
             Tile* currentTile = level->getTilepointer()[row][col];
 
             if (dynamic_cast<Door*>(currentTile) != nullptr) {
@@ -282,7 +300,6 @@ void MainWindow::draw(Level* level, TextureContainer* texturecontainer) {
 
                     characterLabels[characterOnTile->getId()]->setPixmap(texturecontainer->getPits()[0]);
                 }
-
             }
         }
     }
@@ -322,4 +339,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-

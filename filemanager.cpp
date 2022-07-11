@@ -263,7 +263,7 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
         }
 
         levelAsJson["switches"] = switches;
-        levelAsJson["portals"] = portals;
+        levelAsJson["portalpairs"] = portals;
         levelAsJson["layout"]  = layoutString;
         levelsAsJson["levellist"].push_back(levelAsJson);
     }

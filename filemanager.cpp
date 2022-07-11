@@ -1,6 +1,7 @@
 ﻿#include "filemanager.h"
 #include "attackcontroller.h"
 #include "json.hpp"
+#include "door.h"
 #include <fstream>
 
 Filemanager::Filemanager()
@@ -8,14 +9,10 @@ Filemanager::Filemanager()
 
 }
 
-void Filemanager::saveLevels(nlohmann::json json) {
-
-
-    nlohmann::json savefile;
+void Filemanager::saveLevels(nlohmann::json levellistAsJson) {
+    std::ofstream saveFile("../pg2_Di45y-TeamA-Herrmann_Kotwal/levels.json");
+    saveFile << levellistAsJson;
 }
-
-
-
 
 nlohmann::json Filemanager::loadLevels()
 {
@@ -87,8 +84,6 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
             tilepointer[row][col] = levelchanger;
             level->setTilepointer(tilepointer);
 
-            //TODO: destination setzen
-
             vector<Levelchanger*> levelchangers = level->getLevelchangers();
 
             levelchangers.push_back(levelchanger);
@@ -103,8 +98,6 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
 
             level->placePortals(portalsrow1,portalscol1,portalsrow2,portalscol2);
         }
-
-        auto test = levelAsJson["switches"][0]["row"];
 
         for (unsigned i = 0; i<levelAsJson["switches"].size(); i++) {
             int switchRow = levelAsJson["switches"][i]["row"];
@@ -143,13 +136,19 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
     levelsAsJson["levellist"] = {};
 
     for (LevelList::iterator it = levellist->begin(); it.m_ptr != levellist->end().m_ptr; it++) {
+        nlohmann::json levelAsJson;
+
         Level* level = it.m_ptr->level;
 
         int levelID = level->getId();
-        levelsAsJson["levellist"][0]["id"] = levelID;
+        levelAsJson["id"] = levelID;
         //konverter level to string
 
+        levelAsJson["characters"] = {};
+
         for (unsigned int i = 0; i<level->getCharacterpointer().size(); i++) {
+            nlohmann::json character;
+
             int id = level->getCharacterpointer()[i]->getId();
             int row = level->getCharacterpointer()[i]->getTile()->getRow();
             int col = level->getCharacterpointer()[i]->getTile()->getColumn();
@@ -160,39 +159,45 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
             int movedirection = level->getCharacterpointer()[i]->getMoveDirection();
 
             //insert to json
-            levelsAsJson["character"]["id"] = id;
-            levelsAsJson["character"]["row"] = row;
-            levelsAsJson["character"]["col"] = col;
-            levelsAsJson["character"]["strength"] = strength;
-            levelsAsJson["character"]["stamina"] = stamina;
-            levelsAsJson["character"]["hitpoints"] = hitpoints;
-            levelsAsJson["character"]["isPlayer"] = isplayer;
-            levelsAsJson["character"]["movedirection"] = movedirection;
+            character["id"] = id;
+            character["row"] = row;
+            character["col"] = col;
+            character["strength"] = strength;
+            character["stamina"] = stamina;
+            character["hitpoints"] = hitpoints;
+            character["movedirection"] = movedirection;
+            character["isPlayer"] = isplayer;
 
+            levelAsJson["characters"].push_back(character);
         }
-        //Texturen weitergeben?
-        for (unsigned int i = 0; i<level->getLevelchangers().size();i++) {
 
+
+        levelAsJson["levelchangers"] = {};
+
+        for (unsigned int i = 0; i < level->getLevelchangers().size();i++) {
+            nlohmann::json levelchanger;
             int row = level->getLevelchangers()[i]->getRow();
             int col = level->getLevelchangers()[i]->getColumn();
             int destinationLevelID = level->getLevelchangers()[i]->getDestinationLevelId();
 
             //insert to json
-            levelsAsJson["levelchangers"]["row"] = row;
-            levelsAsJson["levelchangers"]["col"] = col;
-            levelsAsJson["levelchangers"]["destinationLevelID"] = destinationLevelID;
+            levelchanger["row"] = row;
+            levelchanger["col"] = col;
+            levelchanger["destinationLevelID"] = destinationLevelID;
 
+            levelAsJson["levelchangers"].push_back(levelchanger);
         }
 
+        nlohmann::json switches = {};
 
         vector<string> layoutString;
 
-        for (unsigned int i = 0; i<level->getTilepointer().size(); i++) {
-            string row;
+        for (unsigned int row = 0; row < level->getTilepointer().size(); row++) {
+            string rowOfTiles;
 
-            for (unsigned j = 0; j<level->getTilepointer()[i].size(); j++) {
-                string texture = level->getTilepointer()[i][j]->getTexture();
-                //save to json
+            for (unsigned col = 0; col < level->getTilepointer()[row].size(); col++) {
+                Tile* tile = level->getTilepointer()[row][col];
+                string texture = tile->getTexture();
 
                 if (
                         texture == "#" or
@@ -201,67 +206,57 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
                         texture == "<" or
                         texture == "e"
                         ) {
-                    row += texture;
+                    rowOfTiles += texture;
                 }
                 else {
-                    row += ".";
+                    rowOfTiles += ".";
                 }
 
                 if ("O" == texture) { //how should i do this?
-                    int row = i;
-                    int col = j;
+
                     //save to json
                     //if O is connected to another portal in xyz then save position portal1, portal2
 
                 }
 
-                else if ("l" == texture) {
-                    int row = i;
-                    int col = j;
+
+                else if ("?" == texture) {
                     //save to json
-                    levelsAsJson["levelchangers"]["row"] = row;
-                    levelsAsJson["levelchangers"]["col"] = col;
+                    nlohmann::json switchAsJson;
 
-                }
+                    switchAsJson["row"] = row;
+                    switchAsJson["col"] = col;
 
-                else if ("?" == texture) { //howshouldidothis?
+                    Active* switchAsActive = dynamic_cast<Active*>(tile);
+                    vector<Passive*> connectedDoorsAsPassive = switchAsActive->getObservers();
 
-                    int row = level->getTilepointer()[i][j]->getRow();
-                    int col = level->getTilepointer()[i][j]->getColumn();
-                    //save to json
-                    levelsAsJson["switches"]["row"] = row;
-                    levelsAsJson["switches"]["col"] = col;
+                    for (Passive* doorAsPassive : connectedDoorsAsPassive) {
+                        Door* door = dynamic_cast<Door*>(doorAsPassive);
+                        nlohmann::json connectedDoorAsJson;
 
-                }
-                else if ("X" == texture) {
-                    int row = level->getTilepointer()[i][j]->getRow();
-                    int col = level->getTilepointer()[i][j]->getColumn();
-                    bool isOpen = false;
+                        connectedDoorAsJson["row"] = door->getRow();
+                        connectedDoorAsJson["col"] = door->getColumn();
 
-                    levelsAsJson["switches"]["connectedDoor"]["row"] = row;
-                    levelsAsJson["switches"]["connectedDoor"]["col"] = col;
-                    levelsAsJson["switches"]["connectedDoor"]["isOpen"] = isOpen;
+                        if (door->getTexture() == "X") {
+                            connectedDoorAsJson["isOpen"] = false;
+                        }
+                        else {
+                            connectedDoorAsJson["isOpen"] = true;
+                        }
 
-                }
-                else if ("/" == texture) {
-                    int row = level->getTilepointer()[i][j]->getRow();
-                    int col = level->getTilepointer()[i][j]->getColumn();
-                    bool isOpen = true;
+                        switchAsJson["connectedDoor"] = connectedDoorAsJson;
+                    }
 
-
-                    levelsAsJson["switches"]["connectedDoor"]["row"] = row;
-                    levelsAsJson["switches"]["connectedDoor"]["col"] = col;
-                    levelsAsJson["switches"]["connectedDoor"]["isOpen"] = isOpen;
-
-
+                    switches.push_back(switchAsJson);
                 }
             }
-            layoutString.push_back(row);
+            layoutString.push_back(rowOfTiles);
         }
-        levelsAsJson["layout"]  = layoutString;
 
-
-
-
+        levelAsJson["switches"] = switches;
+        levelAsJson["layout"]  = layoutString;
+        levelsAsJson["levellist"].push_back(levelAsJson);
     }
+
+    return levelsAsJson;
 }

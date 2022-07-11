@@ -119,6 +119,8 @@ void DungeonCrawler::play()
         if (abstractUI->saveRequested) {
             nlohmann::json jsonObjectToSave = filemanager->createJSONFromLevelList(levels);
             filemanager->saveLevels(jsonObjectToSave);
+
+            abstractUI->saveRequested = false;
         }
 
         abstractUI->draw(currentLevel);

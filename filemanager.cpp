@@ -2,6 +2,7 @@
 #include "attackcontroller.h"
 #include "json.hpp"
 #include "door.h"
+#include "portal.h"
 #include <fstream>
 
 Filemanager::Filemanager()
@@ -165,7 +166,7 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
             character["strength"] = strength;
             character["stamina"] = stamina;
             character["hitpoints"] = hitpoints;
-            character["movedirection"] = movedirection;
+            character["moveDirection"] = movedirection;
             character["isPlayer"] = isplayer;
 
             levelAsJson["characters"].push_back(character);
@@ -189,6 +190,8 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
         }
 
         nlohmann::json switches = {};
+        nlohmann::json portals = {};
+
 
         vector<string> layoutString;
 
@@ -212,16 +215,22 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
                     rowOfTiles += ".";
                 }
 
-                if ("O" == texture) { //how should i do this?
+                if ("O" == texture) {
+                    nlohmann::json portal;
 
-                    //save to json
-                    //if O is connected to another portal in xyz then save position portal1, portal2
+                    Portal* tileAsPortal = dynamic_cast<Portal*>(tile);
+                    Tile* connectedPortal = tileAsPortal->getDestination();
 
+                    portal["row1"] = tile->getRow();
+                    portal["col1"] = tile->getColumn();
+                    portal["row2"] = connectedPortal->getRow();
+                    portal["col2"] = connectedPortal->getColumn();
+
+                    portals.push_back(portal);
                 }
 
 
                 else if ("?" == texture) {
-                    //save to json
                     nlohmann::json switchAsJson;
 
                     switchAsJson["row"] = row;
@@ -254,6 +263,7 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
         }
 
         levelAsJson["switches"] = switches;
+        levelAsJson["portals"] = portals;
         levelAsJson["layout"]  = layoutString;
         levelsAsJson["levellist"].push_back(levelAsJson);
     }

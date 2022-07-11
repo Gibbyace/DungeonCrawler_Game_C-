@@ -16,6 +16,7 @@ private:
 
 public:
     Attackcontroller(Level* level, Character* controllingCharacter);
+    ~Attackcontroller() override;
     int move() override;
 };
 

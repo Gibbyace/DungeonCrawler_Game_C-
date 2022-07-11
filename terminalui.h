@@ -11,7 +11,7 @@ public:
     TerminalUI();
     ~TerminalUI() override = default;
     void draw(Level* level) override;
-    void printDirectionOptions();
+    void printDirectionOptions() override;
     int move() override;
 };
 

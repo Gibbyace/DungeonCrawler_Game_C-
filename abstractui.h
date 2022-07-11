@@ -12,20 +12,16 @@ public:
     virtual void draw(Level* level) = 0;
     virtual void printDirectionOptions();
 
-    bool getUserWantsToEndThisApp() const;
     void setUserWantsToEndThisApp(bool value);
-
-    bool getInputProcessed() const;
-
     void setInputProcessed(bool value);
     void setLoadRequested(bool newLoadRequested);
     void setSaveRequested(bool newSaveRequested);
     void setResetRequested(bool value);
 
+    bool getUserWantsToEndThisApp() const;
+    bool getInputProcessed() const;
     bool getLoadRequested() const;
-
     bool getSaveRequested() const;
-
     bool getKaboomRequested() const;
 
 private:

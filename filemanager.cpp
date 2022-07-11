@@ -82,6 +82,7 @@ LevelList *Filemanager::createLevelListFromJSON(nlohmann::json json)
             levelchanger->setDestinationLevelId(destinationID);
 
             vector<vector<Tile*>> tilepointer = level->getTilepointer();
+            delete tilepointer[row][col];
             tilepointer[row][col] = levelchanger;
             level->setTilepointer(tilepointer);
 

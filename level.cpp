@@ -160,6 +160,26 @@ vector<Levelchanger*> Level::getLevelchangers() const
     return levelchangers;
 }
 
+void Level::setId(int value)
+{
+    id = value;
+}
+
+void Level::setCharacterpointer(const vector<Character *> &newCharacterpointer)
+{
+    characterpointer = newCharacterpointer;
+}
+
+void Level::setLevelchangers(const vector<Levelchanger *> &newLevelchangers)
+{
+    levelchangers = newLevelchangers;
+}
+
+void Level::setTilepointer(const vector<vector<Tile *> > &newTilepointer)
+{
+    tilepointer = newTilepointer;
+}
+
 LevelList* Level::generateLevels() {
     LevelList* levels = new LevelList;
 
@@ -260,9 +280,14 @@ const vector<Character *> &Level::getCharacterpointer() const
     return characterpointer;
 }
 
+void Level::characterpointerpushback(Character *character)
+{
+    characterpointer.push_back(character);
+}
+
 Level::Level(vector<vector<string>> level_as_string) {
-    idCounter++;
-    id = idCounter;
+    //idCounter++;
+    //id = idCounter;
 
     height = level_as_string.size();
     width = level_as_string[0].size();

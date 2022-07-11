@@ -1,0 +1,142 @@
+{
+	"levellist": [
+		{
+			"id": 0,
+			"layout" : [
+				"#########",
+        		"#....#..#",
+        		"#.......#",
+        		"#.......#",
+        		"######.##",
+        		"#.__....#",
+        		"#.__....#",
+        		"#._<....#",
+        		"#########"
+			],
+			"characters": [
+				{
+					"id": 0,
+					"row": 1,
+					"col": 2,
+					"strength": 100,
+					"stamina": 100,
+					"hitpoints": 20,
+					"isPlayer": true,
+					"moveDirection": 5
+				},
+				{
+					"id": 1,
+					"row": 7,
+					"col": 1,
+					"strength": 200,
+					"stamina": 2,
+					"hitpoints": 2,
+					"isPlayer": false,
+					"moveDirection": 5
+				}
+			],
+			"levelchangers": [
+				{
+					"row": 7,
+					"col": 6,
+					"destinationLevelID": 1
+				}
+			],
+			"portalpairs" : [
+				[
+					{
+						"row1": 1,
+						"col1": 1,
+						"row2": 7,
+						"col2": 7
+					}
+				]
+			],
+			"switches": [
+				{
+					"row": 1,
+					"col": 4,
+					"connectedDoor": {
+						"row": 4,
+						"col": 6,
+						"isOpen": false
+					}
+				}
+			]
+		},
+		{
+			"id": 1,
+			"layout" : [
+				"##########",
+				"#........#",
+				"#......#.#",
+				"#......#.#",
+				"#...##.#.#",
+				"#...#..#.#",
+				"#...#.e#.#",
+				"########.#",
+				"#........#",
+				"##########"
+			],
+			"characters": [
+				{
+					"id": 2,
+					"row": 1,
+					"col": 1,
+					"strength": 100,
+					"stamina": 100,
+					"hitpoints": 20,
+					"isPlayer": true,
+					"moveDirection": 5
+				},
+				{
+					"id": 3,
+					"row": 4,
+					"col": 8,
+					"strength": 200,
+					"stamina": 2,
+					"hitpoints": 2,
+					"isPlayer": false,
+					"moveDirection": 5
+				}
+			],
+			"levelchangers": [
+				{
+					"row": 6,
+					"col": 5,
+					"destinationLevelID": 0
+				}
+			],
+			"portalpairs" : [
+				[
+					{
+						"row1": 8,
+						"col1": 1,
+						"row2": 6,
+						"col2": 1
+					}
+				]
+			],
+			"switches": [
+				{
+					"row": 1,
+					"col": 3,
+					"connectedDoor": {
+						"row": 1,
+						"col": 7,
+						"isOpen": false
+					}
+				},
+				{
+					"row": 3,
+					"col": 8,
+					"connectedDoor": {
+						"row": 4,
+						"col": 6,
+						"isOpen": false
+					}
+				}
+			]
+		}
+	]
+}

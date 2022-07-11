@@ -37,6 +37,7 @@ public:
     int getHeight() const;
     int getWidth() const;
     const vector<Character *> &getCharacterpointer() const;
+    void characterpointerpushback(Character* character);
     Character* getPlayerCharacter();
     Character* getNPCCharacter();
     bool operator ==(Level* rhs);
@@ -44,11 +45,21 @@ public:
     void deleteCharacterById(int id);
     vector<Levelchanger *> getLevelchangers() const;
 
-protected:
-    int id;
+    void setId(int value);
+
     void placeCharacter(Character *c, int row, int col);
     void placePortals(int row1, int col1, int row2, int col2);
     void placeSwitchAndDoor(int row1, int col1, int row2, int col2);
+
+
+    void setCharacterpointer(const vector<Character *> &newCharacterpointer);
+
+    void setLevelchangers(const vector<Levelchanger *> &newLevelchangers);
+
+    void setTilepointer(const vector<vector<Tile *> > &newTilepointer);
+
+protected:
+    int id;
 };
 
 #endif // LEVEL_H

@@ -15,6 +15,7 @@ SOURCES += \
         door.cpp \
         dungeoncrawler.cpp \
         endscreen.cpp \
+        filemanager.cpp \
         floor.cpp \
         graph.cpp \
         graphicalui.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
    door.h \
    dungeoncrawler.h \
    endscreen.h \
+   filemanager.h \
    floor.h \
    graph.h \
    graphicalui.h \
@@ -65,7 +67,8 @@ HEADERS += \
    terminalui.h \
    texturecontainer.h \
    tile.h \
-   wall.h
+   wall.h  \
+   json.hpp
 
 FORMS += \
    endscreen.ui \

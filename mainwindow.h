@@ -28,7 +28,8 @@ public:
     void deleteCharacterLabelById(int id);
     void showEndscreen(QString message);
 
-public slots:
+    bool onLoadButtonPressed();
+    bool onSaveButtonPressed();
 
 private:
     Ui::MainWindow *ui;

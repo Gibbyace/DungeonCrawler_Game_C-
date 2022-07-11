@@ -204,16 +204,23 @@
      <string>HP</string>
     </property>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="QWidget" name="horizontalWidget" native="true">
     <property name="geometry">
      <rect>
       <x>610</x>
       <y>340</y>
-      <width>151</width>
-      <height>61</height>
+      <width>98</width>
+      <height>74</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="loadButton">
+       <property name="text">
+        <string>Load</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="saveButton">
        <property name="text">
@@ -222,9 +229,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="loadButton">
+      <widget class="QPushButton" name="kaboomButton">
        <property name="text">
-        <string>Load</string>
+        <string>Kaboom</string>
        </property>
       </widget>
      </item>
@@ -237,7 +244,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

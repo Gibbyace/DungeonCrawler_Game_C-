@@ -270,3 +270,12 @@ nlohmann::json Filemanager::createJSONFromLevelList(LevelList *levellist)
 
     return levelsAsJson;
 }
+
+void Filemanager::resetGameData() {
+    std::ifstream originalFile("../pg2_Di45y-TeamA-Herrmann_Kotwal/levels-original.json");
+    std::ofstream saveFile("../pg2_Di45y-TeamA-Herrmann_Kotwal/levels.json");
+    nlohmann::json levels;
+
+    originalFile >> levels;
+    saveFile << levels;
+}

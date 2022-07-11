@@ -88,39 +88,18 @@ void DungeonCrawler::play()
             }
         }
 
-        if (abstractUI->loadRequested) {
-           int levelIdBeforeLoad = currentLevel->getId();
-
-           nlohmann::json levelListAsJson = filemanager->loadLevels();
-           delete levels;
-           levels = filemanager->createLevelListFromJSON(levelListAsJson);
-
-           for (LevelList::iterator it = levels->begin(); it.m_ptr != levels->end().m_ptr; it++) {
-                if (it.m_ptr->level->getId() == levelIdBeforeLoad) {
-                    currentLevel = it.m_ptr->level;
-                }
-           }
-           //currentLevel = levels->begin().m_ptr->level;
-
-           TextureContainer* texturecontainer = dynamic_cast<GraphicalUI*>(abstractUI)->getTexturecontainer();
-           dynamic_cast<GraphicalUI*>(abstractUI)->getMainwindow()->setupPlayingField(texturecontainer, currentLevel);
-
-           playerCharacter = currentLevel->getPlayerCharacter();
-           playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
-
-           vector <Levelchanger*> levelchangers = currentLevel->getLevelchangers();
-           for (auto levelchanger : levelchangers) {
-               levelchanger->attach(this);
-           }
-
-           abstractUI->loadRequested = false;
+        if (abstractUI->getLoadRequested()) {
+           loadLevels();
         }
 
-        if (abstractUI->saveRequested) {
-            nlohmann::json jsonObjectToSave = filemanager->createJSONFromLevelList(levels);
-            filemanager->saveLevels(jsonObjectToSave);
+        if (abstractUI->getSaveRequested()) {
+            saveLevels();
+        }
 
-            abstractUI->saveRequested = false;
+        if (abstractUI->getKaboomRequested()) {
+            filemanager->resetGameData();
+            loadLevels();
+            abstractUI->setResetRequested(false);
         }
 
         abstractUI->draw(currentLevel);
@@ -130,6 +109,40 @@ void DungeonCrawler::play()
         //Muss für TerminalUI auskommentiert werden
         abstractUI->setInputProcessed(true);
     }
+}
+
+void DungeonCrawler::loadLevels() {
+    int levelIdBeforeLoad = currentLevel->getId();
+
+    nlohmann::json levelListAsJson = filemanager->loadLevels();
+    delete levels;
+    levels = filemanager->createLevelListFromJSON(levelListAsJson);
+
+    for (LevelList::iterator it = levels->begin(); it.m_ptr != levels->end().m_ptr; it++) {
+         if (it.m_ptr->level->getId() == levelIdBeforeLoad) {
+             currentLevel = it.m_ptr->level;
+         }
+    }
+
+    TextureContainer* texturecontainer = dynamic_cast<GraphicalUI*>(abstractUI)->getTexturecontainer();
+    dynamic_cast<GraphicalUI*>(abstractUI)->getMainwindow()->setupPlayingField(texturecontainer, currentLevel);
+
+    Character* playerCharacter = currentLevel->getPlayerCharacter();
+    playerCharacter->setController(dynamic_cast<Controller*>(abstractUI));
+
+    vector <Levelchanger*> levelchangers = currentLevel->getLevelchangers();
+    for (auto levelchanger : levelchangers) {
+        levelchanger->attach(this);
+    }
+
+    abstractUI->setLoadRequested(false);
+}
+
+void DungeonCrawler::saveLevels() {
+    nlohmann::json jsonObjectToSave = filemanager->createJSONFromLevelList(levels);
+    filemanager->saveLevels(jsonObjectToSave);
+
+    abstractUI->setSaveRequested(false);
 }
 
 void DungeonCrawler::battle(Character* attacker, Character* defender) {

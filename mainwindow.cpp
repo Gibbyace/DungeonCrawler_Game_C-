@@ -29,17 +29,14 @@ MainWindow::MainWindow(Level* level, TextureContainer* texturecontainer, Graphic
     ui->label->raise();
     ui->label->setStyleSheet(("Background-color: transparent;"));
 
-
     ui->saveButton->setStyleSheet(("Background-color: #ffffff;"));
     ui->loadButton->setStyleSheet(("Background-color: #ffffff;"));
-
+    ui->kaboomButton->setStyleSheet(("Background-color: #ffffff"));
 
     ui->gridLayoutWidget_2->raise();
     ui->statusbar->setStyleSheet(("background-color: #F00"));
 
-    ui->horizontalLayoutWidget->raise();
-    ui->saveButton->raise();
-    ui->loadButton->raise();
+    ui->horizontalWidget->raise();
 
     setupPlayingField(texturecontainer, level);
     setupArrowButtons(texturecontainer, parent);
@@ -194,10 +191,9 @@ void MainWindow::setupArrowButtons(TextureContainer* texturecontainer, Graphical
     connect(ui->leftbutton,         &QPushButton::clicked, [parent]() {parent->setLastInput(4);});
     connect(ui->centerbutton,       &QPushButton::clicked, [parent]() {parent->setLastInput(5);});
 
-    connect(ui->loadButton,         &QPushButton::clicked, [parent]() {
-        parent->setLoadRequested(true);
-    });
+    connect(ui->loadButton,         &QPushButton::clicked, [parent]() {parent->setLoadRequested(true);});
     connect(ui->saveButton,         &QPushButton::clicked, [parent]() {parent->setSaveRequested(true);});
+    connect(ui->kaboomButton,       &QPushButton::clicked, [parent]() {parent->setResetRequested(true);});
 
     QObjectList arrowButtons = ui->buttonGridLayout->children();
 

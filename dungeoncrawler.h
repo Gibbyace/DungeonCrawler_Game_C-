@@ -19,6 +19,8 @@ private:
     void battle(Character* attacker, Character* defender);
     void checkForDeaths();
     void checkForLootChest();
+    void loadLevels();
+    void saveLevels();
 
 public:
     DungeonCrawler();

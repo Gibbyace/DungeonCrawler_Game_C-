@@ -12,6 +12,7 @@ public:
     LevelList* createLevelListFromJSON(nlohmann::json json);
     nlohmann::json createJSONFromLevelList(LevelList* levellist);
     void saveLevels(nlohmann::json json);
+    void resetGameData();
 };
 
 #endif // FILEMANAGER_H

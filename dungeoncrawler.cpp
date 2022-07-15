@@ -40,6 +40,7 @@ DungeonCrawler::DungeonCrawler()
 DungeonCrawler::~DungeonCrawler() {
     delete this->abstractUI;
     delete this->levels;
+    delete this->filemanager;
 
     /*while (!levels->empty()) {
         levels->pop_back();

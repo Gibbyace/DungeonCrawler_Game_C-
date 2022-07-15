@@ -396,6 +396,9 @@ void Level::placeSwitchAndDoor(int row1, int col1, int row2, int col2) { //TODO:
 
     dynamic_cast<Switch*>(newSwitch)->attach(dynamic_cast<Passive*>(newDoor));
 
+    delete tilepointer[row1][col1];
+    delete tilepointer[row2][col2];
+
     tilepointer[row1][col1] = newSwitch;
     tilepointer[row2][col2] = newDoor;
 }

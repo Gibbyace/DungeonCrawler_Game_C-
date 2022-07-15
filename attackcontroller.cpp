@@ -7,6 +7,11 @@ Attackcontroller::Attackcontroller(Level* level, Character* controllingCharacter
     this->graph = new Graph(level);
 }
 
+Attackcontroller::~Attackcontroller()
+{
+    delete graph;
+}
+
 int Attackcontroller::move() {
     Tile* controllingCharacterTile = controllingCharacter->getTile();
     Tile* followingCharacterTile = getTileWithPlayerCharacter();

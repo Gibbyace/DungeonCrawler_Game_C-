@@ -52,16 +52,12 @@ map<Tile*, tuple<int, Tile*, bool>> Graph::executeDijkstra(Tile* from, map<Tile*
 
     vector<Tile*> neighbours = neighboursFrom(from);
 
-    if (neighbours.size() == 0) {
-        return nodes;
-    }
-
     nodes = updateDistancesToNeighbours(from, neighbours, nodes);
 
     vector<Tile*> unvisitedNeighbours = filterOutVisitedTiles(neighbours, nodes);
 
     //Das ganze mit den unbesuchten Nachbarn ausführen und zwar immer den mit der niedrigsten Distanz zuerst
-    while (unvisitedNeighbours.size() > 0) {
+    while (!unvisitedNeighbours.empty()) {
         int shortestDistance = get<0>(nodes[unvisitedNeighbours[0]]);
         Tile* unvisitedNeighbourWithShortestDistance = unvisitedNeighbours[0];
         int indexOfTileWithShortestDistance = 0;
